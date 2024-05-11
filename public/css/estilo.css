@@ -1,0 +1,113 @@
+body {
+  margin: 0;
+  padding: 0;
+  font-family: Trajan_regular;
+  /* overflow-x: hidden; */
+  scrollbar-color: black;
+  background-color: black;
+}
+
+.screen {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  background-image: url(../assets/images/KingPass1.jpg);
+  background-size: cover;
+}
+
+
+.header {
+  width: 100%;
+  height: 10%;
+  background-color: black;
+  border-bottom: solid black 2px;
+}
+
+.navbar {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  color: white;
+}
+
+.titulo {
+  font-size: 40px;
+  margin-left: 40px;
+}
+
+.navbar .lista {
+  display: flex;
+  list-style: none;
+  margin-right: 40px;
+  width: 430px;
+  justify-content: space-between;
+}
+
+.main {
+  display: flex;
+  height: 800px;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.main .left_main {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.imagem {
+  width: 400px;
+}
+
+.botoes {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  height: 100px;
+  width: 200px;
+}
+
+button {
+  height: 4vh;
+  background-color: black;
+  color: white;
+  font-family: Trajan_regular;
+  font-size: 19px;
+  border: 1px solid #a3aab0;
+  cursor: pointer;
+}
+
+.main .container {
+  width: 600px;
+  height: 300px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  color: white;
+  background-color: rgba(0,0,0,0.5) ;
+  margin: 10px;
+}
+.container .content {
+  font-size: 19px;
+  margin-left: 5%;
+  margin-right: 5%;
+  display: flex;
+  justify-content: space-between;
+  text-indent: 30px;
+}
+
+.footer {
+  height: 10vh;
+  width: 100%;
+  background-color: black;
+}
+
+@font-face {
+  font-family: Trajan_Regular;
+  src: url(../assets/fonts/Trajan_Regular/Trajan_Regular.ttf);
+}
