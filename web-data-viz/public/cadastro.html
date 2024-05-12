@@ -13,26 +13,25 @@
   <link rel="stylesheet" href="./css/estilo.css" />
 </head>
 
-<body onload="listar()">
-  <div class="screen">
-    <div class="header">
-      <div class="navbar">
+<body>
+  <div class="screen cadastro">
+    <div class="header navbar">
         <span class="titulo">HallowNest</span>
         <ul class="lista">
           <li>
-            <span><u>Início</u></span>
+            <span><a href="index.html">Início</a></span>
           </li>
           <li>
             <span>|</span>
           </li>
           <li>
-            <span>Cadastro</span>
+            <span><u>Cadastro</u></span>
           </li>
           <li>
             <span>|</span>
           </li>
           <li>
-            <span>Login</span>
+            <span><a href="login.html">Login</a></span>
           </li>
           <li>
             <span>|</span>
@@ -41,43 +40,65 @@
             <span>Informações</span>
           </li>
         </ul>
+    </div>
+    <div class="main">
+      <div class="container cadastro">
+        <img class="top_dialogue" src="assets/images/top_dialogue_box-removebg-preview.png" alt="">
+          <div class="inputs">
+            <div class="section">
+              <input placeholder="Nome do Usuário" type="text" id="nome_input">
+              <input placeholder="Email" type="text" id="email_input">
+              <input placeholder="CPF" type="text" id="cpf_input">
+            </div>
+            <div class="section">
+              <input placeholder="Senha" type="text" id="senha_input">
+              <input placeholder="Confire sua Senha" type="text" id="confirmacao_senha_input">
+            </div>
+          </div>
+          <div class="buttons">
+            <a href="login.html">Já possui conta?</a>
+            <button onclick="cadastrar()">Cadastrar</button>
+          </div>
+        <img class="bottom_dialogue" src="assets/images/bottom_dialogue_box-removebg-preview.png" alt="">
       </div>
     </div>
-    <div class="main cadastro">
-      </div>
-    </div>
-  </div>
+</div>
   <div class="footer"></div>
 </body>
 </html>
 
 <script>
   function cadastrar() {
-    aguardar();
+    // aguardar();
 
     //Recupere o valor da nova input pelo nome do id
     // Agora vá para o método fetch logo abaixo
     var nomeVar = nome_input.value;
     var emailVar = email_input.value;
+    var cpfVar = cpf_input.value; 
     var senhaVar = senha_input.value;
     var confirmacaoSenhaVar = confirmacao_senha_input.value;
-    var empresaVar = listaEmpresas.value
     if (
       nomeVar == "" ||
       emailVar == "" ||
       senhaVar == "" ||
       confirmacaoSenhaVar == "" ||
-      empresaVar == ""
+      cpfVar == ""
     ) {
-      cardErro.style.display = "block";
-      mensagem_erro.innerHTML =
-        "(Mensagem de erro para todos os campos em branco)";
-
-      finalizarAguardar();
+      alert("Insira informações em todos os campos");
+      // cardErro.style.display = "block";
+      // finalizarAguardar();
       return false;
-    } else {
-      setInterval(sumirMensagem, 5000);
+    } else if (senhaVar != confirmacaoSenhaVar){
+      alert("As senhas não correspondem");
+      return false;
+    } else if (cpfVar.lenght != 11) {
+      alert("Insira um cpf válido");
+      return false;
     }
+    // else {
+    //    setInterval(sumirMensagem, 5000);
+    // }
 
     // Enviando o valor da nova input
     fetch("/usuarios/cadastrar", {
@@ -91,32 +112,32 @@
         nomeServer: nomeVar,
         emailServer: emailVar,
         senhaServer: senhaVar,
-        empresaServer: empresaVar
+        cpfServer: cpfVar
       }),
     })
       .then(function (resposta) {
         console.log("resposta: ", resposta);
 
         if (resposta.ok) {
-          cardErro.style.display = "block";
+          // cardErro.style.display = "block";
 
-          mensagem_erro.innerHTML =
-            "Cadastro realizado com sucesso! Redirecionando para tela de Login...";
+          // mensagem_erro.innerHTML =
+            alert("Cadastro realizado com sucesso! Redirecionando para tela de Login")
 
           setTimeout(() => {
             window.location = "login.html";
           }, "2000");
 
           limparFormulario();
-          finalizarAguardar();
+          // finalizarAguardar();
         } else {
           throw "Houve um erro ao tentar realizar o cadastro!";
         }
       })
-      .catch(function (resposta) {
-        console.log(`#ERRO: ${resposta}`);
-        finalizarAguardar();
-      });
+      // .catch(function (resposta) {
+      //   console.log(`#ERRO: ${resposta}`);
+      //   // finalizarAguardar();
+      // });
 
     return false;
   }

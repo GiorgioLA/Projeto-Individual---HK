@@ -1,3 +1,4 @@
+/* Página inteira */
 body {
   margin: 0;
   padding: 0;
@@ -16,15 +17,16 @@ body {
   background-size: cover;
 }
 
+/* Header */
 
-.header {
+.header { /* Estilização de fundo na navbar */
   width: 100%;
   height: 10%;
   background-color: black;
   border-bottom: solid black 2px;
 }
 
-.navbar {
+.navbar { /* Segregação de conteudo na navbar */
   width: 100%;
   height: 100%;
   display: flex;
@@ -33,37 +35,45 @@ body {
   color: white;
 }
 
-.titulo {
+.titulo { /* Título do site */
   font-size: 40px;
   margin-left: 40px;
 }
 
-.navbar .lista {
+.navbar .lista { /* Lista de opções (início, cadastro, etc */
   display: flex;
   list-style: none;
   margin-right: 40px;
   width: 430px;
   justify-content: space-between;
+  color: white;
 }
 
-.main {
+a {
+  color: white;
+  text-decoration: none;
+}
+
+/* Conteudo principal das páginas */
+
+.main { /* Seção contendo conteúdo (sem footer nem navbar) */
   display: flex;
   height: 800px;
   justify-content: space-around;
   align-items: center;
 }
 
-.main .left_main {
+.main .left_main { /* div de imagem na tela index */
   display: flex;
   flex-direction: column;
   align-items: center;
 }
 
-.imagem {
+#voidheart { /* Imagem tela index*/
   width: 400px;
 }
 
-.botoes {
+.botoes { /* Div dos botões */
   display: flex;
   flex-direction: column;
   justify-content: space-around;
@@ -71,7 +81,7 @@ body {
   width: 200px;
 }
 
-button {
+button { /* Customização dos botões */
   height: 4vh;
   background-color: black;
   color: white;
@@ -81,18 +91,39 @@ button {
   cursor: pointer;
 }
 
-.main .container {
+.index .main .container { /* Containers da tela Index */
   width: 600px;
   height: 300px;
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: space-between;
   align-items: center;
   color: white;
   background-color: rgba(0,0,0,0.5) ;
   margin: 10px;
 }
-.container .content {
+
+.cadastro .main .container { /* Container da tela Cadastro */
+  width: 900px;
+  height: 600px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  color: white;
+  background-color: rgba(0,0,0,0.5) ;
+  margin: 10px;
+}
+
+.top_dialogue {
+  width: 50%;
+}
+
+.bottom_dialogue {
+  width: 50%;
+}
+
+.index .container .content { /* Conteúdo de texto */
   font-size: 19px;
   margin-left: 5%;
   margin-right: 5%;
@@ -101,13 +132,49 @@ button {
   text-indent: 30px;
 }
 
-.footer {
+input {
+  width: 220px;
+  font-size: 19px;
+  font-family: Trajan_regular;
+  height: 15px ;
+  border-top: 0px;
+  border-right: 0px;
+  border-left: 0px;
+  border-bottom: 2px solid white;
+  background: none;
+  color: white;
+  margin-bottom: 50px;
+}
+
+::-webkit-input-placeholder {
+  color: white;
+  opacity: 80%;
+}
+
+.inputs {
+  width: 100%;
+  display: flex;
+  justify-content: space-around;
+}
+
+.buttons {
+  width: 50%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.inputs .section {
+  width: 220px;
+}
+
+.footer { /* Footer */
   height: 10vh;
   width: 100%;
   background-color: black;
 }
 
-@font-face {
+@font-face { /* Fonte de Hollow Knight */
   font-family: Trajan_Regular;
   src: url(../assets/fonts/Trajan_Regular/Trajan_Regular.ttf);
 }
