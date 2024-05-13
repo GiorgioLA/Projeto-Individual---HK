@@ -10,6 +10,8 @@ cpf char(11),
 senha varchar(45)
 );
 
+SELECT * FROM usuario;
+
 CREATE TABLE habilidade (
 idHabilidade int primary key auto_increment,
 nome varchar(45),
