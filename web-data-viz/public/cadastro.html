@@ -92,16 +92,16 @@
       // cardErro.style.display = "block";
       // finalizarAguardar();
       return false;
-    } else if (senhaVar != confirmacaoSenhaVar){
-      alert("As senhas não correspondem");
-      return false;
-    } else if (cpfVar.lenght != 11) {
-      alert("Insira um cpf válido");
-      return false;
-    }
+    // } else if (senhaVar != confirmacaoSenhaVar){
+    //   alert("As senhas não correspondem");
+    //   return false;
+    // } else if (cpfVar.length != 11) {
+    //   alert("Insira um cpf válido");
+    //   return false;
+    // }
     // else {
     //    setInterval(sumirMensagem, 5000);
-    // }
+    }
 
     // Enviando o valor da nova input
     fetch("/usuarios/cadastrar", {
@@ -131,7 +131,7 @@
             window.location = "login.html";
           }, "2000");
 
-          limparFormulario();
+          // limparFormulario();
           // finalizarAguardar();
         } else {
           throw "Houve um erro ao tentar realizar o cadastro!";

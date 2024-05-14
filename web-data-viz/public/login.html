@@ -11,7 +11,7 @@
     <script src="./js/sessao.js"></script>
 
     <link rel="stylesheet" href="./css/estilo.css">
-    <link rel="icon" href="./assets/icon/favicon2.ico">
+    <!-- <link rel="icon" href="./assets/icon/favicon2.ico"> -->
     <link rel="preconnect" href="https://fonts.gstatic.com">
 </head>
 
@@ -47,20 +47,20 @@
         <div class="main">
           <div class="container login">
             <img class="top_dialogue" src="assets/images/top_dialogue_box-removebg-preview.png" alt="">
+            <div class="titulo" style="margin-left: 0; color: white;">
+              Login
+            </div>
               <div class="inputs">
                 <div class="section">
-                  <input placeholder="Nome do Usuário" type="text" id="nome_input">
                   <input placeholder="Email" type="text" id="email_input">
-                  <input placeholder="CPF" type="text" id="cpf_input">
                 </div>
                 <div class="section">
                   <input placeholder="Senha" type="text" id="senha_input">
-                  <input placeholder="Confire sua Senha" type="text" id="confirmacao_senha_input">
                 </div>
               </div>
               <div class="buttons">
-                <a href="login.html">Já possui conta?</a>
-                <button onclick="cadastrar()">Cadastrar</button>
+                <a href="login.html">Não possui conta?</a>
+                <button onclick="entrar()">entrar</button>
               </div>
             <img class="bottom_dialogue" src="assets/images/bottom_dialogue_box-removebg-preview.png" alt="">
           </div>
@@ -75,20 +75,21 @@
 
 
     function entrar() {
-        aguardar();
+        // aguardar();
 
         var emailVar = email_input.value;
         var senhaVar = senha_input.value;
 
         if (emailVar == "" || senhaVar == "") {
-            cardErro.style.display = "block"
-            mensagem_erro.innerHTML = "(Mensagem de erro para todos os campos em branco)";
-            finalizarAguardar();
+            // cardErro.style.display = "block"
+            // mensagem_erro.innerHTML = "(Mensagem de erro para todos os campos em branco)";
+            // finalizarAguardar();
+            alert('Erro ao Entrar, dados inválidos')
             return false;
         }
-        else {
-            setInterval(sumirMensagem, 5000)
-        }
+        // else {
+        //     setInterval(sumirMensagem, 5000)
+        // }
 
         console.log("FORM LOGIN: ", emailVar);
         console.log("FORM SENHA: ", senhaVar);
@@ -114,11 +115,11 @@
                     sessionStorage.EMAIL_USUARIO = json.email;
                     sessionStorage.NOME_USUARIO = json.nome;
                     sessionStorage.ID_USUARIO = json.id;
-                    sessionStorage.AQUARIOS = JSON.stringify(json.aquarios)
+                    // sessionStorage.AQUARIOS = JSON.stringify(json.aquarios)
 
-                    setTimeout(function () {
-                        window.location = "./dashboard/cards.html";
-                    }, 1000); // apenas para exibir o loading
+                    // setTimeout(function () {
+                    //     window.location = "./dashboard/cards.html";
+                    // }, 1000); // apenas para exibir o loading
 
                 });
 
@@ -126,10 +127,10 @@
 
                 console.log("Houve um erro ao tentar realizar o login!");
 
-                resposta.text().then(texto => {
-                    console.error(texto);
-                    finalizarAguardar(texto);
-                });
+                // resposta.text().then(texto => {
+                //     console.error(texto);
+                //     finalizarAguardar(texto);
+                // });
             }
 
         }).catch(function (erro) {
@@ -139,8 +140,8 @@
         return false;
     }
 
-    function sumirMensagem() {
-        cardErro.style.display = "none"
-    }
+    // function sumirMensagem() {
+    //     // cardErro.style.display = "none"
+    // }
 
 </script>

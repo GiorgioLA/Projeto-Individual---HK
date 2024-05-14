@@ -115,6 +115,18 @@ button { /* Customização dos botões */
   margin: 10px;
 }
 
+.login .main .container {
+  width: 700px;
+  height: 400px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  color: white;
+  background-color: rgba(0,0,0,0.5) ;
+  margin: 10px;
+}
+
 .top_dialogue {
   width: 50%;
 }
