@@ -7,6 +7,7 @@ body {
   scrollbar-color: black;
   background-color: black;
   font-family: Perpetua;
+  cursor: url(../assets/images/Hollow_Knight_Cursor/cursor.cur), auto;
 }
 
 .screen {
@@ -56,6 +57,7 @@ a {
   color: white;
   text-decoration: none;
   font-family: Trajan_Regular;
+  cursor: url(../assets/images/Hollow_Knight_Cursor/cursor03.cur), none;
 }
 
 /* Conteudo principal das páginas */
@@ -84,6 +86,7 @@ a {
   justify-content: space-around;
   height: 100px;
   width: 200px;
+  cursor: url(../assets/images/Hollow_Knight_Cursor/cursor02.cur);
 }
 
 .button { /* Customização dos botões */
@@ -97,6 +100,7 @@ a {
   display: flex;
   justify-content: center;
   align-items: center;
+  cursor: url(../assets/images/Hollow_Knight_Cursor/cursor03.cur), auto;
 }
 
 button { /* Customização dos botões */
@@ -110,6 +114,7 @@ button { /* Customização dos botões */
   display: flex;
   justify-content: center;
   align-items: center;
+    cursor: url(../assets/images/Hollow_Knight_Cursor/cursor03.cur), auto;
 }
 
 .index .main .container { /* Containers da tela Index */
@@ -241,6 +246,7 @@ input {
   background: none;
   color: white;
   margin-bottom: 50px;
+  cursor: url(../assets/images/Hollow_Knight_Cursor/cursor01.cur), auto;
 }
 
 ::-webkit-input-placeholder {

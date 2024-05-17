@@ -6,11 +6,11 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AquaTech | Dashboards</title>
+    <title>HallowNest Insights | Página Principal</title>
 
     
     <link rel="stylesheet" href="./../css/dashboards.css">
-    <link rel="stylesheet" href="./../css/estilo.css" />
+    <!-- <link rel="stylesheet" href="./../css/estilo.css" /> -->
     <script src="../js/sessao.js"></script>
     <script src="./../js/alerta.js"></script>
 
@@ -29,52 +29,55 @@
 <!-- <body onload=" atualizarFeed()"> -->
 
 <body>
-
-    <div class="janela">
-        <div class="header-left">
-            <h1>AquaTech</h1>
-
-            <div class="hello">
-                <h3>Olá, <span id="b_usuario">usuário</span>!</h3>
+ <div class="screen inicio">
+    <div class="header navbar">
+        <span class="titulo"><a href="../index.html"> HallowNest </a></span>
+        <ul class="lista">
+          <li>
+            <span><a href="../index.html">Início</a></span>
+          </li>
+          <li>
+            <span>|</span>
+          </li>
+          <li>
+            <span><a href="../cadastro.html">Cadastro</a></span>
+          </li>
+          <li>
+            <span>|</span>
+          </li>
+          <li>
+            <span><a href="../login.html">Cadastro</a></span>
+          </li>
+          <li>
+            <span>|</span>
+          </li>
+          <li>
+            <span><a href="../informacoes.html">informações</a></span>
+          </li>
+        </ul>
+    </div>
+    <div class="main">
+        <div class="container">
+            <img class="top_dialogue" src="../assets/images/top_dialogue_box-removebg-preview.png" alt="">
+            <div class="titulo">
+                Inventário
             </div>
-
-            <div class="btn-nav-white">
-                <a href="./cards.html">
-                    <h3>Aquários</h3>
-                </a>
-            </div>
-
-            <div class="btn-nav">
-
-                <h3>Gráficos</h3>
-
-            </div>
-
-            <div class="btn-nav-white">
-                <a href="./mural.html">
-                    <h3>Mural de Avisos</h3>
-                </a>
-            </div>
-
-            <div class="btn-logout" onclick="limparSessao()">
-                <h3>Sair</h3>
-            </div>
-
+            <img class="bottom_dialogue" src="../assets/images/bottom_dialogue_box-removebg-preview.png" alt="">
         </div>
-
-        <div class="dash">
-            <div id="alerta">
-            </div>
-
-            <div class="btns-dash" id="btnAquario">
-                <!-- O gráfico é chamado de acordo com o id (fk_aquario) do banco  -->
-            </div>
-            <div id="graficos">
-            </div>
+        <div class="container">
+            <img class="top_dialogue" src="../assets/images/top_dialogue_box-removebg-preview.png" alt="">
+            <img class="bottom_dialogue" src="../assets/images/bottom_dialogue_box-removebg-preview.png" alt="">
+        </div>
+        <div class="container">
+            <img class="top_dialogue" src="../assets/images/top_dialogue_box-removebg-preview.png" alt="">
+            <img class="bottom_dialogue" src="../assets/images/bottom_dialogue_box-removebg-preview.png" alt="">
+        </div>
+        <div class="container">
+            <img class="top_dialogue" src="../assets/images/top_dialogue_box-removebg-preview.png" alt="">
+            <img class="bottom_dialogue" src="../assets/images/bottom_dialogue_box-removebg-preview.png" alt="">
         </div>
     </div>
-
-
+ </div>
 </body>
 
 </html>

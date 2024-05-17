@@ -39,3 +39,7 @@ INSERT INTO habilidade VALUES
 	(default, 'Asas do Monarca', 'Mobilidade', 1),
 	(default, 'Lágrima de Isma', 'Mobilidade', 1),
 	(default, 'Ferrão dos Sonhos', 'Progressão', 3);
+    
+SHOW TABLES;
+
+SELECT * FROM usuario;
