@@ -27,7 +27,7 @@ body {
 .main .titulo { /* Título do site */
   font-size: 30px;
   font-family: Trajan_Regular;
-  margin-left: 40px;
+  margin-left: 0px;
 }
 
 /* Header */
@@ -42,7 +42,7 @@ body {
 
 .navbar { /* Segregação de conteudo na navbar */
   width: 100%;
-  height: 100%;
+  height: 60px;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -59,9 +59,15 @@ body {
   display: flex;
   list-style: none;
   margin-right: 40px;
-  width: 430px;
+  width: 500px;
+  height: 100%;
+  align-items: center;
   justify-content: space-between;
   color: white;
+}
+
+.lista   a:hover {
+  font-size: 18px;
 }
 
 .main {
@@ -90,12 +96,54 @@ a {
   cursor: url(../assets/images/Hollow_Knight_Cursor/cursor03.cur), none;
 }
 
+.buttons {
+  width: 100px;
+  display: flex;
+  height: 5vh;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.button { /* Customização dos botões */
+  height: 4vh;
+  width: 100px;
+  background-color: black;
+  color: white;
+  font-family: Trajan_regular;
+  font-size: 19px;
+  border: 1px solid #a3aab0;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: url(../assets/images/Hollow_Knight_Cursor/cursor03.cur), auto;
+}
+
+.button:hover {
+  height: 4.5vh;
+  width: 110px;
+  font-size: 21px;
+}
+
+.img_inicio {
+  width: 170px;
+  border: 2px solid black;
+}
+
 .top_dialogue {
   width: 50%;
 }
 
 .bottom_dialogue {
   width: 50%;
+}
+
+.inicio .content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  height: 400px;
 }
 
 @font-face { /* Fonte de Hollow Knight */
