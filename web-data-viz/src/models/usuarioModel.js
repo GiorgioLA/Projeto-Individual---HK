@@ -27,3 +27,5 @@ module.exports = {
     autenticar,
     cadastrar
 };
+
+// function receberID

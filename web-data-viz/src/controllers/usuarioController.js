@@ -70,6 +70,10 @@ function cadastrar(req, res) {
         usuarioModel.cadastrar(nome, email, cpf, senha)
             .then(
                 function (resultado) {
+                    console.log("O resultado foi: " + resultado)
+
+                    // usuarioModel.buscarId(email, cpf).
+
                     res.json(resultado);
                 }
             ).catch(
