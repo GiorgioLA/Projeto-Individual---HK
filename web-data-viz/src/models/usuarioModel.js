@@ -23,6 +23,10 @@ function cadastrar(nome, email, cpf, senha) {
     return database.executar(instrucaoSql);
 }
 
+function buscarID(email, usuario) {
+    console.log(`CHEGUEI NO USUARIOMODEL COM O VALOR: email-${email} e usuario-${usuario}`)
+}
+
 module.exports = {
     autenticar,
     cadastrar

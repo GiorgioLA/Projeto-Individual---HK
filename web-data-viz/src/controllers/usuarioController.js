@@ -89,6 +89,14 @@ function cadastrar(req, res) {
     }
 }
 
+function buscarID(req, res) {
+    var email = req.body.nomeServer;
+    var usuario = req.body.nomeServer;
+
+    usuarioModel.buscarID(email, usuario)
+
+}
+
 module.exports = {
     autenticar,
     cadastrar

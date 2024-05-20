@@ -123,7 +123,14 @@
 
         if (resposta.ok) {
           // cardErro.style.display = "block";
-
+            
+          fetch("/usuarios/buscarID", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json"
+            },
+            
+          })
           // mensagem_erro.innerHTML =
             alert("Cadastro realizado com sucesso! Redirecionando para tela de Login")
           setTimeout(() => {
