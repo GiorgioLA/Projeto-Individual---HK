@@ -89,18 +89,7 @@
       cpfVar == ""
     ) {
       alert("Insira informações em todos os campos");
-      // cardErro.style.display = "block";
-      // finalizarAguardar();
       return false;
-    // } else if (senhaVar != confirmacaoSenhaVar){
-    //   alert("As senhas não correspondem");
-    //   return false;
-    // } else if (cpfVar.length != 11) {
-    //   alert("Insira um cpf válido");
-    //   return false;
-    // }
-    // else {
-    //    setInterval(sumirMensagem, 5000);
     }
 
     // Enviando o valor da nova input
@@ -122,38 +111,80 @@
         console.log("resposta: ", resposta);
 
         if (resposta.ok) {
-          // cardErro.style.display = "block";
-            
-          fetch("/usuarios/buscarID", {
+
+            console.log('Iniciando fetch! Valores: nomeVar:' + nomeVar + ' e emailVar: ' + emailVar)
+
+            fetch("/usuarios/buscarID", {
             method: "POST",
             headers: {
-              "Content-Type": "application/json"
+                "Content-Type": "application/json"
             },
             body: JSON.stringify({
-              // crie um atributo que recebe o valor recuperado aqui
-              // Agora vá para o arquivo routes/usuario.js
-              nomeServer: nomeVar,
-              emailServer: emailVar
-          }),
-          })
-          // mensagem_erro.innerHTML =
-            alert("Cadastro realizado com sucesso! Redirecionando para tela de Login")
+                emailServer: emailVar,
+                senhaServer: senhaVar
+            })
+        }).then(function (resposta) {
+            console.log("ESTOU NO THEN DO buscarID()!")
+
+            if (resposta.ok) {
+                console.log(resposta);
+                console.log('Estou no respostaOK do buscarID!')
+
+                resposta.json().then(json => {
+                    console.log(json);
+                    console.log(JSON.stringify(json));
+                    sessionStorage.ID_USUARIO = json.idUsuario;
+
+                });
+
+            } else {
+
+                console.log("Houve um erro ao tentar realizar o login!");
+
+                // resposta.text().then(texto => {
+                //     console.error(texto);
+                //     finalizarAguardar(texto);
+                // });
+                return false
+            }
+
+        }).catch(function (erro) {
+            console.log(erro);
+            return false
+        })
+
+        // TERCEIRO FETCH LESGOOOOOOOOOO
+
+      var idUsuario = sessionStorage.ID_USUARIO;
+
+      fetch("/usuarios/cadastrarInventario", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        idUsuarioServer: idUsuario
+      }),
+    })
+      .then(function (resposta) {
+        console.log("Finalizado! Verifique banco de Dados!");
+      })
+      .catch(function (resposta) {
+        console.log(`ERRO`);
+      });
+            alert("Cadastro realizado com sucesso! Redirecionando para tela de Login...");
+
           setTimeout(() => {
             window.location = "login.html";
           }, "2000");
-
-          // limparFormulario();
-          // finalizarAguardar();
         } else {
           throw "Houve um erro ao tentar realizar o cadastro!";
         }
       })
-      // .catch(function (resposta) {
-      //   console.log(`#ERRO: ${resposta}`);
-      //   // finalizarAguardar();
-      // });
+      .catch(function (resposta) {
+        console.log(`#ERRO`);
+      });
 
     return false;
   }
-
 </script>
