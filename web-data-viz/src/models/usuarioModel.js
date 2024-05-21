@@ -25,11 +25,19 @@ function cadastrar(nome, email, cpf, senha) {
 
 function buscarID(email, usuario) {
     console.log(`CHEGUEI NO USUARIOMODEL COM O VALOR: email-${email} e usuario-${usuario}`)
+
+    var instrucaoSql = `
+        SELECT idUsuario FROM usuario WHERE email = ${email} AND usuario = ${usuario}
+    `
+    console.log("Função definida como:" + instrucaoSql)
+    return database.executar(instrucaoSql)
+
 }
 
 module.exports = {
     autenticar,
-    cadastrar
+    cadastrar,
+    buscarID
 };
 
 // function receberID

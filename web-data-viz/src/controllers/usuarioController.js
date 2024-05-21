@@ -90,14 +90,29 @@ function cadastrar(req, res) {
 }
 
 function buscarID(req, res) {
-    var email = req.body.nomeServer;
-    var usuario = req.body.nomeServer;
+    var nome = req.body.nomeServer;
+    var email = req.body.emailServer;
 
-    usuarioModel.buscarID(email, usuario)
+    console.log(`Aqui em UsuarioController.js, o valor do email é: ${email} e o do nome é: ${nome} `)
+
+    usuarioModel.buscarID(email, nome)
+        .then(
+            function(resultadoBusca) {
+                console.log("O resultado de retornar ao usuarioController foi" + resultadoBusca)
+                sessionStorage.ID_USUARIO = resultadoBusca;
+                console.log("O session storage é:" + resultadoBusca)
+
+                res.send(ID_USUARIO)
+            }
+        ).catch(
+            console.log('Erro no then do usuarioController, valores:' + email + nome),
+            res.status(500).json(erro.sqlMessage)
+        );
 
 }
 
 module.exports = {
     autenticar,
-    cadastrar
+    cadastrar,
+    buscarID
 }
