@@ -42,8 +42,18 @@ option {
   height: auto;
   width: 100%;
   display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  /* margin-top: 50px; */
+}
+
+.div_variaveis {
+  height: auto;
+  width: 1500px;
+  display: flex;
   justify-content: space-around;
-  margin-top: 50px;
+  margin-top: 25px;
 }
 
 #img_nail {
@@ -57,12 +67,17 @@ option {
   display: flex;
   justify-content: center;
   align-items: center;
+  cursor: url(../assets/images/Hollow_Knight_Cursor/cursor09.cur), auto;
 }
 
 .simulador {
   font-family: Perpetua;
   font-size: 19px;
   color: white;
+}
+
+.simulador .header {
+  font-size: 16px;
 }
 
 .simulador .containerA {
@@ -110,6 +125,7 @@ option {
 
 .img_amuleto {
   width: 50px;
+  cursor: url(../assets/images/Hollow_Knight_Cursor/cursor09.cur), auto;
 }
 
 .simulador .containerC {
@@ -122,12 +138,32 @@ option {
   justify-content: space-between;
 }
 
+.simulador .containerD {
+  width: 1450px;
+  height: 300px;
+  background-color: rgba(0,0,0,0.8);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-around;
+  margin-top: 25px;
+}
+
+.simulador .div_botao {
+  height: 55px;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
 .box_img_magia {
   height: 150px;
   width: 150px;
   display: flex;
   justify-content: center;
   align-items: center;
+  cursor: url(../assets/images/Hollow_Knight_Cursor/cursor09.cur), auto;
 }
 
 .blackout {
@@ -193,6 +229,26 @@ option {
   height: 800px;
   justify-content: space-around;
   align-items: center;
+}
+
+button { /* Customização dos botões */
+  height: 50px;
+  width: 150px;
+  background-color: black;
+  color: white;
+  font-family: Trajan_regular;
+  font-size: 20px;
+  border: 1px solid #a3aab0;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+    cursor: url(../assets/images/Hollow_Knight_Cursor/cursor03.cur), auto;
+}
+
+button:hover {
+  height: 55px;
+  width: 155px;
 }
 
 .inicio .container {

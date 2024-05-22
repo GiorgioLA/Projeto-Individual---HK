@@ -52,7 +52,7 @@
             </div>
               <div class="inputs">
                 <div class="section">
-                  <input placeholder="Email" type="text" id="email_input">
+                  <input placeholder="Usuário" type="text" id="usuario_input">
                 </div>
                 <div class="section">
                   <input placeholder="Senha" type="password" id="senha_input">
@@ -72,77 +72,62 @@
 </html>
 
 <script>
+  function entrar() {
 
+      var usuarioVar = usuario_input.value;
+      var senhaVar = senha_input.value;
 
-    function entrar() {
-        // aguardar();
+      if (usuarioVar == "" || senhaVar == "") {
+          alert('Insira dados válidos')
+          return false;
+      }
+      else
 
-        var emailVar = email_input.value;
-        var senhaVar = senha_input.value;
+      console.log("FORM LOGIN: ", usuarioVar);
+      console.log("FORM SENHA: ", senhaVar);
 
-        if (emailVar == "" || senhaVar == "") {
-            // cardErro.style.display = "block"
-            // mensagem_erro.innerHTML = "(Mensagem de erro para todos os campos em branco)";
-            // finalizarAguardar();
-            alert('Erro ao Entrar, dados inválidos')
-            return false;
-        }
-        // else {
-        //     setInterval(sumirMensagem, 5000)
-        // }
+      fetch("/usuarios/autenticar", {
+          method: "POST",
+          headers: {
+              "Content-Type": "application/json"
+          },
+          body: JSON.stringify({
+              usuarioServer: usuarioVar,
+              senhaServer: senhaVar
+          })
+      }).then(function (resposta) {
+          console.log("ESTOU NO THEN DO entrar()!")
 
-        console.log("FORM LOGIN: ", emailVar);
-        console.log("FORM SENHA: ", senhaVar);
+          if (resposta.ok) {
+              console.log(resposta);
 
-        fetch("/usuarios/autenticar", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify({
-                emailServer: emailVar,
-                senhaServer: senhaVar
-            })
-        }).then(function (resposta) {
-            console.log("ESTOU NO THEN DO entrar()!")
+              resposta.json().then(json => {
+                  console.log(json);
+                  console.log(JSON.stringify(json));
+                  sessionStorage.EMAIL_USUARIO = json.email;
+                  sessionStorage.NOME_USUARIO = json.usuario;
+                  sessionStorage.ID_USUARIO = json.idUsuario;
 
-            if (resposta.ok) {
-                console.log(resposta);
+                  setTimeout(function () {
+                      window.location = "./dashboard/inicio.html";
+                  }, 1000); // apenas para exibir o loading
 
-                resposta.json().then(json => {
-                    console.log(json);
-                    console.log(JSON.stringify(json));
-                    sessionStorage.EMAIL_USUARIO = json.email;
-                    sessionStorage.NOME_USUARIO = json.usuario;
-                    sessionStorage.ID_USUARIO = json.idUsuario;
-                    sessionStorage.CPF_USUARIO = json.cpf;
-                    // sessionStorage.AQUARIOS = JSON.stringify(json.aquarios)
+              });
 
-                    setTimeout(function () {
-                        window.location = "./dashboard/inicio.html";
-                    }, 1000); // apenas para exibir o loading
-                      
-                });
+          } else {
 
-            } else {
+              console.log("Houve um erro ao tentar realizar o login!");
 
-                console.log("Houve um erro ao tentar realizar o login!");
+              resposta.text().then(texto => {
+                  console.error(texto);
+              });
+          }
 
-                // resposta.text().then(texto => {
-                //     console.error(texto);
-                //     finalizarAguardar(texto);
-                // });
-            }
+      }).catch(function (erro) {
+          console.log(erro);
+      })
 
-        }).catch(function (erro) {
-            console.log(erro);
-        })
-
-        return false;
-    }
-
-    // function sumirMensagem() {
-    //     // cardErro.style.display = "none"
-    // }
+      return false;
+  }
 
 </script>

@@ -51,7 +51,6 @@
             <div class="section">
               <input placeholder="Nome do Usuário" type="text" id="nome_input">
               <input placeholder="Email" type="text" id="email_input">
-              <input placeholder="CPF" type="text" id="cpf_input">
             </div>
             <div class="section">
               <input placeholder="Senha" type="password" id="senha_input">
@@ -72,23 +71,20 @@
 
 <script>
   function cadastrar() {
-    // aguardar();
 
     //Recupere o valor da nova input pelo nome do id
     // Agora vá para o método fetch logo abaixo
     var nomeVar = nome_input.value;
     var emailVar = email_input.value;
-    var cpfVar = cpf_input.value; 
     var senhaVar = senha_input.value;
     var confirmacaoSenhaVar = confirmacao_senha_input.value;
     if (
       nomeVar == "" ||
       emailVar == "" ||
       senhaVar == "" ||
-      confirmacaoSenhaVar == "" ||
-      cpfVar == ""
+      confirmacaoSenhaVar == ""
     ) {
-      alert("Insira informações em todos os campos");
+      alert('Insira valores válidos')
       return false;
     }
 
@@ -103,8 +99,7 @@
         // Agora vá para o arquivo routes/usuario.js
         nomeServer: nomeVar,
         emailServer: emailVar,
-        senhaServer: senhaVar,
-        cpfServer: cpfVar
+        senhaServer: senhaVar
       }),
     })
       .then(function (resposta) {
@@ -112,67 +107,7 @@
 
         if (resposta.ok) {
 
-            console.log('Iniciando fetch! Valores: nomeVar:' + nomeVar + ' e emailVar: ' + emailVar)
-
-            fetch("/usuarios/buscarID", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify({
-                emailServer: emailVar,
-                senhaServer: senhaVar
-            })
-        }).then(function (resposta) {
-            console.log("ESTOU NO THEN DO buscarID()!")
-
-            if (resposta.ok) {
-                console.log(resposta);
-                console.log('Estou no respostaOK do buscarID!')
-
-                resposta.json().then(json => {
-                    console.log(json);
-                    console.log(JSON.stringify(json));
-                    sessionStorage.ID_USUARIO = json.idUsuario;
-
-                });
-
-            } else {
-
-                console.log("Houve um erro ao tentar realizar o login!");
-
-                // resposta.text().then(texto => {
-                //     console.error(texto);
-                //     finalizarAguardar(texto);
-                // });
-                return false
-            }
-
-        }).catch(function (erro) {
-            console.log(erro);
-            return false
-        })
-
-        // TERCEIRO FETCH LESGOOOOOOOOOO
-
-      var idUsuario = sessionStorage.ID_USUARIO;
-
-      fetch("/usuarios/cadastrarInventario", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        idUsuarioServer: idUsuario
-      }),
-    })
-      .then(function (resposta) {
-        console.log("Finalizado! Verifique banco de Dados!");
-      })
-      .catch(function (resposta) {
-        console.log(`ERRO`);
-      });
-            alert("Cadastro realizado com sucesso! Redirecionando para tela de Login...");
+          alert('Cadastrado com sucesso! Aperte o botão para ser redirecionado!')
 
           setTimeout(() => {
             window.location = "login.html";
@@ -182,7 +117,7 @@
         }
       })
       .catch(function (resposta) {
-        console.log(`#ERRO`);
+        console.log(`#ERRO: ${resposta}`);
       });
 
     return false;

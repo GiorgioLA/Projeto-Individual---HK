@@ -9,85 +9,91 @@
 <body>
     <div class="screen simulador">
         <div class="blackout">
-        <div class="header navbar">
-            <span class="titulo"><a href=""> HallowNest </a></span>
-            <ul class="lista">
-              <li>
-                <span><a href="inicio.html">Início</a></span>
-              </li>
-              <li>
-                <span>|</span>
-              </li>
-              <li>
-                <span><a href="">Inventário</a></span>
-              </li>
-              <li>
-                <span>|</span>
-              </li>
-              <li>
-                <span><a href="">Simulador</a></span>
-              </li>
-              <li>
-                <span>|</span>
-              </li>
-              <li>
-                <span><a href="">Hallownest</a></span>
-              </li>
-            </ul>
-        </div>
+            <div class="header navbar">
+                <span class="titulo"><a href=""> HallowNest </a></span>
+                <ul class="lista">
+                  <li>
+                    <span><a href="inicio.html">Início</a></span>
+                  </li>
+                  <li>
+                    <span>|</span>
+                  </li>
+                  <li>
+                    <span><a href="">Inventário</a></span>
+                  </li>
+                  <li>
+                    <span>|</span>
+                  </li>
+                  <li>
+                    <span><a href="">Simulador</a></span>
+                  </li>
+                  <li>
+                    <span>|</span>
+                  </li>
+                  <li>
+                    <span><a href="">Hallownest</a></span>
+                  </li>
+                </ul>
+            </div>
         <div class="main">
-            <div class="containerA" id="containerA">
-                <img class="top_dialogue" src="../assets/images/top_dialogue_box-removebg-preview.png" >
-                <div onclick="alterarFerrao()" id="div_mensagem" class="box_nail">
-                    <img id="img_nail" src="../assets/images/nails/Nail_1_Old_Nail.png">
-                </div>
-                <span class="content">Nivel do Ferrão</span>
-                <img class="bottom_dialogue" src="../assets/images/bottom_dialogue_box-removebg-preview.png" >
-            </div>
-            <div>
-                <div onmouseout="clearDiv()" class="containerB1" id="containerB">
+            <div class="div_variaveis">
+                <div class="containerA" id="containerA">
                     <img class="top_dialogue" src="../assets/images/top_dialogue_box-removebg-preview.png" >
-                    <div class="conjunto_amuletos">
-                    <div onclick="clickAmuleto1()" onmouseover="descAmuleto1()" id="amuleto1" >
-                        <img class="img_amuleto" style="opacity: 30%" src="../assets/images/charms/Flukenest.png"></div>
-                    <div onclick="clickAmuleto2()" onmouseover="descAmuleto2()" id="amuleto2" >
-                        <img class="img_amuleto" style="opacity: 30%" src="../assets/images/charms/Fury_of_the_Fallen.png"></div>
-                    <div onclick="clickAmuleto3()" onmouseover="descAmuleto3()" id="amuleto3" >
-                        <img class="img_amuleto" style="opacity: 30%" src="../assets/images/charms/Shaman_Stone.png"></div>
-                    <div onclick="clickAmuleto4()" onmouseover="descAmuleto4()" id="amuleto4" >
-                        <img class="img_amuleto" style="opacity: 30%" src="../assets/images/charms/Unbreakable_Strength.png"></div>
+                    <div onclick="alterarFerrao()" id="div_mensagem" class="box_nail">
+                        <img id="img_nail" src="../assets/images/nails/Nail_1_Old_Nail.png">
                     </div>
-                    <img class="bottom_dialogue" src="../assets/images/bottom_dialogue_box-removebg-preview.png">
+                    <div id="div_nivel_ferrao" class="content">Nivel do Ferrão: 1</div>
+                    <img class="bottom_dialogue" src="../assets/images/bottom_dialogue_box-removebg-preview.png" >
                 </div>
-                <div class="containerB2">
+                <div>
+                    <div onmouseout="clearDiv()" class="containerB1" id="containerB">
+                        <img class="top_dialogue" src="../assets/images/top_dialogue_box-removebg-preview.png" >
+                        <div class="conjunto_amuletos">
+                        <div onclick="clickAmuleto1()" onmouseover="descAmuleto1()" id="amuleto1" >
+                            <img class="img_amuleto" style="opacity: 30%" src="../assets/images/charms/Flukenest.png"></div>
+                        <div onclick="clickAmuleto2()" onmouseover="descAmuleto2()" id="amuleto2" >
+                            <img class="img_amuleto" style="opacity: 30%" src="../assets/images/charms/Fury_of_the_Fallen.png"></div>
+                        <div onclick="clickAmuleto3()" onmouseover="descAmuleto3()" id="amuleto3" >
+                            <img class="img_amuleto" style="opacity: 30%" src="../assets/images/charms/Shaman_Stone.png"></div>
+                        <div onclick="clickAmuleto4()" onmouseover="descAmuleto4()" id="amuleto4" >
+                            <img class="img_amuleto" style="opacity: 30%" src="../assets/images/charms/Unbreakable_Strength.png"></div>
+                        </div>
+                        <img class="bottom_dialogue" src="../assets/images/bottom_dialogue_box-removebg-preview.png">
+                    </div>
+                    <div class="containerB2">
+                        <img class="top_dialogue" src="../assets/images/top_dialogue_box-removebg-preview.png">
+                        <div id="div_descricao_amuleto">Passe por cima de um amuleto para saber sua função</div>
+                        <img class="bottom_dialogue" src="../assets/images/bottom_dialogue_box-removebg-preview.png">
+                    </div>
+                </div>
+                <div class="containerC" id="containerC">
                     <img class="top_dialogue" src="../assets/images/top_dialogue_box-removebg-preview.png">
-                    <div id="div_descricao_amuleto">Passe por cima de um amuleto para saber sua função</div>
+                    <div id="div_vengeful_spirit" class="box_img_magia" onclick="alterarFeitico1()"> 
+                        <img style="opacity: 30%;" src="../assets/images/spells/Icon_HK_Vengeful_Spirit.png">
+                    </div>
+                    <span id="div_nome_vengeful_spirit" class="content">Sem Magia</span>
+                    <img class="bottom_dialogue" src="../assets/images/bottom_dialogue_box-removebg-preview.png">
+                </div>
+                <div class="containerC" id="containerC">
+                    <img class="top_dialogue" src="../assets/images/top_dialogue_box-removebg-preview.png">
+                    <div id="div_desolate_dive" class="box_img_magia" onclick="alterarFeitico2()"> 
+                        <img style="opacity: 30%;" src="../assets/images/spells/Icon_HK_Desolate_Dive.png">
+                    </div>
+                    <span id="div_nome_desolate_dive" class="content">Sem Magia</span>
+                    <img class="bottom_dialogue" src="../assets/images/bottom_dialogue_box-removebg-preview.png">
+                </div>
+                <div class="containerC" id="containerC">
+                    <img class="top_dialogue" src="../assets/images/top_dialogue_box-removebg-preview.png">
+                    <div id="div_howling_wraiths" class="box_img_magia" onclick="alterarFeitico3()"> 
+                        <img style="opacity: 30%;" src="../assets/images/spells/Icon_HK_Howling_Wraiths.png">
+                    </div>
+                    <span id="div_nome_howling_wraiths" class="content">Sem Magia</span>
                     <img class="bottom_dialogue" src="../assets/images/bottom_dialogue_box-removebg-preview.png">
                 </div>
             </div>
-            <div class="containerC" id="containerC">
-                <img class="top_dialogue" src="../assets/images/top_dialogue_box-removebg-preview.png">
-                <div id="div_vengeful_spirit" class="box_img_magia" onclick="alterarFeitico1()"> 
-                    <img style="opacity: 30%;" src="../assets/images/spells/Icon_HK_Vengeful_Spirit.png">
-                </div>
-                <span id="div_nome_vengeful_spirit" class="content">Sem Magia</span>
-                <img class="bottom_dialogue" src="../assets/images/bottom_dialogue_box-removebg-preview.png">
-            </div>
-            <div class="containerC" id="containerC">
-                <img class="top_dialogue" src="../assets/images/top_dialogue_box-removebg-preview.png">
-                <div id="div_desolate_dive" class="box_img_magia" onclick="alterarFeitico2()"> 
-                    <img style="opacity: 30%;" src="../assets/images/spells/Icon_HK_Desolate_Dive.png">
-                </div>
-                <span id="div_nome_desolate_dive" class="content">Sem Magia</span>
-                <img class="bottom_dialogue" src="../assets/images/bottom_dialogue_box-removebg-preview.png">
-            </div>
-            <div class="containerC" id="containerC">
-                <img class="top_dialogue" src="../assets/images/top_dialogue_box-removebg-preview.png">
-                <div id="div_howling_wraiths" class="box_img_magia" onclick="alterarFeitico3()"> 
-                    <img style="opacity: 30%;" src="../assets/images/spells/Icon_HK_Howling_Wraiths.png">
-                </div>
-                <span id="div_nome_howling_wraiths" class="content">Sem Magia</span>
-                <img class="bottom_dialogue" src="../assets/images/bottom_dialogue_box-removebg-preview.png">
+            <div id="box_resposta" class="containerD">
+                <span class="titulo">Clique nas imagens para alterar</span>
+                <div class="div_botao"><button onclick="calcular()">Calcular</button></div>
             </div>
         </div>
     </div></div>
@@ -107,11 +113,26 @@
         if (nivel_ferrao == 4) nivel_ferrao = 0
         else nivel_ferrao++
 
-        if (nivel_ferrao == 0) div_mensagem.innerHTML = `<img id="img_nail" src="../assets/images/nails/Nail_1_Old_Nail.png">`
-        else if (nivel_ferrao == 1) div_mensagem.innerHTML = `<img id="img_nail" src="../assets/images/nails/Nail_2_Sharpened_Nail.png">`
-        else if (nivel_ferrao == 2) div_mensagem.innerHTML = `<img id="img_nail" src="../assets/images/nails/Nail_3_Channelled_Nail.png">`
-        else if (nivel_ferrao == 3) div_mensagem.innerHTML = `<img id="img_nail" src="../assets/images/nails/Nail_4_Coiled_Nail.png">`
-        else if (nivel_ferrao == 4) div_mensagem.innerHTML = `<img id="img_nail" src="../assets/images/nails/Nail_5_Pure_Nail.png">`
+        if (nivel_ferrao == 0) {
+            div_mensagem.innerHTML = `<img id="img_nail" src="../assets/images/nails/Nail_1_Old_Nail.png">`
+            div_nivel_ferrao.innerHTML = `Nível do Ferrão: 1`
+        }
+        else if (nivel_ferrao == 1) {
+            div_mensagem.innerHTML = `<img id="img_nail" src="../assets/images/nails/Nail_2_Sharpened_Nail.png">`
+            div_nivel_ferrao.innerHTML = `Nível do Ferrão: 2`
+        }
+        else if (nivel_ferrao == 2) {
+            div_mensagem.innerHTML = `<img id="img_nail" src="../assets/images/nails/Nail_3_Channelled_Nail.png">`
+            div_nivel_ferrao.innerHTML = `Nível do Ferrão: 3`
+        }
+        else if (nivel_ferrao == 3) {
+            div_mensagem.innerHTML = `<img id="img_nail" src="../assets/images/nails/Nail_4_Coiled_Nail.png">`
+            div_nivel_ferrao.innerHTML = `Nível do Ferrão: 4`
+        }
+        else if (nivel_ferrao == 4) {
+            div_mensagem.innerHTML = `<img id="img_nail" src="../assets/images/nails/Nail_5_Pure_Nail.png">`
+            div_nivel_ferrao.innerHTML = `Nível do Ferrão: 5`
+        }
     }
 
     function descAmuleto1() {
