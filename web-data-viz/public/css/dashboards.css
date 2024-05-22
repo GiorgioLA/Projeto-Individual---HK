@@ -18,6 +18,124 @@ body {
   background-size: cover;
 }
 
+.simulador {
+  background-image: url(../assets/images/Godhome_Arena_Absolute_Radiance_Phase_6.png);
+  height: 100vh;
+}
+
+select {
+  width: 30%;
+  background-color: grey;
+  display: flex;
+  justify-content: center;
+  font-family: Perpetua;
+  color: white;
+  border-radius: 0%;
+}
+
+option {
+  font-family: Perpetua;
+  list-style: none;
+}
+
+.simulador .main {
+  height: auto;
+  width: 100%;
+  display: flex;
+  justify-content: space-around;
+  margin-top: 50px;
+}
+
+#img_nail {
+  height: 150px;
+}
+
+.box_nail {
+  width: 150px;
+  height: 150px;
+  /* background-color: black; */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.simulador {
+  font-family: Perpetua;
+  font-size: 19px;
+  color: white;
+}
+
+.simulador .containerA {
+  width: 200px;
+  height: 300px;
+  background-color: rgba(0,0,0,0.8);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.simulador .containerB1 {
+  width: 450px;
+  height: 137.5px;
+  background-color: rgba(0,0,0,0.8);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.simulador .containerB2 {
+  width: 450px;
+  height: 137.5px;
+  margin-top: 25px;
+  background-color: rgba(0,0,0,0.8);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+}
+
+#div_descricao_amuleto {
+  margin-left: 15px;
+  margin-right: 15px;
+}
+
+.conjunto_amuletos {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  justify-content: space-evenly;
+}
+
+.img_amuleto {
+  width: 50px;
+}
+
+.simulador .containerC {
+  width: 200px;
+  height: 300px;
+  background-color: rgba(0,0,0,0.8);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.box_img_magia {
+  height: 150px;
+  width: 150px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.blackout {
+  background-color: rgba(0,0,0,0.5);
+  width: 100%;
+  height: 100%;
+}
+
 .titulo { /* Título do site */
   font-size: 40px;
   font-family: Trajan_Regular;
@@ -138,6 +256,22 @@ a {
   width: 50%;
 }
 
+.containerA .top_dialogue {
+  width: 80%;
+}
+
+.containerA .bottom_dialogue {
+  width: 80%;
+}
+
+.containerC .top_dialogue {
+  width: 80%;
+}
+
+.containerC .bottom_dialogue {
+  width: 80%;
+}
+
 .inicio .content {
   display: flex;
   flex-direction: column;
@@ -153,5 +287,5 @@ a {
 
 @font-face {
   font-family: Perpetua;
-  src: url(../assets/fonts/Trajan_Regular/Perpetua.ttf);
+  src: url(../assets/fonts/Perpetua.ttf);
 }

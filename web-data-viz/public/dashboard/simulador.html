@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HallowNest Insights | Página Principal</title>
+    <link rel="stylesheet" href="../css/dashboards.css">
+</head>
+<body>
+    <div class="screen simulador">
+        <div class="blackout">
+        <div class="header navbar">
+            <span class="titulo"><a href=""> HallowNest </a></span>
+            <ul class="lista">
+              <li>
+                <span><a href="inicio.html">Início</a></span>
+              </li>
+              <li>
+                <span>|</span>
+              </li>
+              <li>
+                <span><a href="">Inventário</a></span>
+              </li>
+              <li>
+                <span>|</span>
+              </li>
+              <li>
+                <span><a href="">Simulador</a></span>
+              </li>
+              <li>
+                <span>|</span>
+              </li>
+              <li>
+                <span><a href="">Hallownest</a></span>
+              </li>
+            </ul>
+        </div>
+        <div class="main">
+            <div class="containerA" id="containerA">
+                <img class="top_dialogue" src="../assets/images/top_dialogue_box-removebg-preview.png" >
+                <div onclick="alterarFerrao()" id="div_mensagem" class="box_nail">
+                    <img id="img_nail" src="../assets/images/nails/Nail_1_Old_Nail.png">
+                </div>
+                <span class="content">Nivel do Ferrão</span>
+                <img class="bottom_dialogue" src="../assets/images/bottom_dialogue_box-removebg-preview.png" >
+            </div>
+            <div>
+                <div onmouseout="clearDiv()" class="containerB1" id="containerB">
+                    <img class="top_dialogue" src="../assets/images/top_dialogue_box-removebg-preview.png" >
+                    <div class="conjunto_amuletos">
+                    <div onclick="clickAmuleto1()" onmouseover="descAmuleto1()" id="amuleto1" >
+                        <img class="img_amuleto" style="opacity: 30%" src="../assets/images/charms/Flukenest.png"></div>
+                    <div onclick="clickAmuleto2()" onmouseover="descAmuleto2()" id="amuleto2" >
+                        <img class="img_amuleto" style="opacity: 30%" src="../assets/images/charms/Fury_of_the_Fallen.png"></div>
+                    <div onclick="clickAmuleto3()" onmouseover="descAmuleto3()" id="amuleto3" >
+                        <img class="img_amuleto" style="opacity: 30%" src="../assets/images/charms/Shaman_Stone.png"></div>
+                    <div onclick="clickAmuleto4()" onmouseover="descAmuleto4()" id="amuleto4" >
+                        <img class="img_amuleto" style="opacity: 30%" src="../assets/images/charms/Unbreakable_Strength.png"></div>
+                    </div>
+                    <img class="bottom_dialogue" src="../assets/images/bottom_dialogue_box-removebg-preview.png">
+                </div>
+                <div class="containerB2">
+                    <img class="top_dialogue" src="../assets/images/top_dialogue_box-removebg-preview.png">
+                    <div id="div_descricao_amuleto">Passe por cima de um amuleto para saber sua função</div>
+                    <img class="bottom_dialogue" src="../assets/images/bottom_dialogue_box-removebg-preview.png">
+                </div>
+            </div>
+            <div class="containerC" id="containerC">
+                <img class="top_dialogue" src="../assets/images/top_dialogue_box-removebg-preview.png">
+                <div id="div_vengeful_spirit" class="box_img_magia" onclick="alterarFeitico1()"> 
+                    <img style="opacity: 30%;" src="../assets/images/spells/Icon_HK_Vengeful_Spirit.png">
+                </div>
+                <span id="div_nome_vengeful_spirit" class="content">Sem Magia</span>
+                <img class="bottom_dialogue" src="../assets/images/bottom_dialogue_box-removebg-preview.png">
+            </div>
+            <div class="containerC" id="containerC">
+                <img class="top_dialogue" src="../assets/images/top_dialogue_box-removebg-preview.png">
+                <div id="div_desolate_dive" class="box_img_magia" onclick="alterarFeitico2()"> 
+                    <img style="opacity: 30%;" src="../assets/images/spells/Icon_HK_Desolate_Dive.png">
+                </div>
+                <span id="div_nome_desolate_dive" class="content">Sem Magia</span>
+                <img class="bottom_dialogue" src="../assets/images/bottom_dialogue_box-removebg-preview.png">
+            </div>
+            <div class="containerC" id="containerC">
+                <img class="top_dialogue" src="../assets/images/top_dialogue_box-removebg-preview.png">
+                <div id="div_howling_wraiths" class="box_img_magia" onclick="alterarFeitico3()"> 
+                    <img style="opacity: 30%;" src="../assets/images/spells/Icon_HK_Howling_Wraiths.png">
+                </div>
+                <span id="div_nome_howling_wraiths" class="content">Sem Magia</span>
+                <img class="bottom_dialogue" src="../assets/images/bottom_dialogue_box-removebg-preview.png">
+            </div>
+        </div>
+    </div></div>
+</body>
+</html>
+<script>
+    var nivel_ferrao = 0;
+    var cont_amuleto_1 = 0;
+    var cont_amuleto_2 = 0;
+    var cont_amuleto_3 = 0;
+    var cont_amuleto_4 = 0;
+    var nivel_feitico_1 = 0;
+    var nivel_feitico_2 = 0;
+    var nivel_feitico_3 = 0;
+
+    function alterarFerrao() {
+        if (nivel_ferrao == 4) nivel_ferrao = 0
+        else nivel_ferrao++
+
+        if (nivel_ferrao == 0) div_mensagem.innerHTML = `<img id="img_nail" src="../assets/images/nails/Nail_1_Old_Nail.png">`
+        else if (nivel_ferrao == 1) div_mensagem.innerHTML = `<img id="img_nail" src="../assets/images/nails/Nail_2_Sharpened_Nail.png">`
+        else if (nivel_ferrao == 2) div_mensagem.innerHTML = `<img id="img_nail" src="../assets/images/nails/Nail_3_Channelled_Nail.png">`
+        else if (nivel_ferrao == 3) div_mensagem.innerHTML = `<img id="img_nail" src="../assets/images/nails/Nail_4_Coiled_Nail.png">`
+        else if (nivel_ferrao == 4) div_mensagem.innerHTML = `<img id="img_nail" src="../assets/images/nails/Nail_5_Pure_Nail.png">`
+    }
+
+    function descAmuleto1() {
+        div_descricao_amuleto.innerHTML = "Ninho de Flukes: Troca o projétil do Espirito Vingativo por múltiplos flukes com mais dano e menos alcance"
+    }
+
+    function descAmuleto2() {
+        div_descricao_amuleto.innerHTML = "Fúria dos Caídos: Quando o cavaleiro possui apenas uma máscara, seu ferrão causa mais dano"
+    }
+
+    function descAmuleto3() {
+        div_descricao_amuleto.innerHTML = "Pedra do Xamã: Aumenta o dano e o tamanho dos feitiços do cavaleiro"
+    }
+
+    function descAmuleto4() {
+        div_descricao_amuleto.innerHTML = "Força Inquebrável: Aumenta o dano do ferrão do cavaleiro"
+    }
+
+    function clearDiv() {
+        div_descricao_amuleto.innerHTML = "Passe por cima de um amuleto para saber sua função"
+    }
+
+    function clickAmuleto1() {
+        if (cont_amuleto_1 == 0) {
+            amuleto1.innerHTML = `<img style='opacity: 100%;' class="img_amuleto" src="../assets/images/charms/Flukenest.png">`
+            cont_amuleto_1++
+        } else {
+            amuleto1.innerHTML = `<img style='opacity: 30%;' class="img_amuleto" src="../assets/images/charms/Flukenest.png">`
+            cont_amuleto_1--
+        }
+    }
+
+    function clickAmuleto2() {
+        if (cont_amuleto_2 == 0) {
+            amuleto2.innerHTML = `<img class="img_amuleto" style="opacity: 100%" src="../assets/images/charms/Fury_of_the_Fallen.png">`
+            cont_amuleto_2++
+        } else {
+            amuleto2.innerHTML = `<img class="img_amuleto" style="opacity: 30%" src="../assets/images/charms/Fury_of_the_Fallen.png">`
+            cont_amuleto_2--
+        }
+    }
+
+    function clickAmuleto3() {
+        if (cont_amuleto_3 == 0) {
+            amuleto3.innerHTML = `<img class="img_amuleto" style="opacity: 100%" src="../assets/images/charms/Shaman_Stone.png">`
+            cont_amuleto_3++
+        } else {
+            amuleto3.innerHTML = `<img class="img_amuleto" style="opacity: 30%" src="../assets/images/charms/Shaman_Stone.png">`
+            cont_amuleto_3--
+        }
+    }
+
+    function clickAmuleto4() {
+        if (cont_amuleto_4 == 0) {
+            amuleto4.innerHTML = `<img class="img_amuleto" style="opacity: 100%" src="../assets/images/charms/Unbreakable_Strength.png">`
+            cont_amuleto_4++
+        } else {
+            amuleto4.innerHTML = `<img class="img_amuleto" style="opacity: 30%" src="../assets/images/charms/Unbreakable_Strength.png">`
+            cont_amuleto_4--
+        }
+    }
+
+    function alterarFeitico1() {
+        if (nivel_feitico_1 == 2) nivel_feitico_1 = 0
+        else nivel_feitico_1++
+
+        if(nivel_feitico_1 == 0) {
+            div_vengeful_spirit.innerHTML = `<img style="opacity: 30%;" src="../assets/images/spells/Icon_HK_Vengeful_Spirit.png">`;
+            div_nome_vengeful_spirit.innerHTML = 'Sem Magia'
+        }
+        else if (nivel_feitico_1 == 1) {
+            div_vengeful_spirit.innerHTML = `<img style="opacity: 100%;" src="../assets/images/spells/Icon_HK_Vengeful_Spirit.png">`;
+            div_nome_vengeful_spirit.innerHTML = 'Espírito Vingativo'
+        }
+        else {
+            div_vengeful_spirit.innerHTML = `<img style="opacity: 100%;" src="../assets/images/spells/Icon_HK_Shade_Soul.png">`;
+            div_nome_vengeful_spirit.innerHTML = 'Alma Sombria'
+        }
+    }
+
+    function alterarFeitico2() {
+        if (nivel_feitico_2 == 2) nivel_feitico_2 = 0
+        else nivel_feitico_2++
+
+        if(nivel_feitico_2 == 0) {
+            div_desolate_dive.innerHTML = `<img style="opacity: 30%;" src="../assets/images/spells/Icon_HK_Desolate_Dive.png">`;
+            div_nome_desolate_dive.innerHTML = 'Sem Magia'
+        }
+        else if (nivel_feitico_2 == 1) {
+            div_desolate_dive.innerHTML = `<img style="opacity: 100%;" src="../assets/images/spells/Icon_HK_Desolate_Dive.png">`;
+            div_nome_desolate_dive.innerHTML = 'Mergulho Desolador'
+        }
+        else {
+            div_desolate_dive.innerHTML = `<img style="opacity: 100%;" src="../assets/images/spells/Icon_HK_Descending_Dark.png">`
+            div_nome_desolate_dive.innerHTML = 'Escuridão Descente'
+        };
+    }
+
+    function alterarFeitico3() {
+        if (nivel_feitico_3 == 2) nivel_feitico_3 = 0
+        else nivel_feitico_3++
+
+        if(nivel_feitico_3 == 0) {
+            div_howling_wraiths.innerHTML = `<img style="opacity: 30%;" src="../assets/images/spells/Icon_HK_Howling_Wraiths.png">`;
+            div_nome_howling_wraiths.innerHTML = 'Sem Magia'
+        }
+        else if (nivel_feitico_3 == 1) {
+            div_howling_wraiths.innerHTML = `<img style="opacity: 100%;" src="../assets/images/spells/Icon_HK_Howling_Wraiths.png">`;
+            div_nome_howling_wraiths.innerHTML = 'Espectros Uivantes'
+        }
+        else {
+            div_howling_wraiths.innerHTML = `<img style="opacity: 100%;" src="../assets/images/spells/Icon_HK_Abyss_Shriek.png">`
+            div_nome_howling_wraiths.innerHTML = 'Grito do Abismo'
+        };
+    }
+
+</script>
