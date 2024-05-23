@@ -109,9 +109,9 @@
 
           alert('Cadastrado com sucesso! Aperte o botão para ser redirecionado!')
 
-          setTimeout(() => {
-            window.location = "login.html";
-          }, "2000");
+          // setTimeout(() => {
+          //   window.location = "login.html";
+          // }, "2000");
         } else {
           throw "Houve um erro ao tentar realizar o cadastro!";
         }
@@ -119,7 +119,41 @@
       .catch(function (resposta) {
         console.log(`#ERRO: ${resposta}`);
       });
+      // fim primeiro fetch
 
-    return false;
-  }
-</script>
+      // inicio segundo fetch, select
+
+      setTimeout(() => {
+            alert('Iniciando segunda parte do cadastro!');
+            
+            fetch("/usuarios/obterID", {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json"
+              },
+              body: JSON.stringify({
+              usuarioServer: nomeVar,
+              senhaServer: senhaVar
+          })
+        }).then(function (resposta) {
+          console.log("ESTOU NO THEN DO OBTERID cadastro()!")
+          
+          if (resposta.ok) {
+            console.log(resposta);
+            resposta.json().then(json => {
+              console.log(json);
+              console.log(JSON.stringify(json));
+              sessionStorage.ID_USUARIO = Number(json.idUsuario);
+            });
+          } else {
+            console.log("Houve um erro no resposta.ok do THEN DO do OBTERID");
+          }
+          console.log('Fim do select. Valor obtido:', sessionStorage.ID_USUARIO)
+        }).catch(function (erro) {
+          console.log(erro);
+        })
+      }, "5000");
+  
+      return false;
+    }
+    </script>

@@ -21,9 +21,9 @@ function autenticar(req, res) {
                         console.log(resultadoAutenticar);
 
                                     res.json({
-                                        id: resultadoAutenticar[0].id,
+                                        idUsuario: resultadoAutenticar[0].idUsuario,
                                         email: resultadoAutenticar[0].email,
-                                        nome: resultadoAutenticar[0].nome,
+                                        usuario: resultadoAutenticar[0].usuario,
                                         senha: resultadoAutenticar[0].senha
                                     });
 
@@ -79,7 +79,49 @@ function cadastrar(req, res) {
     }
 }
 
+function obterID(req, res) {
+    var usuario = req.body.usuarioServer;
+    var senha = req.body.senhaServer;
+
+    if (usuario == undefined) {
+        res.status(400).send("Valor não obtido no obterID!");
+    } else if (senha == undefined) {
+        res.status(400).send("Valor não obtido no obterID!");
+    } else {
+
+        usuarioModel.obterID(usuario, senha)
+            .then(
+                function (resultadoObterID) {
+                    console.log(`\nResultados encontrados: ${resultadoObterID.length}`);
+                    console.log(`Resultados: ${JSON.stringify(resultadoObterID)}`); // transforma JSON em String
+
+                    if (resultadoObterID.length == 1) {
+                        console.log(resultadoObterID);
+
+                                    res.json({
+                                        idUsuario: resultadoObterID[0].idUsuario
+                                    });
+
+                            
+                    } else if (resultadoObterID.length == 0) {
+                        res.status(403).send("Erro: nenhum valor recebido no ObterID");
+                    } else {
+                        res.status(403).send("Falha: mais de um valor obtido");
+                    }
+                }
+            ).catch(
+                function (erro) {
+                    console.log(erro);
+                    console.log("\nHouve um erro ao realizar o login! Erro: ", erro.sqlMessage);
+                    res.status(500).json(erro.sqlMessage);
+                }
+            );
+    }
+
+}
+
 module.exports = {
     autenticar,
-    cadastrar
+    cadastrar,
+    obterID
 }
