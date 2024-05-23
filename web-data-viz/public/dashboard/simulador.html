@@ -91,9 +91,13 @@
                     <img class="bottom_dialogue" src="../assets/images/bottom_dialogue_box-removebg-preview.png">
                 </div>
             </div>
-            <div id="box_resposta" class="containerD">
-                <span class="titulo">Clique nas imagens para alterar</span>
-                <div class="div_botao"><button onclick="calcular()">Calcular</button></div>
+            <div id="box_resposta" class="area_respostas">
+                <div class="containerD">
+                    <img class="top_dialogue" src="../assets/images/top_dialogue_box-removebg-preview.png">
+                    <div class="titulo_box">Clique nas imagens para alterar as entradas</div>
+                    <div class="div_botao"><button onclick="calcular()">Calcular</button></div>
+                    <img class="bottom_dialogue" src="../assets/images/bottom_dialogue_box-removebg-preview.png">
+                </div>
             </div>
         </div>
     </div></div>
@@ -113,6 +117,7 @@
         if (nivel_ferrao == 4) nivel_ferrao = 0
         else nivel_ferrao++
 
+        
         if (nivel_ferrao == 0) {
             div_mensagem.innerHTML = `<img id="img_nail" src="../assets/images/nails/Nail_1_Old_Nail.png">`
             div_nivel_ferrao.innerHTML = `Nível do Ferrão: 1`
@@ -134,27 +139,27 @@
             div_nivel_ferrao.innerHTML = `Nível do Ferrão: 5`
         }
     }
-
+    
     function descAmuleto1() {
         div_descricao_amuleto.innerHTML = "Ninho de Flukes: Troca o projétil do Espirito Vingativo por múltiplos flukes com mais dano e menos alcance"
     }
-
+    
     function descAmuleto2() {
         div_descricao_amuleto.innerHTML = "Fúria dos Caídos: Quando o cavaleiro possui apenas uma máscara, seu ferrão causa mais dano"
     }
-
+    
     function descAmuleto3() {
         div_descricao_amuleto.innerHTML = "Pedra do Xamã: Aumenta o dano e o tamanho dos feitiços do cavaleiro"
     }
-
+    
     function descAmuleto4() {
         div_descricao_amuleto.innerHTML = "Força Inquebrável: Aumenta o dano do ferrão do cavaleiro"
     }
-
+    
     function clearDiv() {
         div_descricao_amuleto.innerHTML = "Passe por cima de um amuleto para saber sua função"
     }
-
+    
     function clickAmuleto1() {
         if (cont_amuleto_1 == 0) {
             amuleto1.innerHTML = `<img style='opacity: 100%;' class="img_amuleto" src="../assets/images/charms/Flukenest.png">`
@@ -164,7 +169,7 @@
             cont_amuleto_1--
         }
     }
-
+    
     function clickAmuleto2() {
         if (cont_amuleto_2 == 0) {
             amuleto2.innerHTML = `<img class="img_amuleto" style="opacity: 100%" src="../assets/images/charms/Fury_of_the_Fallen.png">`
@@ -174,7 +179,7 @@
             cont_amuleto_2--
         }
     }
-
+    
     function clickAmuleto3() {
         if (cont_amuleto_3 == 0) {
             amuleto3.innerHTML = `<img class="img_amuleto" style="opacity: 100%" src="../assets/images/charms/Shaman_Stone.png">`
@@ -184,7 +189,7 @@
             cont_amuleto_3--
         }
     }
-
+    
     function clickAmuleto4() {
         if (cont_amuleto_4 == 0) {
             amuleto4.innerHTML = `<img class="img_amuleto" style="opacity: 100%" src="../assets/images/charms/Unbreakable_Strength.png">`
@@ -194,11 +199,11 @@
             cont_amuleto_4--
         }
     }
-
+    
     function alterarFeitico1() {
         if (nivel_feitico_1 == 2) nivel_feitico_1 = 0
         else nivel_feitico_1++
-
+        
         if(nivel_feitico_1 == 0) {
             div_vengeful_spirit.innerHTML = `<img style="opacity: 30%;" src="../assets/images/spells/Icon_HK_Vengeful_Spirit.png">`;
             div_nome_vengeful_spirit.innerHTML = 'Sem Magia'
@@ -212,11 +217,11 @@
             div_nome_vengeful_spirit.innerHTML = 'Alma Sombria'
         }
     }
-
+    
     function alterarFeitico2() {
         if (nivel_feitico_2 == 2) nivel_feitico_2 = 0
         else nivel_feitico_2++
-
+        
         if(nivel_feitico_2 == 0) {
             div_desolate_dive.innerHTML = `<img style="opacity: 30%;" src="../assets/images/spells/Icon_HK_Desolate_Dive.png">`;
             div_nome_desolate_dive.innerHTML = 'Sem Magia'
@@ -230,11 +235,11 @@
             div_nome_desolate_dive.innerHTML = 'Escuridão Descente'
         };
     }
-
+    
     function alterarFeitico3() {
         if (nivel_feitico_3 == 2) nivel_feitico_3 = 0
         else nivel_feitico_3++
-
+        
         if(nivel_feitico_3 == 0) {
             div_howling_wraiths.innerHTML = `<img style="opacity: 30%;" src="../assets/images/spells/Icon_HK_Howling_Wraiths.png">`;
             div_nome_howling_wraiths.innerHTML = 'Sem Magia'
@@ -248,7 +253,7 @@
             div_nome_howling_wraiths.innerHTML = 'Grito do Abismo'
         };
     }
-
+    
     function calcular() {
         // var nivel_ferrao = 0;
         // var cont_amuleto_1 = 0;
@@ -259,14 +264,28 @@
         // var nivel_feitico_2 = 0;
         // var nivel_feitico_3 = 0;
 
-        var dano_ferrao_base = 9 + (nivel_ferrao * 4);
-        var dano_ferrao = (dano_ferrao_base * (1 + 0.75 * cont_amuleto_2)) + 1 - ((dano_ferrao_base * (1 + 0.75 * cont_amuleto_2)) - (dano_ferrao_base * (1 + 0.75 * cont_amuleto_2)).toFixed(0));
-        var dano_ferrao = (dano_ferrao_base * (1 + 0.50 * cont_amuleto_4)) + 1 - ((dano_ferrao_base * (1 + 0.50 * cont_amuleto_4)) - (dano_ferrao_base * (1 + 0.50 * cont_amuleto_4)).toFixed(0));
+        var dano_ferrao = 5 + (nivel_ferrao * 4);
+        if (cont_amuleto_2 == 1) {
+            dano_ferrao = dano_ferrao * 1.75;
+            if (dano_ferrao > dano_ferrao.toFixed(0)) {
+                dano_ferrao = dano_ferrao - (dano_ferrao - dano_ferrao.toFixed(0)) + 1
+            } else {
+                dano_ferrao = dano_ferrao.toFixed(0)
+            }
+        }
+        if (cont_amuleto_4 == 1) {
+            dano_ferrao = dano_ferrao * 1.5
+            if (dano_ferrao > dano_ferrao.toFixed(0)) {
+                dano_ferrao = dano_ferrao - (dano_ferrao - dano_ferrao.toFixed(0)) + 1
+            } else {
+                dano_ferrao = dano_ferrao.toFixed(0)
+            }
+        }
 
         var dano_feitico_1 = 0;
         var dano_feitico_2 = 0;
-        var dano_feitico_3 = 5 * nivel_feitico_3 + 7;
-
+        var dano_feitico_3 = 0 ;
+        
         if (nivel_feitico_1 == 1) {
             dano_feitico_1 = 15 + 5 * cont_amuleto_3;
             if (cont_amuleto_1 == 1) dano_feitico_1 = 36 + 9 * cont_amuleto_3;
@@ -274,54 +293,103 @@
             dano_feitico_1 = 30 + 10 * cont_amuleto_3;
             if (cont_amuleto_1 == 1) dano_feitico_1 = 64 + 16 * cont_amuleto_3;
         }
-
+        
         if (nivel_feitico_2 == 1) dano_feitico_2 = 35 + 18 * cont_amuleto_3;
         else if (nivel_feitico_2 == 2) dano_feitico_2 = 65 + 23 * cont_amuleto_3;
         
-
+        
         if (nivel_feitico_3 == 1) dano_feitico_3 = 39 + 21 * cont_amuleto_3;
         else if (nivel_feitico_3 == 2) dano_feitico_3 = 80 + 40 * cont_amuleto_3;
         
+        box_resposta.innerHTML = ``;
         var mensagem_ferrao = ``;
-
-        mensagem_ferrao += `O dano do seu ferrão será de: ${dano_ferrao}`;
+        
+        mensagem_ferrao += `O dano do seu ferrão será de: ${dano_ferrao}<br><br>`;
         if (cont_amuleto_2 == 0 && cont_amuleto_4 == 0) mensagem_ferrao += `Sem utilizar nenhum amuleto de aumento de dano na espada`
-        else if (cont_amuleto_2 == 1 && cont_amuleto_4 == 0) mensagem_ferrao = `Utilizando o amuleto: Fúria dos Caídos`;
-        else if (cont_amuleto_2 == 2 && cont_amuleto_4 == 1) mensagem_ferrao = `Utilizando o amuleto: Força inquebrável`;
-        else  mensagem_ferrao = `Utilizando os amuletoa: Força inquebrável e Fúria dos Caídos`;
-
+        else if (cont_amuleto_2 == 1 && cont_amuleto_4 == 0) mensagem_ferrao += `Utilizando o amuleto: Fúria dos Caídos`;
+        else if (cont_amuleto_2 == 0 && cont_amuleto_4 == 1) mensagem_ferrao += `Utilizando o amuleto: Força inquebrável`;
+        else  mensagem_ferrao += `Utilizando os amuletoa: Força inquebrável e Fúria dos Caídos`;
+        box_resposta.innerHTML += `<div class="containerD" id="box1"></div>`
+        box1.innerHTML = `
+            <img class="top_dialogue" src="../assets/images/top_dialogue_box-removebg-preview.png" >
+            <div style="padding-left: 10px; padding-right: 10px;">${mensagem_ferrao}</div>
+            <img class="bottom_dialogue" src="../assets/images/bottom_dialogue_box-removebg-preview.png">`;
+        
         var mensagem_feitico_1 = ``;
-
+        
         if (dano_feitico_1 > 0) {
-            if (nivel_feitico_1 == 1) mensagem_feitico_1 += `O dano do seu Espírito Vingativo será de: ${dano_feitico_1}`;
-            else if (nivel_feitico_1 == 2) mensagem_feitico_1 += `O dano do seu Alma Sombria será de: ${dano_feitico_1}`;
+            if (nivel_feitico_1 == 1) mensagem_feitico_1 += `O dano do seu Espírito Vingativo será de: ${dano_feitico_1}<br><br>`;
+            else if (nivel_feitico_1 == 2) mensagem_feitico_1 += `O dano do seu Alma Sombria será de: ${dano_feitico_1}<br><br>`;
             if (cont_amuleto_1 == 0 && cont_amuleto_3 == 0) mensagem_feitico_1 += `Sem utilizar nenhum amuleto de aumento de dano para feitiço`
             else if (cont_amuleto_1 == 1 && cont_amuleto_3 == 0) mensagem_feitico_1 += `Utilizando o amuleto: Ninho de Flukes`;
-            else if (cont_amuleto_1 == 2 && cont_amuleto_3 == 1) mensagem_feitico_1 += `Utilizando o amuleto: Pedra do Xamã`;
+            else if (cont_amuleto_1 == 0 && cont_amuleto_3 == 1) mensagem_feitico_1 += `Utilizando o amuleto: Pedra do Xamã`;
             else  mensagem_feitico_1 += `Utilizando os amuletoa: Ninho de Flukes e Pedra do Xamã`;
+            box_resposta.innerHTML += `<div class="containerD" id="box2"></div>`
+            box2.innerHTML = `
+            <img class="top_dialogue" src="../assets/images/top_dialogue_box-removebg-preview.png" >
+            <div style="padding-left: 10px; padding-right: 10px;">${mensagem_feitico_1}</div>
+            <img class="bottom_dialogue" src="../assets/images/bottom_dialogue_box-removebg-preview.png">`;
         }
-
+        
         var mensagem_feitico_2 = ``;
-
+        
         if (dano_feitico_2 > 0) {
-            if (nivel_feitico_2 == 1) mensagem_feitico_2 += `O dano do seu Mergulho Desolador será de: ${dano_feitico_2}`;
-            else if (nivel_feitico_2 == 2) mensagem_feitico_2 += `O dano do seu Escuridão Descente será de: ${dano_feitico_2}`;
+            if (nivel_feitico_2 == 1) mensagem_feitico_2 += `O dano do seu Mergulho Desolador será de: ${dano_feitico_2} <br><br>`;
+            else if (nivel_feitico_2 == 2) mensagem_feitico_2 += `O dano do seu Escuridão Descente será de: ${dano_feitico_2} <br><br>`;
             if (cont_amuleto_1 == 0 && cont_amuleto_3 == 0) mensagem_feitico_2 += `Sem utilizar nenhum amuleto de aumento de dano para feitiço`
             else if (cont_amuleto_1 == 1 && cont_amuleto_3 == 0) mensagem_feitico_2 += `Utilizando o amuleto: Ninho de Flukes`;
-            else if (cont_amuleto_1 == 2 && cont_amuleto_3 == 1) mensagem_feitico_2 += `Utilizando o amuleto: Pedra do Xamã`;
+            else if (cont_amuleto_1 == 0 && cont_amuleto_3 == 1) mensagem_feitico_2 += `Utilizando o amuleto: Pedra do Xamã`;
             else  mensagem_feitico_2 += `Utilizando os amuletoa: Ninho de Flukes e Pedra do Xamã`;
+            box_resposta.innerHTML += `<div class="containerD" id="box3"></div>`
+            box3.innerHTML = `
+            <img class="top_dialogue" src="../assets/images/top_dialogue_box-removebg-preview.png" >
+            <div style="padding-left: 10px; padding-right: 10px;">${mensagem_feitico_2}</div>
+            <img class="bottom_dialogue" src="../assets/images/bottom_dialogue_box-removebg-preview.png">`;
         }
-
+        
         var mensagem_feitico_3 = ``;
-
+        
         if (dano_feitico_3 > 0) {
-            if (nivel_feitico_3 == 1) mensagem_feitico_3 += `O dano do seu Espectros Uivantes será de: ${dano_feitico_3}`;
-            else if (nivel_feitico_3 == 2) mensagem_feitico_3 += `O dano do seu Grito do Abismo será de: ${dano_feitico_3}`;
+            if (nivel_feitico_3 == 1) mensagem_feitico_3 += `O dano do seu Espectros Uivantes será de: ${dano_feitico_3} <br><br>`;
+            else if (nivel_feitico_3 == 2) mensagem_feitico_3 += `O dano do seu Grito do Abismo será de: ${dano_feitico_3} <br><br>`;
             if (cont_amuleto_1 == 0 && cont_amuleto_3 == 0) mensagem_feitico_3 += `Sem utilizar nenhum amuleto de aumento de dano para feitiço`
             else if (cont_amuleto_1 == 1 && cont_amuleto_3 == 0) mensagem_feitico_3 += `Utilizando o amuleto: Ninho de Flukes`;
             else if (cont_amuleto_1 == 2 && cont_amuleto_3 == 1) mensagem_feitico_3 += `Utilizando o amuleto: Pedra do Xamã`;
             else  mensagem_feitico_3 += `Utilizando os amuletoa: Ninho de Flukes e Pedra do Xamã`;
+            box_resposta.innerHTML += `<div class="containerD" id="box4"></div>`
+            box4.innerHTML = `
+            <img class="top_dialogue" src="../assets/images/top_dialogue_box-removebg-preview.png" >
+            <div style="padding-left: 10px; padding-right: 10px;">${mensagem_feitico_3}</div>
+            <img class="bottom_dialogue" src="../assets/images/bottom_dialogue_box-removebg-preview.png">`;
         }
+
+        box_resposta.innerHTML += `      
+            <div class="containerD" id="box5">
+                <img class="top_dialogue" src="../assets/images/top_dialogue_box-removebg-preview.png">                   
+                <div>
+                    <div class="titulo_box">Refazer Teste com Novos Dados</div>
+                        <div class="div_botao">
+                            <button onclick="calcular()">Refazer</button>
+                        </div>
+                        <br>
+                        <div class="div_botao">
+                            <button onclick="limpar()">Limpar</button>
+                        </div>
+                </div>
+                <img class="bottom_dialogue" src="../assets/images/bottom_dialogue_box-removebg-preview.png">    
+            </div>
+        `
+        
     }
 
+    function limpar() {
+        box_resposta.innerHTML = `
+        <div class="containerD">
+                    <img class="top_dialogue" src="../assets/images/top_dialogue_box-removebg-preview.png">
+                    <div class="titulo_box">Clique nas imagens para alterar as entradas</div>
+                    <div class="div_botao"><button onclick="calcular()">Calcular</button></div>
+                    <img class="bottom_dialogue" src="../assets/images/bottom_dialogue_box-removebg-preview.png">
+                </div>`
+    }
+    
 </script>

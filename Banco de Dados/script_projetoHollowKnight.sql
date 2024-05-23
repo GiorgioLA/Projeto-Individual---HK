@@ -6,9 +6,10 @@ CREATE TABLE usuario (
 idUsuario int primary key auto_increment,
 usuario varchar(45),
 email varchar(45),
-cpf char(11),
 senha varchar(45)
 );
+
+ALTER TABLE usuario ADD CONSTRAINT unique_usuario unique(usuario);
 
 SELECT * FROM usuario;
 
@@ -42,4 +43,11 @@ INSERT INTO habilidade VALUES
     
 SHOW TABLES;
 
-SELECT * FROM usuario;
+SELECT * FROM projetoindividualhk.usuario;
+
+SELECT idUsuario FROM usuario WHERE usuario = 'teste27' AND senha = 'teste27';
+SELECT * FROM projetoindividualhk.inventario;
+
+GRANT ALL PRIVILEGES ON projetoindividualhk.* TO 'bd_projetoIndividual'@'localhost';
+
+SELECT * FROM inventario JOIN usuario ON idUsuario = fkUsuario;
