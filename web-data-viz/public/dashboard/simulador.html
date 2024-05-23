@@ -249,4 +249,79 @@
         };
     }
 
+    function calcular() {
+        // var nivel_ferrao = 0;
+        // var cont_amuleto_1 = 0;
+        // var cont_amuleto_2 = 0;
+        // var cont_amuleto_3 = 0;
+        // var cont_amuleto_4 = 0;
+        // var nivel_feitico_1 = 0;
+        // var nivel_feitico_2 = 0;
+        // var nivel_feitico_3 = 0;
+
+        var dano_ferrao_base = 9 + (nivel_ferrao * 4);
+        var dano_ferrao = (dano_ferrao_base * (1 + 0.75 * cont_amuleto_2)) + 1 - ((dano_ferrao_base * (1 + 0.75 * cont_amuleto_2)) - (dano_ferrao_base * (1 + 0.75 * cont_amuleto_2)).toFixed(0));
+        var dano_ferrao = (dano_ferrao_base * (1 + 0.50 * cont_amuleto_4)) + 1 - ((dano_ferrao_base * (1 + 0.50 * cont_amuleto_4)) - (dano_ferrao_base * (1 + 0.50 * cont_amuleto_4)).toFixed(0));
+
+        var dano_feitico_1 = 0;
+        var dano_feitico_2 = 0;
+        var dano_feitico_3 = 5 * nivel_feitico_3 + 7;
+
+        if (nivel_feitico_1 == 1) {
+            dano_feitico_1 = 15 + 5 * cont_amuleto_3;
+            if (cont_amuleto_1 == 1) dano_feitico_1 = 36 + 9 * cont_amuleto_3;
+        } else if (nivel_feitico_1 == 2) {
+            dano_feitico_1 = 30 + 10 * cont_amuleto_3;
+            if (cont_amuleto_1 == 1) dano_feitico_1 = 64 + 16 * cont_amuleto_3;
+        }
+
+        if (nivel_feitico_2 == 1) dano_feitico_2 = 35 + 18 * cont_amuleto_3;
+        else if (nivel_feitico_2 == 2) dano_feitico_2 = 65 + 23 * cont_amuleto_3;
+        
+
+        if (nivel_feitico_3 == 1) dano_feitico_3 = 39 + 21 * cont_amuleto_3;
+        else if (nivel_feitico_3 == 2) dano_feitico_3 = 80 + 40 * cont_amuleto_3;
+        
+        var mensagem_ferrao = ``;
+
+        mensagem_ferrao += `O dano do seu ferrão será de: ${dano_ferrao}`;
+        if (cont_amuleto_2 == 0 && cont_amuleto_4 == 0) mensagem_ferrao += `Sem utilizar nenhum amuleto de aumento de dano na espada`
+        else if (cont_amuleto_2 == 1 && cont_amuleto_4 == 0) mensagem_ferrao = `Utilizando o amuleto: Fúria dos Caídos`;
+        else if (cont_amuleto_2 == 2 && cont_amuleto_4 == 1) mensagem_ferrao = `Utilizando o amuleto: Força inquebrável`;
+        else  mensagem_ferrao = `Utilizando os amuletoa: Força inquebrável e Fúria dos Caídos`;
+
+        var mensagem_feitico_1 = ``;
+
+        if (dano_feitico_1 > 0) {
+            if (nivel_feitico_1 == 1) mensagem_feitico_1 += `O dano do seu Espírito Vingativo será de: ${dano_feitico_1}`;
+            else if (nivel_feitico_1 == 2) mensagem_feitico_1 += `O dano do seu Alma Sombria será de: ${dano_feitico_1}`;
+            if (cont_amuleto_1 == 0 && cont_amuleto_3 == 0) mensagem_feitico_1 += `Sem utilizar nenhum amuleto de aumento de dano para feitiço`
+            else if (cont_amuleto_1 == 1 && cont_amuleto_3 == 0) mensagem_feitico_1 += `Utilizando o amuleto: Ninho de Flukes`;
+            else if (cont_amuleto_1 == 2 && cont_amuleto_3 == 1) mensagem_feitico_1 += `Utilizando o amuleto: Pedra do Xamã`;
+            else  mensagem_feitico_1 += `Utilizando os amuletoa: Ninho de Flukes e Pedra do Xamã`;
+        }
+
+        var mensagem_feitico_2 = ``;
+
+        if (dano_feitico_2 > 0) {
+            if (nivel_feitico_2 == 1) mensagem_feitico_2 += `O dano do seu Mergulho Desolador será de: ${dano_feitico_2}`;
+            else if (nivel_feitico_2 == 2) mensagem_feitico_2 += `O dano do seu Escuridão Descente será de: ${dano_feitico_2}`;
+            if (cont_amuleto_1 == 0 && cont_amuleto_3 == 0) mensagem_feitico_2 += `Sem utilizar nenhum amuleto de aumento de dano para feitiço`
+            else if (cont_amuleto_1 == 1 && cont_amuleto_3 == 0) mensagem_feitico_2 += `Utilizando o amuleto: Ninho de Flukes`;
+            else if (cont_amuleto_1 == 2 && cont_amuleto_3 == 1) mensagem_feitico_2 += `Utilizando o amuleto: Pedra do Xamã`;
+            else  mensagem_feitico_2 += `Utilizando os amuletoa: Ninho de Flukes e Pedra do Xamã`;
+        }
+
+        var mensagem_feitico_3 = ``;
+
+        if (dano_feitico_3 > 0) {
+            if (nivel_feitico_3 == 1) mensagem_feitico_3 += `O dano do seu Espectros Uivantes será de: ${dano_feitico_3}`;
+            else if (nivel_feitico_3 == 2) mensagem_feitico_3 += `O dano do seu Grito do Abismo será de: ${dano_feitico_3}`;
+            if (cont_amuleto_1 == 0 && cont_amuleto_3 == 0) mensagem_feitico_3 += `Sem utilizar nenhum amuleto de aumento de dano para feitiço`
+            else if (cont_amuleto_1 == 1 && cont_amuleto_3 == 0) mensagem_feitico_3 += `Utilizando o amuleto: Ninho de Flukes`;
+            else if (cont_amuleto_1 == 2 && cont_amuleto_3 == 1) mensagem_feitico_3 += `Utilizando o amuleto: Pedra do Xamã`;
+            else  mensagem_feitico_3 += `Utilizando os amuletoa: Ninho de Flukes e Pedra do Xamã`;
+        }
+    }
+
 </script>
