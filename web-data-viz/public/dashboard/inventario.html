@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>HallowNest Insights | Inventário</title>
+        <link rel="stylesheet" href="../css/dashboards.css">
+    </head>
+    <body onload="carregar()">
+    <div class="screen inventario">
+        <div class="blackout">
+            <div class="header navbar">
+                <span class="titulo"><a href=""> HallowNest </a></span>
+                <ul class="lista">
+                  <li>
+                      <span><a href="inicio.html">Início</a></span>
+                  </li>
+                  <li>
+                      <span>|</span>
+                    </li>
+                    <li>
+                        <span><a href="">Inventário</a></span>
+                    </li>
+                  <li>
+                      <span>|</span>
+                  </li>
+                  <li>
+                      <span><a href="">Simulador</a></span>
+                    </li>
+                    <li>
+                    <span>|</span>
+                </li>
+                <li>
+                    <span><a href="">Hallownest</a></span>
+                </li>
+            </ul>
+            </div>
+            <div class="h1">
+                <span>Escolha seu esquipamento desejado <span onclick="saiba_mais()"">ⓘ</span></span>
+            </div>
+            <div>
+                <div class="container">
+                    <div class="box">
+                        <img class="top_dialogue" src="../assets/images/top_dialogue_box-removebg-preview.png">
+                        <div id="box1"></div>
+                        <img class="bottom_dialogue" src="../assets/images/bottom_dialogue_box-removebg-preview.png">
+                    </div>
+                    <div class="box">
+                        <img class="top_dialogue" src="../assets/images/top_dialogue_box-removebg-preview.png">
+                        <div id="box2"></div>
+                        <img class="bottom_dialogue" src="../assets/images/bottom_dialogue_box-removebg-preview.png">
+                    </div>
+                    <div class="box">
+                        <img class="top_dialogue" src="../assets/images/top_dialogue_box-removebg-preview.png">
+                        <div id="box3"></div>
+                        <img class="bottom_dialogue" src="../assets/images/bottom_dialogue_box-removebg-preview.png">
+                    </div>
+                    <div class="box">
+                        <img class="top_dialogue" src="../assets/images/top_dialogue_box-removebg-preview.png">
+                        <div id="box4"></div>
+                        <img class="bottom_dialogue" src="../assets/images/bottom_dialogue_box-removebg-preview.png">
+                    </div>
+                    <div class="box">
+                        <img class="top_dialogue" src="../assets/images/top_dialogue_box-removebg-preview.png">
+                        <div id="box5"></div>
+                        <img class="bottom_dialogue" src="../assets/images/bottom_dialogue_box-removebg-preview.png">
+                    </div>
+                </div>
+                <div class="container">
+                    <div class="box">
+                        <img class="top_dialogue" src="../assets/images/top_dialogue_box-removebg-preview.png">
+                        <div id="box6"></div>
+                        <img class="bottom_dialogue" src="../assets/images/bottom_dialogue_box-removebg-preview.png">
+                    </div>
+                    <div class="box">
+                        <img class="top_dialogue" src="../assets/images/top_dialogue_box-removebg-preview.png">
+                        <div id="box7"></div>
+                        <img class="bottom_dialogue" src="../assets/images/bottom_dialogue_box-removebg-preview.png">
+                    </div>
+                    <div class="box">
+                        <img class="top_dialogue" src="../assets/images/top_dialogue_box-removebg-preview.png">
+                        <div id="box8"></div>
+                        <img class="bottom_dialogue" src="../assets/images/bottom_dialogue_box-removebg-preview.png">
+                    </div>
+                    <div class="box">
+                        <img class="top_dialogue" src="../assets/images/top_dialogue_box-removebg-preview.png">
+                        <div id="box9"></div>
+                        <img class="bottom_dialogue" src="../assets/images/bottom_dialogue_box-removebg-preview.png">
+                    </div>
+                    <div class="box">
+                        <img class="top_dialogue" src="../assets/images/top_dialogue_box-removebg-preview.png">
+                        <div id="box0"></div>
+                        <img class="bottom_dialogue" src="../assets/images/bottom_dialogue_box-removebg-preview.png">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+
+</body>
+</html>
+<script>
+    function saiba_mais() {
+        alert("As variadas páginas desse site são disponíveis de acordo com seu equipamento. Ele pode ser alterado a qualquer momento")
+    }
+
+    function carregar() {
+        var idUsuario = sessionStorage.ID_USUARIO;
+
+        fetch("/usuarios/obterInventario", {
+          method: "POST",
+          headers: {
+              "Content-Type": "application/json"
+          },
+          body: JSON.stringify({
+              idUsuarioServer: idUsuario
+          })
+      }).then(function (resposta) {
+          console.log("ESTOU NO THEN DO entrar()!")
+
+          if (resposta.ok) {
+              console.log(resposta);
+
+              resposta.json().then(json => {
+                  console.log(json);
+                  console.log(JSON.stringify(json));
+                  sessionStorage.EMAIL_USUARIO = json.email;
+                  sessionStorage.NOME_USUARIO = json.usuario;
+                  sessionStorage.ID_USUARIO = json.idUsuario;
+
+                  setTimeout(function () {
+                      window.location = "./dashboard/inicio.html";
+                  }, 1000); // apenas para exibir o loading
+
+              });
+
+          } else {
+
+              console.log("Houve um erro ao tentar realizar o login!");
+
+              resposta.text().then(texto => {
+                  console.error(texto);
+              });
+          }
+
+      }).catch(function (erro) {
+          console.log(erro);
+      })
+    }
+</script>

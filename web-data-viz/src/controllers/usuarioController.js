@@ -120,8 +120,80 @@ function obterID(req, res) {
 
 }
 
+function inventario(req, res) {
+    // Crie uma variável que vá recuperar os valores do arquivo cadastro.html
+    var idUsuarioVar = Number(req.body.idUsuarioServer);
+    console.log('Estou no controller do inventario com o valor:', idUsuarioVar)
+
+    // Faça as validações dos valores
+    if (idUsuarioVar == undefined) {
+        res.status(400).send("Seu nome está undefined!");
+    } else {
+
+        // Passe os valores como parâmetro e vá para o arquivo usuarioModel.js
+        usuarioModel.inventario(idUsuarioVar)
+            .then(
+                console.log("Estou no THEN do CONTROLLER INVENTARIO"),
+                function (resultadoInventario) {
+                    res.json(resultadoInventario);
+                }
+            ).catch(
+                function (erro) {
+                    console.log(erro);
+                    console.log(
+                        "\nHouve um erro ao realizar o cadastro! Erro: ",
+                        erro.sqlMessage
+                    );
+                    res.status(500).json(erro.sqlMessage);
+                }
+            );
+    }
+}
+
+function obterInventario(req, res) {
+    var idUsuario = req.body.idUsuarioServer;
+
+    if (idUsuario == undefined) {
+        res.status(400).send("Seu email está undefined!");
+    } else {
+        usuarioModel.obterInventario(idUsuario)
+            .then(
+                function (resultadoAutenticar) {
+                    console.log(`\nResultados encontrados: ${resultadoAutenticar.length}`);
+                    console.log(`Resultados: ${JSON.stringify(resultadoAutenticar)}`); // transforma JSON em String
+
+                    if (resultadoAutenticar.length == 1) {
+                        console.log(resultadoAutenticar);
+
+                                    res.json({
+                                        idUsuario: resultadoAutenticar[0].idUsuario,
+                                        email: resultadoAutenticar[0].email,
+                                        usuario: resultadoAutenticar[0].usuario,
+                                        senha: resultadoAutenticar[0].senha
+                                    });
+
+                            
+                    } else if (resultadoAutenticar.length == 0) {
+                        res.status(403).send("Email e/ou senha inválido(s)");
+                    } else {
+                        res.status(403).send("Mais de um usuário com o mesmo login e senha!");
+                    }
+                }
+            ).catch(
+                function (erro) {
+                    console.log(erro);
+                    console.log("\nHouve um erro ao realizar o login! Erro: ", erro.sqlMessage);
+                    res.status(500).json(erro.sqlMessage);
+                }
+            );
+    }
+
+}
+
 module.exports = {
     autenticar,
     cadastrar,
-    obterID
+    obterID,
+    inventario,
+    obterInventario
 }

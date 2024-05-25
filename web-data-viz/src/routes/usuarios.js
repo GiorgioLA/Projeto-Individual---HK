@@ -14,6 +14,14 @@ router.post("/autenticar", function (req, res) {
 
 router.post("/obterID", function (req, res) {
     usuarioController.obterID(req, res);
-})
+});
+
+router.post("/inventario", function (req, res) {
+    usuarioController.inventario(req, res);
+});
+
+router.post("/obterInventario", function (req, res) {
+    usuarioController.obterInventario(req, res);
+});
 
 module.exports = router;

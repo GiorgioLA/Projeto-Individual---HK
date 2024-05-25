@@ -70,6 +70,8 @@
 </html>
 
 <script>
+
+  var lista_idUsuario = []
   function cadastrar() {
 
     //Recupere o valor da nova input pelo nome do id
@@ -77,6 +79,7 @@
     var nomeVar = nome_input.value;
     var emailVar = email_input.value;
     var senhaVar = senha_input.value;
+    var idUsiarioVar = 1;
     var confirmacaoSenhaVar = confirmacao_senha_input.value;
     if (
       nomeVar == "" ||
@@ -107,7 +110,7 @@
 
         if (resposta.ok) {
 
-          alert('Cadastrado com sucesso! Aperte o botão para ser redirecionado!')
+          alert('Cadastrado em usuário com sucesso!')
 
           // setTimeout(() => {
           //   window.location = "login.html";
@@ -143,7 +146,9 @@
             resposta.json().then(json => {
               console.log(json);
               console.log(JSON.stringify(json));
-              sessionStorage.ID_USUARIO = Number(json.idUsuario);
+              // sessionStorage.ID_USUARIO = Number(json.idUsuario);
+              lista_idUsuario.push(json.idUsuario);
+              console.log('Valor da lista:', lista_idUsuario[0])
             });
           } else {
             console.log("Houve um erro no resposta.ok do THEN DO do OBTERID");
@@ -152,7 +157,42 @@
         }).catch(function (erro) {
           console.log(erro);
         })
-      }, "5000");
+      }, "2000");
+
+      var idUsuario_atual = lista_idUsuario[0]
+      console.log('Valor de idUsuario_atual = ', idUsuario_atual)
+
+          setTimeout(() => {
+          console.log("Valor da var:", idUsuario_atual)    
+        fetch("/usuarios/inventario", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        // crie um atributo que recebe o valor recuperado aqui
+        // Agora vá para o arquivo routes/usuario.js
+        idUsuarioServer: lista_idUsuario[0]
+      }),
+    })
+      .then(function (resposta) {
+        console.log("resposta: ", resposta);
+
+        if (resposta.ok) {
+
+          alert('Cadastrado em inventário feito com sucesso!')
+
+          setTimeout(() => {
+            window.location = "login.html";
+          }, "2000");
+        } else {
+          throw "Houve um erro ao tentar realizar o cadastro!";
+        }
+      })
+      .catch(function (resposta) {
+        console.log(`#ERRO: ${resposta}`);
+      });
+    }, "6000");
   
       return false;
     }

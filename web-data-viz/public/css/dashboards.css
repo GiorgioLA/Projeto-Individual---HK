@@ -293,6 +293,56 @@ button:hover {
   margin: 10px;
 }
 
+.inventario {
+  background-image: url(../assets/images/Deepnest_Hot_Spring.png);
+  height: 100vh;
+}
+
+.inventario .h1 {
+  font-size: 30px;
+  font-family: Trajan_Regular;
+  height: 50px;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.inventario .container {
+  width: 100%;
+  display: flex;
+  height: fit-content;
+  margin-top: 25px;
+  justify-content: space-around;
+  font-size: 24px;
+}
+
+.inventario .box {
+  width: 200px;
+  height: 250px;
+  background-color: rgba(0,0,0,0.5);
+  color: white;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.inventario .box .bottom_dialogue {
+  width: 80%;
+}
+
+.inventario .box .top_dialogue {
+  width: 80%;
+}
+
+.popUp {
+  width: 200px;
+  height: 200px;
+  background-color: rgba(0,0,0,0.5);
+  
+}
+
 a {
   color: white;
   text-decoration: none;
