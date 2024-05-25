@@ -101,6 +101,18 @@
 </body>
 </html>
 <script>
+
+    var habilidade1 = 0;
+    var habilidade2 = 0;
+    var habilidade3 = 0;
+    var habilidade4 = 0;
+    var habilidade5 = 0;
+    var habilidade6 = 0;
+    var habilidade7 = 0;
+    var habilidade8 = 0;
+    var habilidade9 = 0;
+
+
     function saiba_mais() {
         alert("As variadas páginas desse site são disponíveis de acordo com seu equipamento. Ele pode ser alterado a qualquer momento")
     }
@@ -125,19 +137,24 @@
               resposta.json().then(json => {
                   console.log(json);
                   console.log(JSON.stringify(json));
-                  sessionStorage.EMAIL_USUARIO = json.email;
-                  sessionStorage.NOME_USUARIO = json.usuario;
-                  sessionStorage.ID_USUARIO = json.idUsuario;
-
+                    habilidade1 = json.habilidade1;
+                    habilidade2 = json.habilidade2;
+                    habilidade3 = json.habilidade3;
+                    habilidade4 = json.habilidade4;
+                    habilidade5 = json.habilidade5;
+                    habilidade6 = json.habilidade6;
+                    habilidade7 = json.habilidade7;
+                    habilidade8 = json.habilidade8;
+                    habilidade9 = json.habilidade9;
                   setTimeout(function () {
-                      window.location = "./dashboard/inicio.html";
+                      alert("Dados obtidos com sucesso! Customizando a página...");
                   }, 1000); // apenas para exibir o loading
 
               });
 
           } else {
 
-              console.log("Houve um erro ao tentar realizar o login!");
+              console.log("Houve um erro ao obter os dados!");
 
               resposta.text().then(texto => {
                   console.error(texto);

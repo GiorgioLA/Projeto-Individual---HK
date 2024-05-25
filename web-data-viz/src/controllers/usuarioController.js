@@ -158,31 +158,36 @@ function obterInventario(req, res) {
     } else {
         usuarioModel.obterInventario(idUsuario)
             .then(
-                function (resultadoAutenticar) {
-                    console.log(`\nResultados encontrados: ${resultadoAutenticar.length}`);
-                    console.log(`Resultados: ${JSON.stringify(resultadoAutenticar)}`); // transforma JSON em String
+                function (resultadoObter) {
+                    console.log(`\nResultados encontrados: ${resultadoObter.length}`);
+                    console.log(`Resultados: ${JSON.stringify(resultadoObter)}`); // transforma JSON em String
 
-                    if (resultadoAutenticar.length == 1) {
-                        console.log(resultadoAutenticar);
+                    if (resultadoObter.length == 9) {
+                        console.log(resultadoObter);
 
                                     res.json({
-                                        idUsuario: resultadoAutenticar[0].idUsuario,
-                                        email: resultadoAutenticar[0].email,
-                                        usuario: resultadoAutenticar[0].usuario,
-                                        senha: resultadoAutenticar[0].senha
+                                        habilidade1: resultadoObter[0].nivel,
+                                        habilidade2: resultadoObter[1].nivel,
+                                        habilidade3: resultadoObter[2].nivel,
+                                        habilidade4: resultadoObter[3].nivel,
+                                        habilidade5: resultadoObter[4].nivel,
+                                        habilidade6: resultadoObter[5].nivel,
+                                        habilidade7: resultadoObter[6].nivel,
+                                        habilidade8: resultadoObter[7].nivel,
+                                        habilidade9: resultadoObter[8].nivel
                                     });
 
                             
-                    } else if (resultadoAutenticar.length == 0) {
-                        res.status(403).send("Email e/ou senha inválido(s)");
+                    } else if (resultadoObter.length == 0) {
+                        res.status(403).send("Erro ao obter os seus dados, nenhum dado encontrado");
                     } else {
-                        res.status(403).send("Mais de um usuário com o mesmo login e senha!");
+                        res.status(403).send("Erro ao obter os seus dados, mais entradas do que o esperado");
                     }
                 }
             ).catch(
                 function (erro) {
                     console.log(erro);
-                    console.log("\nHouve um erro ao realizar o login! Erro: ", erro.sqlMessage);
+                    console.log("\nHouve um erro ao realizar a obtenção dos dados! Erro: ", erro.sqlMessage);
                     res.status(500).json(erro.sqlMessage);
                 }
             );
