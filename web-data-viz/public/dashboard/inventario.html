@@ -42,54 +42,59 @@
                 <div class="container">
                     <div class="box">
                         <img class="top_dialogue" src="../assets/images/top_dialogue_box-removebg-preview.png">
-                        <div id="box1"></div>
+                        <div onclick="alterarHabilidade1()" class="toggleContent" onmouseover id="box1"></div>
                         <img class="bottom_dialogue" src="../assets/images/bottom_dialogue_box-removebg-preview.png">
                     </div>
                     <div class="box">
                         <img class="top_dialogue" src="../assets/images/top_dialogue_box-removebg-preview.png">
-                        <div id="box2"></div>
+                        <div onclick="alterarHabilidade2()" class="toggleContent" onmouseover id="box2"></div>
                         <img class="bottom_dialogue" src="../assets/images/bottom_dialogue_box-removebg-preview.png">
                     </div>
                     <div class="box">
                         <img class="top_dialogue" src="../assets/images/top_dialogue_box-removebg-preview.png">
-                        <div id="box3"></div>
+                        <div onclick="alterarHabilidade3()" class="toggleContent" onmouseover id="box3"></div>
                         <img class="bottom_dialogue" src="../assets/images/bottom_dialogue_box-removebg-preview.png">
                     </div>
                     <div class="box">
                         <img class="top_dialogue" src="../assets/images/top_dialogue_box-removebg-preview.png">
-                        <div id="box4"></div>
+                        <div onclick="alterarHabilidade4()" class="toggleContent" onmouseover id="box4"></div>
                         <img class="bottom_dialogue" src="../assets/images/bottom_dialogue_box-removebg-preview.png">
                     </div>
                     <div class="box">
                         <img class="top_dialogue" src="../assets/images/top_dialogue_box-removebg-preview.png">
-                        <div id="box5"></div>
+                        <div onclick="alterarHabilidade5()" class="toggleContent" onmouseover id="box5"></div>
                         <img class="bottom_dialogue" src="../assets/images/bottom_dialogue_box-removebg-preview.png">
                     </div>
                 </div>
                 <div class="container">
                     <div class="box">
                         <img class="top_dialogue" src="../assets/images/top_dialogue_box-removebg-preview.png">
-                        <div id="box6"></div>
+                        <div onclick="alterarHabilidade6()" class="toggleContent" onmouseover id="box6"></div>
                         <img class="bottom_dialogue" src="../assets/images/bottom_dialogue_box-removebg-preview.png">
                     </div>
                     <div class="box">
                         <img class="top_dialogue" src="../assets/images/top_dialogue_box-removebg-preview.png">
-                        <div id="box7"></div>
+                        <div onclick="alterarHabilidade7()" class="toggleContent" onmouseover id="box7"></div>
                         <img class="bottom_dialogue" src="../assets/images/bottom_dialogue_box-removebg-preview.png">
                     </div>
                     <div class="box">
                         <img class="top_dialogue" src="../assets/images/top_dialogue_box-removebg-preview.png">
-                        <div id="box8"></div>
+                        <div onclick="alterarHabilidade8()" class="toggleContent" onmouseover id="box8"></div>
                         <img class="bottom_dialogue" src="../assets/images/bottom_dialogue_box-removebg-preview.png">
                     </div>
                     <div class="box">
                         <img class="top_dialogue" src="../assets/images/top_dialogue_box-removebg-preview.png">
-                        <div id="box9"></div>
+                        <div onclick="alterarHabilidade9()" class="toggleContent" onmouseover id="box9"></div>
                         <img class="bottom_dialogue" src="../assets/images/bottom_dialogue_box-removebg-preview.png">
                     </div>
                     <div class="box">
                         <img class="top_dialogue" src="../assets/images/top_dialogue_box-removebg-preview.png">
-                        <div id="box0"></div>
+                        <div id="box0">
+                            <div class="div_botoes">
+                            <button onclick="">Saiba Mais</button>
+                            <button onclick="verificar()">Confirmar</button>
+                            </div>
+                        </div>
                         <img class="bottom_dialogue" src="../assets/images/bottom_dialogue_box-removebg-preview.png">
                     </div>
                 </div>
@@ -102,6 +107,19 @@
 </html>
 <script>
 
+    function carregar() {
+        buscar();
+        carregarHabilidade1();
+        carregarHabilidade2();
+        carregarHabilidade3();
+        carregarHabilidade4();
+        carregarHabilidade5();
+        carregarHabilidade6();
+        carregarHabilidade7();
+        carregarHabilidade8();
+        carregarHabilidade9 ();
+    }
+
     var habilidade1 = 0;
     var habilidade2 = 0;
     var habilidade3 = 0;
@@ -112,12 +130,337 @@
     var habilidade8 = 0;
     var habilidade9 = 0;
 
+    // HABILIDADE 1
 
-    function saiba_mais() {
-        alert("As variadas páginas desse site são disponíveis de acordo com seu equipamento. Ele pode ser alterado a qualquer momento")
+    function carregarHabilidade1() {
+        if (habilidade1 == 0) {
+            box1.innerHTML = `
+            <div class="box_image">
+            <img style="opacity: 50%" src="../assets/images/spells/Icon_HK_Vengeful_Spirit.png">
+            </div> 
+            <span class="box_text">Sem Magia</span>`
+        } else if (habilidade1 == 1) {
+            box1.innerHTML = `
+            <div class="box_image">
+            <img src="../assets/images/spells/Icon_HK_Vengeful_Spirit.png">
+            </div>
+            <span class="box_text">Espírito Vingativo</span>`            
+        } else {
+            box1.innerHTML = `
+            <div class="box_image">
+            <img src="../assets/images/spells/Icon_HK_Shade_Soul.png"> 
+            </div>
+            <span class="box_text">Alma Sombria</span>`            
+        }
     }
 
-    function carregar() {
+    function alterarHabilidade1() {
+        if (habilidade1 == 2) habilidade1 = 0
+        else habilidade1++
+        carregarHabilidade1()
+    }
+
+    // HABILIDADE 2
+
+    function carregarHabilidade2() {
+        if (habilidade2 == 0) {
+            box2.innerHTML = `
+            <div class="box_image">
+            <img style="opacity: 50%" src="../assets/images/spells/Icon_HK_Desolate_Dive.png">
+            </div>
+            <span class="box_text">Sem Magia</span>`
+        } else if (habilidade2 == 1) {
+            box2.innerHTML = `
+            <div class="box_image">
+            <img src="../assets/images/spells/Icon_HK_Desolate_Dive.png"> 
+            </div>
+            <span class="box_text">Mergulho Desolador</span>`            
+        } else {
+            box2.innerHTML = `
+            <div class="box_image">
+            <img src="../assets/images/spells/Icon_HK_Descending_Dark.png">
+            </div>
+            <span class="box_text">Escuridão Descente</span>`            
+        }
+    }
+
+    function alterarHabilidade2() {
+        if (habilidade2 == 2) habilidade2 = 0
+        else habilidade2++
+        carregarHabilidade2()
+    }
+
+    // HABILIDADE 3
+
+    function carregarHabilidade3() {
+        if (habilidade3 == 0) {
+            box3.innerHTML = `
+            <div class="box_image">
+            <img style="opacity: 50%" src="../assets/images/spells/Icon_HK_Howling_Wraiths.png"> 
+            </div>
+            <span class="box_text">Sem Magia</span>`
+        } else if (habilidade3 == 1) {
+            box3.innerHTML = `
+            <div class="box_image">
+            <img src="../assets/images/spells/Icon_HK_Howling_Wraiths.png"> 
+            </div>
+            <span class="box_text">Espesctor Uivantes</span>`            
+        } else {
+            box3.innerHTML = `
+            <div class="box_image">
+            <img src="../assets/images/spells/Icon_HK_Abyss_Shriek.png">
+            </div>
+            <span class="box_text">Grito do Abismo</span>`            
+        }
+    }
+
+    function alterarHabilidade3() {
+        if (habilidade3 == 2) habilidade3 = 0
+        else habilidade3++
+        carregarHabilidade3()
+    }
+
+    // HABILIDADE 4
+
+    function carregarHabilidade4() {
+        if (habilidade4 == 0) {
+            box4.innerHTML = `
+            <div class="box_image">
+            <img style="opacity: 50%;" src="../assets/images/Habilidades/Icon_HK_Mothwing_Cloak.png">
+            </div>
+            <span class="box_text">Nada</span>`
+        } else if (habilidade4 == 1) {
+            box4.innerHTML = `
+            <div class="box_image">
+            <img src="../assets/images/Habilidades/Icon_HK_Mothwing_Cloak.png">
+            </div>
+            <span class="box_text">Manto de Asa de Mariposa</span>`            
+        } else {
+            box4.innerHTML = `
+            <div class="box_image">
+            <img src="../assets/images/Habilidades/Icon_HK_Shade_Cloak.png">
+            </div>
+            <span class="box_text">Manto Sombrio</span>`        
+        }
+    }
+
+    function alterarHabilidade4() {
+        if (habilidade4 == 1) habilidade4 = 0
+        else habilidade4++
+        carregarHabilidade4()
+    }
+
+    // HABILADE 5
+
+    function carregarHabilidade5() {
+        if (habilidade5 == 0) {
+            box5.innerHTML = `
+            <div class="box_image">
+            <img style="opacity: 50%;" src="../assets/images/Habilidades/Icon_HK_Mantis_Claw.png">
+            </div>
+            <span class="box_text">Nada</span>`
+        } else {
+            box5.innerHTML = `
+            <div class="box_image">
+            <img src="../assets/images/Habilidades/Icon_HK_Mantis_Claw.png">
+            </div>
+            <span class="box_text">Garra do Louva-a-Deus</span>`            
+        }
+    }
+
+    function alterarHabilidade5() {
+        if (habilidade5 == 1) habilidade5 = 0
+        else habilidade5++
+        carregarHabilidade5()
+    }
+
+    // HABILADADE 6
+
+    function carregarHabilidade6() {
+        if (habilidade6 == 0) {
+            box6.innerHTML = `
+            <div class="box_image">
+            <img style="opacity: 50%;" src="../assets/images/Habilidades/Icon_HK_Crystal_Heart.png">
+            </div>
+            <span class="box_text">Nada</span>`
+        } else {
+            box6.innerHTML = `
+            <div class="box_image">
+            <img src="../assets/images/Habilidades/Icon_HK_Crystal_Heart.png">
+            </div>
+            <span class="box_text">Coração de Cristal</span>`            
+        }
+    }
+
+    function alterarHabilidade6() {
+        if (habilidade6 == 1) habilidade6 = 0
+        else habilidade6++
+        carregarHabilidade6()
+    }
+
+    // HABILIDADE 7
+
+    function carregarHabilidade7() {
+        if (habilidade7 == 0) {
+            box7.innerHTML = `
+            <div class="box_image">
+            <img style="opacity: 50%;" src="../assets/images/Habilidades/Icon_HK_Monarch_Wings.png">
+            </div>
+            <span class="box_text">Nada</span>`
+        } else {
+            box7.innerHTML = `
+            <div class="box_image">
+            <img src="../assets/images/Habilidades/Icon_HK_Monarch_Wings.png">
+            </div>
+            <span class="box_text">Asas do Monarca</span>`            
+        }
+    }
+
+    function alterarHabilidade7() {
+        if (habilidade7 == 1) habilidade7 = 0
+        else habilidade7++
+        carregarHabilidade7()
+    }
+
+    // HABILIDADE 8
+
+    function carregarHabilidade8() {
+        if (habilidade8 == 0) {
+            box8.innerHTML = `
+            <div class="box_image">
+            <img style="opacity: 50%;" src="../assets/images/Habilidades/Icon_HK_Isma's_Tear.png">
+            </div>
+            <span class="box_text">Nada</span>`
+        } else {
+            box8.innerHTML = `
+            <div class="box_image">
+            <img src="../assets/images/Habilidades/Icon_HK_Isma's_Tear.png">
+            </div>
+            <span class="box_text">Asas do Monarca</span>`            
+        }
+    }
+
+    function alterarHabilidade8() {
+        if (habilidade8 == 1) habilidade8 = 0
+        else habilidade8++
+        carregarHabilidade8()
+    }
+
+    // HABILIDADE 9
+
+    function carregarHabilidade9() {
+        if (habilidade9 == 0) {
+            box9.innerHTML = `
+            <div class="box_image">
+            <img style="opacity: 50%;" src="../assets/images/Habilidades/Icon_HK_Dream_Nail.png">
+            </div>
+            <span class="box_text">Nada</span>`
+        } else if (habilidade9 == 1) {
+            box9.innerHTML = `
+            <div class="box_image">
+            <img src="../assets/images/Habilidades/Icon_HK_Dream_Nail.png">
+            </div>
+            <span class="box_text">Ferrão dos Sonhos</span>`            
+        } else if (habilidade9 == 2) {
+            box9.innerHTML = `
+            <div class="box_image">
+            <img src="../assets/images/Habilidades/Icon_HK_DreamGate.png">
+            </div>
+            <span class="box_text">Ferrão dos Sonhos (2)</span>`   
+        } else {
+            box9.innerHTML = `
+            <div class="box_image">
+            <img src="../assets/images/Habilidades/Icon_HK_Awoken_Dream_Nail.png">
+            </div>
+            <span class="box_text">Ferrão dos Sonhos Despertado</span>`  
+        }
+    }
+
+    function alterarHabilidade9() {
+        if (habilidade9 == 3) habilidade9 = 0
+        else habilidade9++
+        carregarHabilidade9()
+    }
+
+    // LOGICA ANTES DE CONFIRMAR
+
+    function verificar() {
+        if (habilidade1 == 0) {
+            if (habilidade4 >= 1) {
+                alert('Para ter Manto de Asa de Mariposa é necessário ter Espírito Vingativo!');
+                return false
+            }
+        }
+
+        if (habilidade4 == 0) {
+            if (habilidade5 == 1) {
+                alert('Para ter Garra do Louva-a-Deus é necessário ter Manto de Asa de Mariposa!');
+                return false
+            }
+        }
+
+        if (habilidade5 == 0) {
+            if (habilidade3 > 0) {
+                alert('Para ter Espectors Uivantes é necessário ter Garra do Louva-a-Deus!');
+                return false
+            }
+
+            if (habilidade2 > 0) {
+                alert('Para ter Mergulho Desolador ou Escuridão Descente é necessário ter Garra do Louva-a-Deus!');
+                return false
+            }
+        }
+
+        if (habilidade2 == 0) {
+            if (habilidade6 == 1) {
+                alert('Para ter Coração de Cristal é necessário ter Mergulho Desolador!');
+                return false
+            }
+        }
+
+        if (habilidade6 == 0) {
+            if (habilidade7 == 1) {
+                alert('Para ter Asas do Monarca é necessário ter Coração de Cristal!');
+                return false
+            }
+            if (habilidade2 == 2) {
+                alert('Para ter Escuridão Descente é necessário ter Coração de Cristal!');
+                return false
+            }
+        }
+        
+        if (habilidade7 == 0) {
+            if (habilidade8 == 1) {
+                alert('Para ter Lágrima de Isma é necessário ter Asas do Monarca!');
+                return false
+            }
+        }
+
+        if (habilidade3 == 2) {
+            if (habilidade4 != 2) {
+            alert('Para ter Grito do Abismo é necessário ter Asas do Monarca!');
+            return false
+            }
+        }   
+
+        if (habilidade8 == 0) {
+            if (habilidade4 == 2) {
+                alert('Para ter Manto Sombrio é necessário ter Lágrima de Isma!');
+                return false
+            }
+            if (habilidade9 == 3) {
+                alert('Para ter Manto Sombrio é necessário ter Lágrima de Isma!');
+                    return false
+            }
+        }
+
+    }
+
+    function saiba_mais() {
+        alert("As variadas páginas desse site são disponíveis de acordo com seu equipamento. Ele pode ser alterado a qualquer momento. Aperte na imagem para alternar entre os níveis")
+    }
+
+    function buscar() {
         var idUsuario = sessionStorage.ID_USUARIO;
 
         fetch("/usuarios/obterInventario", {
@@ -155,6 +498,7 @@
           } else {
 
               console.log("Houve um erro ao obter os dados!");
+              alert("Tente fazer o Login novamente")
 
               resposta.text().then(texto => {
                   console.error(texto);

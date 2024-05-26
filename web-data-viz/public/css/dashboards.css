@@ -336,11 +336,41 @@ button:hover {
   width: 80%;
 }
 
-.popUp {
-  width: 200px;
-  height: 200px;
-  background-color: rgba(0,0,0,0.5);
-  
+.inventario img {
+  width: 100px;
+}
+
+.inventario .toggleContent {
+  display: flex;
+  flex-direction: column;
+  height: 150px;
+  justify-content: space-between;
+  text-align: center;
+  width: 100%;
+  align-items: center;
+  cursor: url(../assets/images/Hollow_Knight_Cursor/cursor05.cur), auto;
+}
+
+.inventario .box_image {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100px;
+  width: 100%;
+}
+
+.inventario .box_text {
+  height: 56px;
+  margin-top: 20px;
+}
+
+.inventario .div_botoes {
+  height: 150px;
+  width: 180px;
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 }
 
 a {
