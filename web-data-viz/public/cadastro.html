@@ -8,7 +8,7 @@
 
   <title>Hallownest Insight | Cadastro</title>
 
-  <script src="./js/sessao.js"></script>
+  <!-- <script src="./js/sessao.js"></script> -->
 
   <link rel="stylesheet" href="./css/estilo.css" />
 </head>
@@ -110,7 +110,7 @@
 
         if (resposta.ok) {
 
-          alert('Cadastrado em usuário com sucesso!')
+          // alert('Cadastrado com sucesso! Redirecionando...')
 
           // setTimeout(() => {
           //   window.location = "login.html";
@@ -127,7 +127,7 @@
       // inicio segundo fetch, select
 
       setTimeout(() => {
-            alert('Iniciando segunda parte do cadastro!');
+            // alert('Iniciando segunda parte do cadastro!');
             
             fetch("/usuarios/obterID", {
               method: "POST",
@@ -180,7 +180,7 @@
 
         if (resposta.ok) {
 
-          alert('Cadastrado em inventário feito com sucesso!')
+          alert('Cadastrado feito com sucesso! Redirecionando...')
 
           setTimeout(() => {
             window.location = "login.html";

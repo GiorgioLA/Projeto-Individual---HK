@@ -24,4 +24,9 @@ router.post("/obterInventario", function (req, res) {
     usuarioController.obterInventario(req, res);
 });
 
+router.post("/alterarInventario", function (req, res) {
+    usuarioController.alterarInventario(req, res);
+});
+
+
 module.exports = router;

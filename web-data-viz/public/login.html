@@ -100,6 +100,7 @@
 
           if (resposta.ok) {
               console.log(resposta);
+              alert('Login realisado com sucesso! Redirecionando...')
 
               resposta.json().then(json => {
                   console.log(json);

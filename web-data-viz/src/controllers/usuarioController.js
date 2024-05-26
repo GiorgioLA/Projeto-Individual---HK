@@ -195,10 +195,53 @@ function obterInventario(req, res) {
 
 }
 
+function alterarInventario(req, res) {
+    // Crie uma variável que vá recuperar os valores do arquivo cadastro.html
+    var habilidade1 = req.body.habilidade1Server;
+    var habilidade2 = req.body.habilidade2Server;
+    var habilidade3 = req.body.habilidade3Server;
+    var habilidade4 = req.body.habilidade4Server;
+    var habilidade5 = req.body.habilidade5Server;
+    var habilidade6 = req.body.habilidade6Server;
+    var habilidade7 = req.body.habilidade7Server;
+    var habilidade8 = req.body.habilidade8Server;
+    var habilidade9 = req.body.habilidade9Server;
+    var idUsuario = req.body.idUsuario;
+
+        // Passe os valores como parâmetro e vá para o arquivo usuarioModel.js
+        usuarioModel.alterarInventario(
+            habilidade1,
+            habilidade2, 
+            habilidade3, 
+            habilidade4, 
+            habilidade5, 
+            habilidade6, 
+            habilidade7, 
+            habilidade8, 
+            habilidade9,
+            idUsuario
+        )
+            .then(
+                function (resultado) {
+                    res.json(resultado);
+                }
+            ).catch(
+                function (erro) {
+                    console.log(erro);
+                    console.log(
+                        "\nHouve um erro ao realizar a atualização dos dados! Erro: ",
+                        erro.sqlMessage
+                    );
+                    res.status(500).json(erro.sqlMessage);
+                }
+            );
+    }
+
 module.exports = {
     autenticar,
     cadastrar,
     obterID,
     inventario,
-    obterInventario
+    obterInventario,
+    alterarInventario
 }
