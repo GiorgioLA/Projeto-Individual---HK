@@ -373,6 +373,45 @@ button:hover {
   justify-content: space-between;
 }
 
+.saiba_mais_main {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+  width: 100%;
+}
+
+.saiba_mais_box {
+  width: 100%;
+  height: 200px;
+  display: flex;
+  justify-content: space-around;
+}
+
+.saiba_mais_imagem {
+  height: 200px;
+  width: 200px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.saiba_mais_imagem img {
+  width: 150px;
+  
+}
+
+.saiba_mais_txt {
+  text-align: center;
+  font-family: Perpetua;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-size: 20px;
+  width: 800px;
+}
+
 a {
   color: white;
   text-decoration: none;
