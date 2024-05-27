@@ -11,12 +11,15 @@
   <!-- <script src="./js/sessao.js"></script> -->
 
   <link rel="stylesheet" href="./css/estilo.css" />
+  <link rel="shortcut icon" type="imagex/png" href="assets/images/hallownest_insights_logo.png">
 </head>
 
 <body>
   <div class="screen cadastro">
     <div class="header navbar">
-        <span class="titulo"><a href="index.html"> HallowNest </a></span>
+      <span class="titulo">
+        <img class="logo" src="assets/images/hallownest_insights_logo.png">
+        <a href="index.html"> HallowNest Insights </a></span>
         <ul class="lista">
           <li>
             <span><a href="index.html">Início</a></span>
@@ -32,12 +35,6 @@
           </li>
           <li>
             <span><a href="login.html">Login</a></span>
-          </li>
-          <li>
-            <span>|</span>
-          </li>
-          <li>
-            <span><a href="informacoes.html">informações</a></span>
           </li>
         </ul>
     </div>
@@ -73,6 +70,7 @@
 
   var lista_idUsuario = []
   function cadastrar() {
+    alert('Realizando seu cadastro, por favor aguarde...')
 
     //Recupere o valor da nova input pelo nome do id
     // Agora vá para o método fetch logo abaixo
@@ -110,13 +108,14 @@
 
         if (resposta.ok) {
 
-          // alert('Cadastrado com sucesso! Redirecionando...')
+          alert('Cadastrado com sucesso! Redirecionando...')
 
           // setTimeout(() => {
           //   window.location = "login.html";
           // }, "2000");
         } else {
           throw "Houve um erro ao tentar realizar o cadastro!";
+          return false
         }
       })
       .catch(function (resposta) {
@@ -153,47 +152,47 @@
           } else {
             console.log("Houve um erro no resposta.ok do THEN DO do OBTERID");
           }
-          console.log('Fim do select. Valor obtido:', sessionStorage.ID_USUARIO)
         }).catch(function (erro) {
           console.log(erro);
         })
-      }, "2000");
-
-      var idUsuario_atual = lista_idUsuario[0]
-      console.log('Valor de idUsuario_atual = ', idUsuario_atual)
-
-          setTimeout(() => {
-          console.log("Valor da var:", idUsuario_atual)    
-        fetch("/usuarios/inventario", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        // crie um atributo que recebe o valor recuperado aqui
-        // Agora vá para o arquivo routes/usuario.js
-        idUsuarioServer: lista_idUsuario[0]
-      }),
-    })
-      .then(function (resposta) {
-        console.log("resposta: ", resposta);
-
-        if (resposta.ok) {
-
-          alert('Cadastrado feito com sucesso! Redirecionando...')
-
-          setTimeout(() => {
-            window.location = "login.html";
-          }, "2000");
-        } else {
-          throw "Houve um erro ao tentar realizar o cadastro!";
-        }
-      })
-      .catch(function (resposta) {
-        console.log(`#ERRO: ${resposta}`);
-      });
-    }, "6000");
-  
-      return false;
+        
+        var idUsuario_atual = lista_idUsuario[0]
+        console.log('Valor de idUsuario_atual = ', idUsuario_atual)
+        console.log("Valor da var:", idUsuario_atual)    
+        setTimeout(() => {
+          fetch("/usuarios/inventario", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+              // crie um atributo que recebe o valor recuperado aqui
+              // Agora vá para o arquivo routes/usuario.js
+      idUsuarioServer: lista_idUsuario[0]
+    }),
+  })
+  .then(function (resposta) {
+    console.log("resposta: ", resposta);
+    console.log("ESTOU NO THEN DO INSERIR INVENTARIO")
+    
+    if (resposta.ok) {
+      
+      alert('Cadastrado feito com sucesso! Redirecionando...')
+      
+      
+      
+    } else {
+      alert("Houve um erro ao tentar realizar o cadastro!");
     }
-    </script>
+  })
+  .catch(function (resposta) {
+    console.log(`#ERRO: ${resposta}`);
+  });
+  window.location = "login.html";
+}, "4000");
+}, "2000");
+
+
+// return false;
+}
+</script>

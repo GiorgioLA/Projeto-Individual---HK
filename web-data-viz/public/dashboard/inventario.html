@@ -5,12 +5,15 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>HallowNest Insights | Inventário</title>
         <link rel="stylesheet" href="../css/dashboards.css">
+        <link rel="shortcut icon" type="imagex/png" href="../assets/images/hallownest_insights_logo.png">
     </head>
     <body onload="carregar()">
     <div class="screen inventario">
         <div class="blackout">
             <div class="header navbar">
-                <span class="titulo"><a href=""> HallowNest </a></span>
+                <span class="titulo">
+                    <img style="width: 40px;" class="logo" src="../assets/images/hallownest_insights_logo.png">
+                    <a href="../ndex.html"> HallowNest Insights </a></span>
                 <ul class="lista">
                   <li>
                       <span><a href="inicio.html">Início</a></span>
@@ -91,7 +94,7 @@
                         <img class="top_dialogue" src="../assets/images/top_dialogue_box-removebg-preview.png">
                         <div id="box0">
                             <div class="div_botoes">
-                            <button onclick="">Saiba Mais</button>
+                            <button onclick="redirect()">Saiba Mais</button>
                             <button onclick="verificar()">Confirmar</button>
                             </div>
                         </div>
@@ -106,6 +109,9 @@
 </body>
 </html>
 <script>
+    function redirect() {
+        window.location = "saiba_mais.html"
+    }
 
     function carregar() {
         buscar();

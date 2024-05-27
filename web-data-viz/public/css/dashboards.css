@@ -9,6 +9,11 @@ body {
   cursor: url(../assets/images/Hollow_Knight_Cursor/cursor.cur), auto;
 }
 
+.logo {
+  width: 40px;
+  margin-right: 15px;
+}
+
 .screen {
   width: 100%;
   height: 100%;
@@ -20,7 +25,9 @@ body {
 
 .simulador {
   background-image: url(../assets/images/Godhome_Arena_Absolute_Radiance_Phase_6.png);
-  height: 100vh;
+  /* height: 100vh; */
+  width: 100%;
+  height: 100%;
 }
 
 select {
@@ -162,7 +169,7 @@ option {
   width: 270px;
   margin-left: 25px;
   margin-right: 25px;
-  height: 300px;
+  height: 250px;
   background-color: rgba(0,0,0,0.8);
   display: flex;
   flex-direction: column;
@@ -172,7 +179,7 @@ option {
 }
 
 .titulo_box {
-  font-size: 20px;
+  font-size: 16px;
   font-family: Trajan_Regular;
   display: flex;
   width: 220px;
@@ -237,6 +244,10 @@ option {
   font-size: 40px;
   font-family: Trajan_Regular;
   margin-left: 40px;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
 }
 
 .navbar .lista { /* Lista de opções (início, cadastro, etc */
