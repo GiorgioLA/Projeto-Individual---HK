@@ -44,10 +44,14 @@ INSERT INTO habilidade VALUES
 SHOW TABLES;
 
 SELECT * FROM projetoindividualhk.usuario;
+SELECT * FROM projetoindividualhk.inventario;		
+SELECT * FROM projetoindividualhk.habilidade;
 
 SELECT idUsuario FROM usuario WHERE usuario = 'teste27' AND senha = 'teste27';
-SELECT * FROM projetoindividualhk.inventario;
 
 GRANT ALL PRIVILEGES ON projetoindividualhk.* TO 'bd_projetoIndividual'@'localhost';
 
 SELECT * FROM inventario JOIN usuario ON idUsuario = fkUsuario;
+
+UPDATE inventario SET nivel = 1 WHERE fkUsuario = 1 AND fkHabilidade = 1;
+UPDATE inventario SET nivel = 1 WHERE fkUsuario = 2 AND fkHabilidade = 1;
