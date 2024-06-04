@@ -464,6 +464,26 @@ a {
   border: 2px solid black;
 }
 
+/* HALLOWNEST */
+
+.hallownest {
+  background-image: url(../assets/images/Screenshot_HK_Dirtmouth_10.png);
+}
+
+.hallownest .main {
+  display: flex;
+  flex-direction: column;
+}
+
+.hallownest .map {
+  width: 1000px;
+  height: 651px;
+}
+
+area {
+  cursor: url(../assets/images/Hollow_Knight_Cursor/cursor03.cur), auto;
+}
+
 .top_dialogue {
   width: 50%;
 }
