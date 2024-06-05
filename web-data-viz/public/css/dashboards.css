@@ -588,6 +588,16 @@ area {
   height: 100vh;
 }
 
+.resting_grounds {
+  background-image: url(../assets/images/area/Screenshot_HK_Dreamers_08.png);
+  height: 100vh;
+}
+
+.royal_waterways {
+  background-image: url(../assets/images/area/Screenshot_HK_Royal_Waterways_01.png);
+  height: 100vh;
+}
+
 .area_container {
   width: 850px;
   height: 450px;
