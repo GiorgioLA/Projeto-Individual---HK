@@ -265,6 +265,21 @@ option {
   font-size: 18px;
 }
 
+.navbar .listaVoltar {
+  display: flex;
+  list-style: none;
+  margin-right: 40px;
+  width: 500px;
+  height: 100%;
+  align-items: center;
+  justify-content: space-between;
+  color: white;
+}
+
+.listaVoltar a:hover {
+  font-size: 43px;
+}
+
 .main {
   display: flex;
   height: 800px;
@@ -533,6 +548,54 @@ area {
   align-items: center;
   justify-content: space-between;
   height: 400px;
+}
+
+/* IMAGENS DE FUNDO DE CADA ÁREA */
+
+/* .area .main {
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0,0,0,0.5);
+} */
+
+.dirtmouth {
+  background-image: url(../assets/images/dirtmouth_backgound.jpg);
+  height: 100vh;
+}
+
+.area_container {
+  width: 850px;
+  height: 450px;
+  background-color: rgba(0,0,0,0.6);
+  align-self: center;
+  margin-top: 100px ;
+  padding: 15px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.top_content {
+  display: flex;
+  justify-content: space-around;
+  font-family: Perpetua;
+  width: 100%;
+  height: 150px;
+}
+
+.text_area {
+  font-size: 20px;
+  color: white;
+  text-align: left;
+  height: 150px;
+  /* display: flex; */
+  text-justify: center;
+}
+
+.dialogue {
+  width: 255px;
+
 }
 
 @font-face { /* Fonte de Hollow Knight */
