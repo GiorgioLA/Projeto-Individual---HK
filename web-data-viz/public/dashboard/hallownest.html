@@ -12,7 +12,7 @@
     <link rel="stylesheet" href="./../css/dashboards.css">
     <!-- <link rel="stylesheet" href="./../css/estilo.css" /> -->
 </head>
-<body>
+<body onload="obterDados()">
  <div class="screen hallownest">
     <div class="blackout">
         <div class="header navbar">
@@ -44,18 +44,207 @@
             </ul>
         </div>
         <div class="main">
-            <div class="container">
+          <div class="container">
+              <span class="titulo" style="color: white;">Escolha a área que quer visualizar</span>
                 <img class="map" src="../assets/images/NavMap.png" alt="" usemap="#hallownest">
                 <map name="hallownest">
-                    <area shape="poly" coords="142,19,142,124,240,123,240,151,292,151,292,93,330,93,330,19,142,19" href="inicio.html">
+                    <area onclick="howling_cliffs()" shape="poly" coords="142,19,142,124,240,123,240,151,292,151,292,93,330,93,330,19,142,19">
+                    <area onclick="dirtmouth()" shape="poly" coords="302,103,302,153,510,153,510,80,353,80,353,103,302,103">
+                    <area onclick="crystal_peaks()" shape="poly" coords="518,84,518,118,600,118,600,207,718,207,718,178,675,178,675,146,755,146,755,100,715,100,715,8,673,8,673,40,600,40,600,95,518,95,518,84">
+                    <area onclick="greenpath()" shape="poly" coords="40,189,157,189,157,245,347,245,347,164,230,164,230,134,40,134,40,189">
+                    <area onclick="forgotten_crossroads()" shape="poly" coords="360,232,525,232,525,254,590,245,590,162,360,162,360,232">
+                    <area onclick="resting_grounds()" shape="poly" coords="600,215,600,252,723,252,723,244,860,244,860,160,760,160,760,215,600,215">
+                    <area onclick="queens_gardens()" shape="poly" coords="44,381,253,381,253,302,185,302,185,261,58,261,58,299,44,302,44,381">
+                    <area onclick="fog_canyon()" shape="poly" coords="197,257,197,293,265,293,265,341,317,341,317,295,390,295,390,242,360,242,360,257,197,257">
+                    <area onclick="fungal_wastes()" shape="poly" coords="263,383, 373,383, 373,462, 436,462, 436,428, 464,428, 464,270, 440,270, 440,243, 399,243, 399,312, 328,314, 328,350, 263,351, 263,383">
+                    <area onclick="city_of_tears()" shape="poly" coords="473,245, 473,412, 722,412, 722,406, 818,406, 818,355, 759,355, 759,256, 737,256, 737,317, 729,317, 700,289, 650,274, 511,274, 511,245, 473,245">
+                    <area onclick="kingdoms_edge()" shape="poly" coords="780,326, 826,326, 826,452, 775,452, 775,535, 714,535, 707,544, 707,560, 809,560, 809,472, 992,472, 992,377, 872,377, 872,269, 824,269, 780,290, 780,326">
+                    <area onclick="deepnest()" shape="poly" coords="7,561, 53,561, 53,529, 169,549, 179,561, 389,561, 389,545, 382,537, 316,537, 316,462, 366,462, 366,437, 346,437, 346,400, 309,400, 309,391, 121,391, 121,479, 94,479, 94,442, 19,442, 7,457, 7,561">
+                    <area onclick="royal_waterways()" shape="poly" coords="557,527, 650,527, 650,499, 768,499, 768,447, 795,447, 795,417, 473,417, 473,432, 443,432, 443,481, 557,481, 557,527">
+                    <area onclick="ancient_basin()" shape="poly" coords="557,568, 487,567, 483,571, 483,577, 394,577, 388,582, 388,633, 504,633, 507,637, 507,642, 740,642, 740,579, 733,574, 650,574, 650,540, 645,535, 564,535, 557,542, 557,568">
+                    <area onclick="hive()" shape="poly" coords="818,578, 970,578, 981,563, 981,497, 965,479, 818,479, 818,578">
                 </map>
             </div>
         </div>
     </div>
  </div>
 </body>
-
 </html>
 <script>
+
+function howling_cliffs() {
+    if (habilidade4 >= 1) {
+      window.location = "howling_cliffs.html";
+    } else {
+      alert('Você precisa de mais habilidades para acessar essa área...')
+    }
+}
+
+function dirtmouth() {
+      window.location = "dirtmouth.html";
+}
+
+function crystal_peaks() {
+    if (habilidade5 == 1) {
+      window.location = "crystal_peaks.html";
+    } else {
+      alert('Você precisa de mais habilidades para acessar essa área...')
+    }
+}
+
+function greenpath() {
+    if (habilidade1 >= 1) {
+      window.location = "greenpath.html";
+    } else {
+      alert('Você precisa de mais habilidades para acessar essa área...')
+    }
+}
+
+function forgotten_crossroads() {
+      window.location = "forgotten_crossroads.html";
+}
+
+function resting_grounds() {
+    if (habilidade5 == 1) {
+      window.location = "resting_grounds.html";
+    } else {
+      alert('Você precisa de mais habilidades para acessar essa área...')
+    }
+}
+
+function queens_gardens() {
+    if (habilidade6 == 1) {
+      window.location = "queens_gardens.html";
+    } else {
+      alert('Você precisa de mais habilidades para acessar essa área...')
+    }
+}
+
+function fog_canyon() {
+    if (habilidade5 == 1) {
+      window.location = "fog_canyon.html";
+    } else {
+      alert('Você precisa de mais habilidades para acessar essa área...')
+    }
+}
+
+function fungal_wastes() {
+    if (habilidade4 >= 1) {
+      window.location = "fungal_wastes.html";
+    } else {
+      alert('Você precisa de mais habilidades para acessar essa área...')
+    }
+}
+
+function city_of_tears() {
+    if (habilidade5 == 1) {
+      window.location = "city_of_tears.html";
+    } else {
+      alert('Você precisa de mais habilidades para acessar essa área...')
+    }
+}
+
+function kingdoms_edge() {
+    if (habilidade5 == 1) {
+      window.location = "kingdoms_edge.html";
+    } else {
+      alert('Você precisa de mais habilidades para acessar essa área...')
+    }
+}
+
+function deepnest() {
+    if (habilidade5 == 1) {
+      window.location = "deepnest.html";
+    } else {
+      alert('Você precisa de mais habilidades para acessar essa área...')
+    }
+}
+
+function royal_waterways() {
+    if (habilidade5 == 1) {
+      window.location = "royal_waterways.html";
+    } else {
+      alert('Você precisa de mais habilidades para acessar essa área...')
+    }
+}
+
+function ancient_basin() {
+    if (habilidade5 == 1) {
+      window.location = "ancient_basin.html";
+    } else {
+      alert('Você precisa de mais habilidades para acessar essa área...')
+    }
+}
+
+function hive() {
+    if (habilidade7 == 1) {
+      window.location = "hive.html";
+    } else {
+      alert('Você precisa de uma habilidade nova para acessar essa área, parece ser um pulo muito grande...')
+    }
+}
+
+
+    var habilidade1 = 0;
+    var habilidade2 = 0;
+    var habilidade3 = 0;
+    var habilidade4 = 0;
+    var habilidade5 = 0;
+    var habilidade6 = 0;
+    var habilidade7 = 0;
+    var habilidade8 = 0;
+    var habilidade9 = 0;
+
+  function obterDados() {
+    var idUsuario = sessionStorage.ID_USUARIO;
+
+fetch("/usuarios/obterInventario", {
+  method: "POST",
+  headers: {
+      "Content-Type": "application/json"
+  },
+  body: JSON.stringify({
+      idUsuarioServer: idUsuario
+  })
+}).then(function (resposta) {
+  console.log("ESTOU NO THEN DO entrar()!")
+
+  if (resposta.ok) {
+      console.log(resposta);
+
+      resposta.json().then(json => {
+          console.log(json);
+          console.log(JSON.stringify(json));
+            habilidade1 = json.habilidade1;
+            habilidade2 = json.habilidade2;
+            habilidade3 = json.habilidade3;
+            habilidade4 = json.habilidade4;
+            habilidade5 = json.habilidade5;
+            habilidade6 = json.habilidade6;
+            habilidade7 = json.habilidade7;
+            habilidade8 = json.habilidade8;
+            habilidade9 = json.habilidade9;
+          setTimeout(function () {
+              alert("Dados obtidos com sucesso! Customizando a página...");
+          }, 1000); // apenas para exibir o loading
+
+      });
+
+  } else {
+
+      console.log("Houve um erro ao obter os dados!");
+      alert("Tente fazer o Login novamente")
+
+      resposta.text().then(texto => {
+          console.error(texto);
+      });
+  }
+
+}).catch(function (erro) {
+  console.log(erro);
+})
+}
+
+
 
 </script>

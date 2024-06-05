@@ -480,6 +480,16 @@ a {
   height: 651px;
 }
 
+.hallownest .container {
+  /* background-color: rgba(0,0,0,0.5); */
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  width: 1200px;
+  height: 750px;
+}
+
 area {
   cursor: url(../assets/images/Hollow_Knight_Cursor/cursor03.cur), auto;
 }
