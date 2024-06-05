@@ -563,6 +563,31 @@ area {
   height: 100vh;
 }
 
+.forgotten_crossroads {
+  background-image: url(../assets/images/Screenshot_HK_Forgotten_Crossroads_01.png);
+  height: 100vh;
+}
+
+.greenpath {
+  background-image: url(../assets/images/area/Screenshot_HK_Greenpath_01.png);
+  height: 100vh;
+}
+
+.fungal_wastes {
+  background-image: url(../assets/images/area/Screenshot_HK_Fungal_Wastes_05.png);
+  height: 100vh;
+}
+
+.crystal_peaks {
+  background-image: url(../assets/images/area/Screenshot_HK_Crystal_Peak_10.png);
+  height: 100vh;
+}
+
+.city_of_tears {
+  background-image: url(../assets/images/area/Screenshot_HK_City_of_Tears_01.png);
+  height: 100vh;
+}
+
 .area_container {
   width: 850px;
   height: 450px;
@@ -595,7 +620,6 @@ area {
 
 .dialogue {
   width: 255px;
-
 }
 
 @font-face { /* Fonte de Hollow Knight */
