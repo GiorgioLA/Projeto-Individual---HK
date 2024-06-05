@@ -1,59 +1,57 @@
--- Arquivo de apoio, caso você queira criar tabelas como as aqui criadas para a API funcionar.
--- Você precisa executar os comandos no banco de dados para criar as tabelas,
--- ter este arquivo aqui não significa que a tabela em seu BD estará como abaixo!
+CREATE DATABASE projetoIndividualHk;
 
-/*
-comandos para mysql server
-*/
-
-CREATE DATABASE aquatech;
-
-USE aquatech;
-
-CREATE TABLE empresa (
-	id INT PRIMARY KEY AUTO_INCREMENT,
-	razao_social VARCHAR(50),
-	cnpj CHAR(14)
-);
+USE projetoIndividualHk;
 
 CREATE TABLE usuario (
-	id INT PRIMARY KEY AUTO_INCREMENT,
-	nome VARCHAR(50),
-	email VARCHAR(50),
-	senha VARCHAR(50),
-	fk_empresa INT,
-	FOREIGN KEY (fk_empresa) REFERENCES empresa(id)
+idUsuario int primary key auto_increment,
+usuario varchar(45),
+email varchar(45),
+senha varchar(45)
 );
 
-CREATE TABLE aviso (
-	id INT PRIMARY KEY AUTO_INCREMENT,
-	titulo VARCHAR(100),
-	descricao VARCHAR(150),
-	fk_usuario INT,
-	FOREIGN KEY (fk_usuario) REFERENCES usuario(id)
+ALTER TABLE usuario ADD CONSTRAINT unique_usuario unique(usuario);
+
+SELECT * FROM usuario;
+
+CREATE TABLE habilidade (
+idHabilidade int primary key auto_increment,
+nome varchar(45),
+tipo varchar(45),
+numNiveis int
 );
 
-create table aquario (
-/* em nossa regra de negócio, um aquario tem apenas um sensor */
-	id INT PRIMARY KEY AUTO_INCREMENT,
-	descricao VARCHAR(300),
-	fk_empresa INT,
-	FOREIGN KEY (fk_empresa) REFERENCES empresa(id)
+CREATE TABLE inventario (
+idInventario int,
+fkUsuario int,
+fkHabilidade int,
+primary key (idInventario, fkUsuario, fkHabilidade),
+foreign key (fkUsuario) references usuario(idUsuario),
+foreign key (fkHabilidade) references habilidade(idHabilidade),
+nivel int
 );
 
-/* esta tabela deve estar de acordo com o que está em INSERT de sua API do arduino - dat-acqu-ino */
+INSERT INTO habilidade VALUES
+	(default, 'Espírito Vingativo', 'Feitiço', 2),
+	(default, 'Mergulho Desolador', 'Feitiço', 2),
+	(default, 'Espectros Uivantes', 'Feitiço', 2),
+	(default, 'Manto de Asa de Mariposa', 'Mobilidade', 2),
+	(default, 'Garra de Louva-a-Deus', 'Mobilidade', 1),
+	(default, 'Coração de Cristal', 'Mobilidade', 1),
+	(default, 'Asas do Monarca', 'Mobilidade', 1),
+	(default, 'Lágrima de Isma', 'Mobilidade', 1),
+	(default, 'Ferrão dos Sonhos', 'Progressão', 3);
+    
+SHOW TABLES;
 
-create table medida (
-	id INT PRIMARY KEY AUTO_INCREMENT,
-	dht11_umidade DECIMAL,
-	dht11_temperatura DECIMAL,
-	luminosidade DECIMAL,
-	lm35_temperatura DECIMAL,
-	chave TINYINT,
-	momento DATETIME,
-	fk_aquario INT,
-	FOREIGN KEY (fk_aquario) REFERENCES aquario(id)
-);
+SELECT * FROM projetoindividualhk.usuario;
+SELECT * FROM projetoindividualhk.inventario;		
+SELECT * FROM projetoindividualhk.habilidade;
 
-insert into empresa (razao_social, cnpj) values ('Empresa 1', '00000000000000');
-insert into aquario (descricao, fk_empresa) values ('Aquário de Estrela-do-mar', 1);
+SELECT idUsuario FROM usuario WHERE usuario = 'teste27' AND senha = 'teste27';
+
+GRANT ALL PRIVILEGES ON projetoindividualhk.* TO 'bd_projetoIndividual'@'localhost';
+
+SELECT * FROM inventario JOIN usuario ON idUsuario = fkUsuario;
+
+UPDATE inventario SET nivel = 1 WHERE fkUsuario = 1 AND fkHabilidade = 1;
+UPDATE inventario SET nivel = 1 WHERE fkUsuario = 2 AND fkHabilidade = 1;
