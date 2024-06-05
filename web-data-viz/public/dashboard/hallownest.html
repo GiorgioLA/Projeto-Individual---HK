@@ -12,7 +12,7 @@
     <link rel="stylesheet" href="./../css/dashboards.css">
     <!-- <link rel="stylesheet" href="./../css/estilo.css" /> -->
 </head>
-<body onload="obterDados()">
+<body onload="obterDados(), dev_mode()">
  <div class="screen hallownest">
     <div class="blackout">
         <div class="header navbar">
@@ -71,6 +71,18 @@
 </body>
 </html>
 <script>
+
+function dev_mode() {
+    habilidade1 = 2;
+    habilidade2 = 2;
+    habilidade3 = 2;
+    habilidade4 = 2;
+    habilidade5 = 1;
+    habilidade6 = 1;
+    habilidade7 = 1;
+    habilidade8 = 1;
+    habilidade9 = 3;
+}
 
 function howling_cliffs() {
     if (habilidade4 >= 1) {
