@@ -25,6 +25,15 @@ body {
     /* border: 2px solid black; */
 }
 
+#fireball {
+    width: 85px;
+    height: 130px;
+    position: absolute;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
 .flip {
     transform: scaleX(-1);
 }

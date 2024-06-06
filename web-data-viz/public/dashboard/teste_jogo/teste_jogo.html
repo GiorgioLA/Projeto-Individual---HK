@@ -11,25 +11,39 @@
     <div id="div_knight">
         <img src="../../assets/images/knight_sprite_sheet/knight_walk_1.png">
     </div>
+    <div id="div_casts"></div>
 </body>
 </html>
 <script>
+    let d = 0;
 
     let global_top = 488;
     let global_left = 300;
+
     let unidade_medida = 'px';
+    
     let checar_pulo = 0;
     let direcao = 1;
     let cont_fall = 1;
     let cont_walk = 1;
-    const last_position = []
-      
+    
+    let cooldown = 0;
+    let lockout = 0;
+    let posicao_fireball = 0;
+    let direcao_fireball = 1;
+    let cont_fireball = 1;
+    let aux_mov_fireball = 0;
+    let cont_animation = 0;
+    
+    const last_position = []  
 
     function mover_knight(event) {
+        if (lockout == 1) return false
         console.log("PARÂMETRO DO EVENTO DISPARADO: ", event);
         if (event.key == "s" && global_top == 488 && checar_pulo == 0) pular()
         else if (event.key == "z" && global_left > 250) esquerda()
         else if (event.key == "c" && global_left < 1180) direita()
+        else if (event.key == ' ' && cooldown == 0) cast_fireball()
         
         div_knight.style.top = `${global_top}${unidade_medida}`;
         div_knight.style.left = `${global_left}${unidade_medida}`;
@@ -37,7 +51,7 @@
 
     function gravidade() {
         if(global_top < 488 && checar_pulo == 1) {
-            global_top += 10
+            if (lockout == 0) global_top += 10
             fall_cycle()
         }
         else if (global_top == 488) {
@@ -50,6 +64,7 @@
     }
 
     function fall_cycle() {
+        if (lockout == 0){
         if (cont_fall == 1) {
             cont_fall = 2;
             div_knight.innerHTML = `<img src="../../assets/images/knight_sprite_sheet/knight_fall_1.png">`
@@ -59,13 +74,13 @@
         } else if (cont_fall == 3) {
             cont_fall = 1;
             div_knight.innerHTML = `<img src="../../assets/images/knight_sprite_sheet/knight_fall_3.png">`
-        }
+        }}
     }
 
     function pular() {
         div_knight.innerHTML = `<img src="../../assets/images/knight_sprite_sheet/knight_jump_1.png">`
         checar_pulo = 0.5
-        global_top-= 10;
+        if (lockout == 0) global_top-= 10;
         if (global_top <= 290) checar_pulo = 1;
         if (checar_pulo < 1) setTimeout(() => pular() ,40);
     }
@@ -132,6 +147,90 @@
             div_knight.innerHTML = `<img src="../../assets/images/knight_sprite_sheet/knight_idle_1.png">` 
         }
     setTimeout(() => check_still() ,1000);
+    }
+
+    function cast_fireball() {
+        lockout = 1;
+        cooldown = 10;
+        cooldown_fireball()
+        cast_animation()
+        setTimeout(() => 
+        cast()
+        // lockout = 0
+        ,300);
+    }
+
+    function cast_animation() {
+        if (cont_animation == 0) {
+            cont_animation++
+            div_knight.innerHTML = `<img src="../../assets/images/knight_sprite_sheet/knight_cast_1.png">`
+        } else if (cont_animation == 1) {
+            cont_animation++
+            div_knight.innerHTML = `<img src="../../assets/images/knight_sprite_sheet/knight_cast_2.png">`
+        } else if (cont_animation == 2) {
+            cont_animation++
+            div_knight.innerHTML = `<img src="../../assets/images/knight_sprite_sheet/knight_cast_3.png">`
+        }
+        if (cont_animation == 3) {
+            cont_animation = 0
+            div_knight.innerHTML = `<img src="../../assets/images/knight_sprite_sheet/knight_idle_1.png">`
+            return false
+        }
+        setTimeout(() => cast_animation(),100);
+    }
+
+    function cast() {
+        direcao_fireball = 1;
+        if (direcao == 2) direcao_fireball = -1; 
+        lockout = 0
+        div_casts.innerHTML = `<div id="fireball">
+            <img src="../../assets/images/knight_sprite_sheet/knight_fireball_1.png">
+            </div>`
+        fireball.style.top = `${global_top}px`
+        if (direcao == 2) {
+            fireball.style.transform = `scaleX(-1)`
+            fireball.style.left = `${global_left}px`
+            posicao_fireball = Number(global_left)
+        } else {
+            fireball.style.left = `${global_left}px`
+            posicao_fireball = Number(global_left)
+
+        }
+        move_fireball(direcao_fireball)
+    }
+
+    function move_fireball(e) {
+        if (aux_mov_fireball == 0) d = Number(e)
+        // alert(d)
+        // alert(posicao_fireball)
+        // alert(global_left)
+        if (posicao_fireball > 150 && posicao_fireball < 1200) {
+            posicao_fireball = posicao_fireball - 50 * d
+            // alert(posicao_fireball)
+            fireball.style.left = `${posicao_fireball}px`
+            if (cont_fireball == 1) {
+                fireball.innerHTML = `<img src="../../assets/images/knight_sprite_sheet/knight_fireball_2.png">`
+                cont_fireball = 2
+            } else if (cont_fireball == 2) {
+                fireball.innerHTML = `<img src="../../assets/images/knight_sprite_sheet/knight_fireball_3.png">`
+                cont_fireball = 3
+            } else if (cont_fireball == 3) {
+                fireball.innerHTML = `<img src="../../assets/images/knight_sprite_sheet/knight_fireball_4.png">`
+                cont_fireball = 1
+            }
+
+            aux_mov_fireball = 1;
+            setTimeout(() => move_fireball(),100);
+        } else {
+            aux_mov_fireball = 0
+            fireball.innerHTML = ``
+        }
+    }
+
+    function cooldown_fireball() {
+        cooldown--
+        if(cooldown > 0) setTimeout(() => cooldown_fireball(),1000);
+
     }
 
 
