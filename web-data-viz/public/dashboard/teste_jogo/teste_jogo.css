@@ -1,0 +1,30 @@
+body {
+    padding: 0;
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: black;
+}
+
+.main {
+    background-image: url(../../assets/images/area/Screenshot_HK_Hornet_Sentinel_04.png);
+    background-size: cover;
+    width: 1250px;
+    height: 702px;
+}
+
+#div_knight {
+    top: 510px;
+    left: 300px;
+    width: 85px;
+    height: 130px;
+    position: absolute;
+    /* background-image: url(../../assets/images/knight_sprite_sheet/knight_walk_1.png); */
+    /* background-color: ; */
+    /* border: 2px solid black; */
+}
+
+.flip {
+    transform: scaleX(-1);
+}

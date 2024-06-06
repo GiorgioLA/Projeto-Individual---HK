@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="teste_jogo.css">
+</head>
+<body onkeydown="mover_knight(event)" onload="gravidade(), check_still()">
+    <div class="main"></div>
+    <div id="div_knight">
+        <img src="../../assets/images/knight_sprite_sheet/knight_walk_1.png">
+    </div>
+</body>
+</html>
+<script>
+
+    let global_top = 488;
+    let global_left = 300;
+    let unidade_medida = 'px';
+    let checar_pulo = 0;
+    let direcao = 1;
+    let cont_fall = 1;
+    let cont_walk = 1;
+    const last_position = []
+      
+
+    function mover_knight(event) {
+        console.log("PARÂMETRO DO EVENTO DISPARADO: ", event);
+        if (event.key == "s" && global_top == 488 && checar_pulo == 0) pular()
+        else if (event.key == "z" && global_left > 250) esquerda()
+        else if (event.key == "c" && global_left < 1180) direita()
+        
+        div_knight.style.top = `${global_top}${unidade_medida}`;
+        div_knight.style.left = `${global_left}${unidade_medida}`;
+    }
+
+    function gravidade() {
+        if(global_top < 488 && checar_pulo == 1) {
+            global_top += 10
+            fall_cycle()
+        }
+        else if (global_top == 488) {
+            if (checar_pulo == 1) div_knight.innerHTML = `<img src="../../assets/images/knight_sprite_sheet/knight_idle_1.png">`
+            checar_pulo = 0
+            // div_knight.innerHTML = `<img src="../../assets/images/knight_sprite_sheet/knight_idle_1.png">`
+        }
+        div_knight.style.top = `${global_top}${unidade_medida}`;
+        setTimeout(() => gravidade() ,40);
+    }
+
+    function fall_cycle() {
+        if (cont_fall == 1) {
+            cont_fall = 2;
+            div_knight.innerHTML = `<img src="../../assets/images/knight_sprite_sheet/knight_fall_1.png">`
+        } else if (cont_fall == 2) {
+            cont_fall = 3;
+            div_knight.innerHTML = `<img src="../../assets/images/knight_sprite_sheet/knight_fall_2.png">`
+        } else if (cont_fall == 3) {
+            cont_fall = 1;
+            div_knight.innerHTML = `<img src="../../assets/images/knight_sprite_sheet/knight_fall_3.png">`
+        }
+    }
+
+    function pular() {
+        div_knight.innerHTML = `<img src="../../assets/images/knight_sprite_sheet/knight_jump_1.png">`
+        checar_pulo = 0.5
+        global_top-= 10;
+        if (global_top <= 290) checar_pulo = 1;
+        if (checar_pulo < 1) setTimeout(() => pular() ,40);
+    }
+
+    function esquerda() {
+            global_left -= 10;
+            if (direcao == 2) {
+                flipLeft()
+                direcao = 1
+            } else {
+                walk()
+            }
+    }
+
+    function direita() { 
+            global_left += 10;
+            if (direcao == 1) {
+                flipRight()
+                direcao = 2
+            } else {
+                walk()
+            }
+    }
+
+    function flipRight() {
+        div_knight.style.transform = `scaleX(-1)`
+    }
+
+    function flipLeft() {
+        div_knight.style.transform = `scaleX(+1)`
+    }
+
+    function walk() {
+
+    if (checar_pulo == 0) {
+        if (cont_walk == 1 || cont_walk == 2) {
+            div_knight.innerHTML = `<img src="../../assets/images/knight_sprite_sheet/knight_walk_1.png">`
+            cont_walk++
+        } else if (cont_walk == 3 || cont_walk == 4) {
+            div_knight.innerHTML = `<img src="../../assets/images/knight_sprite_sheet/knight_walk_3.png">`
+            cont_walk++
+        } else if (cont_walk == 5 || cont_walk == 6) {
+            div_knight.innerHTML = `<img src="../../assets/images/knight_sprite_sheet/knight_walk_2.png">`
+            cont_walk++
+        } else if (cont_walk == 7 || cont_walk == 8) {
+            div_knight.innerHTML = `<img src="../../assets/images/knight_sprite_sheet/knight_walk_3.png">`
+            cont_walk++
+        } else if (cont_walk == 9 || cont_walk == 10) {
+            div_knight.innerHTML = `<img src="../../assets/images/knight_sprite_sheet/knight_walk_4.png">`
+            cont_walk++
+        } else if (cont_walk == 11) {
+            div_knight.innerHTML = `<img src="../../assets/images/knight_sprite_sheet/knight_walk_5.png">`
+            cont_walk++
+        } else if (cont_walk == 12) {
+            cont_walk = 1
+        }
+    }
+    }
+
+    function check_still() {
+        last_position.push(global_left, global_top)
+
+        if ((global_left[last_position.lenght] == global_left[last_position.length - 3]) && checar_pulo == 0) {
+            div_knight.innerHTML = `<img src="../../assets/images/knight_sprite_sheet/knight_idle_1.png">` 
+        }
+    setTimeout(() => check_still() ,1000);
+    }
+
+
+</script>

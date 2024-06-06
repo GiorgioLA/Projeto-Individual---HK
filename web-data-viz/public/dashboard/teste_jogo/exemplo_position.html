@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        * { 
+            margin: 0; 
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        #div_pink {
+            height: 100vh; 
+            background-color: pink;
+        }
+
+        #div_nuvem {
+            top: 0;
+            left: 0;
+            width: 100px;
+            height: 100px;
+            position: absolute;
+            background-color: white;
+            border: 2px solid black;
+        }
+    </style>
+</head>
+<!-- "event" é um parâmetro que indica que sua função irá receber o evento disparado "ao pressionar uma tecla" -->
+<body onkeydown="mover_nuvem(event)">
+    <div>
+        <div id="div_pink"></div>
+        <div id="div_nuvem">
+            <?xml version="1.0" encoding="utf-8"?><!-- Uploaded to: SVG Repo, www.svgrepo.com, Generator: SVG Repo Mixer Tools -->
+            <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path 
+                stroke="black" 
+                stroke-width="2" 
+                stroke-linecap="round" 
+                stroke-linejoin="round"
+                d="M4 14.7519C3.37037 13.8768 3 12.8059 3 11.6493C3 9.20008 4.8 6.9375 7.5 6.5C8.34694 4.48637 10.3514 3 12.6893 3C15.684 3 18.1317 5.32251 18.3 8.25C19.8893 8.94488 21 10.6503 21 12.4969C21 13.5693 20.6254 14.5541 20 15.3275M12.5 12.9995L10.5 21.0008M8.5 11.9995L6.5 20.0008M16.5 12L14.5 20.0013" 
+            />
+            </svg>
+        </div>
+    </div>
+</body>
+</html>
+
+<script>
+    var global_top = 0; // distância atual entre o elemento e o topo da página
+    var global_left = 0; // distância atual entre o elemento e a lateral esquerda da página
+    var unidade_medida = "px";
+    
+
+    function mover_nuvem(event) { // "event" é o parâmetro/valor que será recebido pela função "mover_nuvem()" quando ela for invocada ao pressionar a tecla
+        
+        // ABRA O CONSOLE AO EXECUTAR PARA ACOMPANHAR O EVENTO QUE ESTÁ SENDO DISPARADO!
+        console.log("PARÂMETRO DO EVENTO DISPARADO: ", event); // exibindo o evento disparado no console (abra o console e veja os resultados)
+
+
+        // no evento, temos qual tecla foi pressionada (atributo ".key")
+        if (event.key == "ArrowDown") { // "ArrowDown" é a tecla de seta para baixo
+            global_top += 10;
+        } else if (event.key == "ArrowUp") { // "ArrowUp" é a tecla de seta para cima
+            global_top -= 10;
+        } else if (event.key == "ArrowLeft") { // "ArrowLeft" é a tecla de seta para esquerda
+            global_left -= 10;
+        } else if (event.key == "ArrowRight") { // "ArrowRight" é a tecla de seta para direita
+            global_left += 10;
+        }
+
+
+        div_nuvem.style.top = `${global_top}${unidade_medida}`; // atualiza a posição do topo da nuvem
+        div_nuvem.style.left = `${global_left}${unidade_medida}`; // atualiza a posição da esquerda da nuvem
+        // `${X}${Y}` indica que desejamos o valor X com a unidade Y, como "100px" ou "50%", sendo X o valor e Y a unidade
+    }
+
+
+    function mover_sozinho() {
+        global_left += 5; // incrementa a distância do lado esquerdo em 1 
+        div_nuvem.style.left = `${global_left}${unidade_medida}`; // atualiza a posição da nuvem
+
+        // se a distância do lado esquerdo for maior que 100<unidade_medida>, limpa o intervalo criado;
+        if (global_left > 100) {
+            clearInterval(intervalo);
+        }
+    }
+
+    var intervalo = setInterval(mover_sozinho, 100); 
+    // define um intervalo que invoca a função "mover_sozinho" a cada 100 milissegundos
+</script>
