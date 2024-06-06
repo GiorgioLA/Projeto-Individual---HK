@@ -12,16 +12,21 @@
         <img src="../../assets/images/knight_sprite_sheet/knight_walk_1.png">
     </div>
     <div id="div_casts"></div>
+    <div id="div_swing"></div>
 </body>
 </html>
 <script>
+
+    // direção para bola de fogo
     let d = 0;
 
+    // Posição cavaleiro
     let global_top = 488;
     let global_left = 300;
 
     let unidade_medida = 'px';
     
+    // Auxiliar
     let checar_pulo = 0;
     let direcao = 1;
     let cont_fall = 1;
@@ -34,20 +39,58 @@
     let cont_fireball = 1;
     let aux_mov_fireball = 0;
     let cont_animation = 0;
+
+    let cooldown_nail = 0;
+    let cont_swing = 0;
+    let lockout_nail = 0;
+    let direcao_swing = 1;
+    let nail_duration = 0;
+    let aux_nail_duration = 0;
+
     
-    const last_position = []  
+    const last_position = []
+    const img_idle1 = `<img src="../../assets/images/knight_sprite_sheet/knight_idle_1.png">`;
+    const img_fall1 = `<img src="../../assets/images/knight_sprite_sheet/knight_fall_1.png">`;
+    const img_fall2 = `<img src="../../assets/images/knight_sprite_sheet/knight_fall_2.png">`;
+    const img_fall3 = `<img src="../../assets/images/knight_sprite_sheet/knight_fall_3.png">`;
+    const img_jump_1 = `<img src="../../assets/images/knight_sprite_sheet/knight_jump_1.png">`;
+    const img_walk_1 =  `<img src="../../assets/images/knight_sprite_sheet/knight_walk_1.png">`;
+    const img_walk_2 =  `<img src="../../assets/images/knight_sprite_sheet/knight_walk_2.png">`;
+    const img_walk_3 =  `<img src="../../assets/images/knight_sprite_sheet/knight_walk_3.png">`;
+    const img_walk_4 =  `<img src="../../assets/images/knight_sprite_sheet/knight_walk_4.png">`;
+    const img_walk_5 =  `<img src="../../assets/images/knight_sprite_sheet/knight_walk_5.png">`;
+    const img_cast_1 =  `<img src="../../assets/images/knight_sprite_sheet/knight_cast_1.png">`;
+    const img_cast_2 =  `<img src="../../assets/images/knight_sprite_sheet/knight_cast_2.png">`;
+    const img_cast_3 =  `<img src="../../assets/images/knight_sprite_sheet/knight_cast_3.png">`;
+    const img_fireball_1 = `<img src="../../assets/images/knight_sprite_sheet/knight_fireball_1.png">`;
+    const img_fireball_2 = `<img src="../../assets/images/knight_sprite_sheet/knight_fireball_2.png">`;
+    const img_fireball_3 = `<img src="../../assets/images/knight_sprite_sheet/knight_fireball_3.png">`;
+    const img_fireball_4 = `<img src="../../assets/images/knight_sprite_sheet/knight_fireball_4.png">`;
+    const img_swing_1 = `<img src="../../assets/images/knight_sprite_sheet/knight_swing_1.png">`;
+    const img_swing_2 = `<img src="../../assets/images/knight_sprite_sheet/knight_swing_2.png">`;
+    const img_swing_3 = `<img src="../../assets/images/knight_sprite_sheet/knight_swing_3.png">`;
+    const img_swing_4 = `<img src="../../assets/images/knight_sprite_sheet/knight_swing_4.png">`;
+    const img_nail_1 = `<img src="../../assets/images/knight_sprite_sheet/knight_nail_1.png">`;
+    const img_nail_2 = `<img src="../../assets/images/knight_sprite_sheet/knight_nail_2.png">`;
+    const img_nail_3 = `<img src="../../assets/images/knight_sprite_sheet/knight_nail_3.png">`;
+
+
+    //  Registrando Inputs
 
     function mover_knight(event) {
         if (lockout == 1) return false
         console.log("PARÂMETRO DO EVENTO DISPARADO: ", event);
-        if (event.key == "s" && global_top == 488 && checar_pulo == 0) pular()
-        else if (event.key == "z" && global_left > 250) esquerda()
-        else if (event.key == "c" && global_left < 1180) direita()
+        if (event.key == "w" && global_top == 488 && checar_pulo == 0) pular()
+        else if (event.key == "a" && global_left > 250 && lockout == 0) esquerda()
+        else if (event.key == "d" && global_left < 1180 && lockout == 0) direita()
         else if (event.key == ' ' && cooldown == 0) cast_fireball()
+        else if (event.key == 'Enter' && cooldown_nail == 0) swing_nail()
         
         div_knight.style.top = `${global_top}${unidade_medida}`;
         div_knight.style.left = `${global_left}${unidade_medida}`;
     }
+
+    // Gravidade constante
 
     function gravidade() {
         if(global_top < 488 && checar_pulo == 1) {
@@ -55,35 +98,40 @@
             fall_cycle()
         }
         else if (global_top == 488) {
-            if (checar_pulo == 1) div_knight.innerHTML = `<img src="../../assets/images/knight_sprite_sheet/knight_idle_1.png">`
-            checar_pulo = 0
-            // div_knight.innerHTML = `<img src="../../assets/images/knight_sprite_sheet/knight_idle_1.png">`
+            if (checar_pulo == 1) div_knight.innerHTML = img_idle1
+            checar_pulo = 0 
         }
         div_knight.style.top = `${global_top}${unidade_medida}`;
         setTimeout(() => gravidade() ,40);
     }
 
+    // Animação do personagem caindo
+
     function fall_cycle() {
-        if (lockout == 0){
+        if (lockout == 0 && lockout_nail == 0){
         if (cont_fall == 1) {
             cont_fall = 2;
-            div_knight.innerHTML = `<img src="../../assets/images/knight_sprite_sheet/knight_fall_1.png">`
+            div_knight.innerHTML = img_fall1
         } else if (cont_fall == 2) {
             cont_fall = 3;
-            div_knight.innerHTML = `<img src="../../assets/images/knight_sprite_sheet/knight_fall_2.png">`
+            div_knight.innerHTML = img_fall2;
         } else if (cont_fall == 3) {
             cont_fall = 1;
-            div_knight.innerHTML = `<img src="../../assets/images/knight_sprite_sheet/knight_fall_3.png">`
+            div_knight.innerHTML = img_fall3
         }}
     }
 
+    // Animação e funcionalidade do pulo
+
     function pular() {
-        div_knight.innerHTML = `<img src="../../assets/images/knight_sprite_sheet/knight_jump_1.png">`
+        if (lockout == 0 && lockout_nail == 0)div_knight.innerHTML = img_jump_1
         checar_pulo = 0.5
         if (lockout == 0) global_top-= 10;
         if (global_top <= 290) checar_pulo = 1;
         if (checar_pulo < 1) setTimeout(() => pular() ,40);
     }
+
+    // Andar para a esquerda
 
     function esquerda() {
             global_left -= 10;
@@ -95,6 +143,8 @@
             }
     }
 
+    // Andar para a direita
+
     function direita() { 
             global_left += 10;
             if (direcao == 1) {
@@ -105,34 +155,40 @@
             }
     }
 
+    // Inverter direção(1)
+
     function flipRight() {
         div_knight.style.transform = `scaleX(-1)`
     }
+
+    // Inverter direção(2)
 
     function flipLeft() {
         div_knight.style.transform = `scaleX(+1)`
     }
 
+    // Animação andar
+
     function walk() {
 
-    if (checar_pulo == 0) {
+    if (checar_pulo == 0 && lockout_nail == 0) {
         if (cont_walk == 1 || cont_walk == 2) {
-            div_knight.innerHTML = `<img src="../../assets/images/knight_sprite_sheet/knight_walk_1.png">`
+            div_knight.innerHTML = img_walk_1
             cont_walk++
         } else if (cont_walk == 3 || cont_walk == 4) {
-            div_knight.innerHTML = `<img src="../../assets/images/knight_sprite_sheet/knight_walk_3.png">`
+            div_knight.innerHTML = img_walk_3
             cont_walk++
         } else if (cont_walk == 5 || cont_walk == 6) {
-            div_knight.innerHTML = `<img src="../../assets/images/knight_sprite_sheet/knight_walk_2.png">`
+            div_knight.innerHTML = img_walk_2
             cont_walk++
         } else if (cont_walk == 7 || cont_walk == 8) {
-            div_knight.innerHTML = `<img src="../../assets/images/knight_sprite_sheet/knight_walk_3.png">`
+            div_knight.innerHTML = img_walk_3
             cont_walk++
         } else if (cont_walk == 9 || cont_walk == 10) {
-            div_knight.innerHTML = `<img src="../../assets/images/knight_sprite_sheet/knight_walk_4.png">`
+            div_knight.innerHTML = img_walk_4
             cont_walk++
         } else if (cont_walk == 11) {
-            div_knight.innerHTML = `<img src="../../assets/images/knight_sprite_sheet/knight_walk_5.png">`
+            div_knight.innerHTML = img_walk_5
             cont_walk++
         } else if (cont_walk == 12) {
             cont_walk = 1
@@ -140,13 +196,78 @@
     }
     }
 
-    function check_still() {
-        last_position.push(global_left, global_top)
+    // Animação parado
 
-        if ((global_left[last_position.lenght] == global_left[last_position.length - 3]) && checar_pulo == 0) {
-            div_knight.innerHTML = `<img src="../../assets/images/knight_sprite_sheet/knight_idle_1.png">` 
+    function check_still() {
+        last_position.push(global_left)
+
+        if ((global_left[last_position.lenght] == global_left[last_position.length - 3]) && checar_pulo == 0 && lockout_nail == 0) {
+            div_knight.innerHTML = img_idle1
         }
     setTimeout(() => check_still() ,1000);
+    }
+
+    function swing_nail() {
+        cooldown_nail = 5;
+        lockout_nail = 1;
+        cooldown_nail_fnc()
+        swing_animation()
+        swing_fnc()
+    }
+
+    function cooldown_nail_fnc() {
+        cooldown_nail--
+        if(cooldown_nail > 0) setTimeout(() => cooldown_nail_fnc(), 200);
+    }
+
+    function swing_animation() {
+        if (cont_swing == 0) {
+            div_knight.innerHTML = img_swing_1
+            cont_swing++
+        } else if (cont_swing == 1) {
+            div_knight.innerHTML = img_swing_4
+            cont_swing++
+        } else if (cont_swing == 2) {
+            div_knight.innerHTML = img_swing_2
+            cont_swing++
+        } else if (cont_swing == 3) {
+            div_knight.innerHTML = img_swing_3
+            cont_swing = 0;
+            lockout_nail = 0;
+            setTimeout(() => div_knight.innerHTML = img_idle1 ,100);
+
+            return false
+        }
+        
+        setTimeout(() => swing_animation(),150);
+    }
+
+    function swing_fnc() {
+        direcao_swing = -1;
+        if (direcao == 2) direcao_swing = 1; 
+        div_swing.innerHTML = `<div id="swing">
+            ${img_nail_1}
+            </div>`
+
+        if (direcao == 2) {
+            swing.style.transform = `scaleX(-1)`
+            div_swing.style.left = `${global_left + 70}px`
+            div_swing.style.top = `${global_top}px`
+            // posicao_div_swing = Number(global_left)
+        } else {
+            div_swing.style.left = `${global_left - 140}px`
+            div_swing.style.top = `${global_top}px`
+            // posicao_div_swing = Number(global_left)
+        }
+        nail_duration = 2
+        setTimeout(() => follow_knight(),400);
+        // div_swing.style.left = `${global_left + 100 * direcao_swing}px`
+    }
+
+    function follow_knight() {
+        if (aux_nail_duration == 0) {
+            swing.innerHTML
+        }
     }
 
     function cast_fireball() {
@@ -163,17 +284,17 @@
     function cast_animation() {
         if (cont_animation == 0) {
             cont_animation++
-            div_knight.innerHTML = `<img src="../../assets/images/knight_sprite_sheet/knight_cast_1.png">`
+            div_knight.innerHTML = img_cast_1
         } else if (cont_animation == 1) {
             cont_animation++
-            div_knight.innerHTML = `<img src="../../assets/images/knight_sprite_sheet/knight_cast_2.png">`
+            div_knight.innerHTML = img_cast_2
         } else if (cont_animation == 2) {
             cont_animation++
-            div_knight.innerHTML = `<img src="../../assets/images/knight_sprite_sheet/knight_cast_3.png">`
+            div_knight.innerHTML = img_cast_3
         }
         if (cont_animation == 3) {
             cont_animation = 0
-            div_knight.innerHTML = `<img src="../../assets/images/knight_sprite_sheet/knight_idle_1.png">`
+            div_knight.innerHTML = img_idle1
             return false
         }
         setTimeout(() => cast_animation(),100);
@@ -184,7 +305,7 @@
         if (direcao == 2) direcao_fireball = -1; 
         lockout = 0
         div_casts.innerHTML = `<div id="fireball">
-            <img src="../../assets/images/knight_sprite_sheet/knight_fireball_1.png">
+            ${img_fireball_1}
             </div>`
         fireball.style.top = `${global_top}px`
         if (direcao == 2) {
@@ -209,13 +330,13 @@
             // alert(posicao_fireball)
             fireball.style.left = `${posicao_fireball}px`
             if (cont_fireball == 1) {
-                fireball.innerHTML = `<img src="../../assets/images/knight_sprite_sheet/knight_fireball_2.png">`
+                fireball.innerHTML = img_fireball_2
                 cont_fireball = 2
             } else if (cont_fireball == 2) {
-                fireball.innerHTML = `<img src="../../assets/images/knight_sprite_sheet/knight_fireball_3.png">`
+                fireball.innerHTML = img_fireball_3
                 cont_fireball = 3
             } else if (cont_fireball == 3) {
-                fireball.innerHTML = `<img src="../../assets/images/knight_sprite_sheet/knight_fireball_4.png">`
+                fireball.innerHTML = img_fireball_4
                 cont_fireball = 1
             }
 
