@@ -36,6 +36,7 @@
         bem_vindo()
         gravidade()
         check_still()
+        div_knight.style.transform = `scaleX(-1)`
         // direita()
     }
 
@@ -63,11 +64,11 @@
     let d = 0;
 
     let global_top = 510;
-    let global_left = 60;
+    let global_left = 140;
 
     let unidade_medida = 'px';
     let checar_pulo = 0;
-    let direcao = 1;
+    let direcao = 2;
     let andandoR = 0;
     let pararR = 0;
     let andandoL = 0;
@@ -83,6 +84,8 @@
     let cont_fireball = 1;
     let aux_mov_fireball = 0;
     let cont_animation = 0;
+
+    let dash_cooldown = 0;
 
     let cooldown_nail = 0;
     let cont_swing = 0;
@@ -131,7 +134,7 @@
         if (lockout == 1 || comecou == 'não') return false
         console.log("PARÂMETRO DO EVENTO DISPARADO: ", event,"TEMPO ATUAL:", timer.toFixed(3));
         if (event.key == "w" && global_top == 510 && checar_pulo == 0) pular()
-        else if (event.key == "a" && global_left > 0 && lockout == 0){
+        else if (event.key == "a" && global_left > 40 && lockout == 0){
             if (andandoL == 0 ) esquerda()
             andandoL = 1
         }
@@ -141,6 +144,9 @@
         }
         else if (event.key == ' ' && cooldown == 0) cast_fireball()
         else if (event.key == 'Enter' && cooldown_nail == 0) swing_nail()
+        else if (event.key == 'Shift' && lockout == 0 && dash_cooldown == 0) {
+        
+        }
         
         div_knight.style.top = `${global_top}${unidade_medida}`;
         div_knight.style.left = `${global_left}${unidade_medida}`;
@@ -160,11 +166,11 @@
     }
 
     function esquerda() {
-            global_left -= 10;
+            if (global_left > 40)global_left -= 13;
             div_knight.style.left = `${global_left}${unidade_medida}`;        
             if(pararL == 1 || lockout == 1) return false
             walk()
-            if (direcao == 2) {
+            if (direcao == 2 && lockout_nail == 0) {
                 flipLeft()
                 direcao = 1
             } else {
@@ -174,12 +180,12 @@
             }
 
     function direita() { 
-            global_left += 10;
+        if (global_left < 1080)global_left += 13;
             div_knight.style.left = `${global_left}${unidade_medida}`;    
             if(pararR == 1 || lockout == 1) return false
             walk()
             setTimeout (()=> direita(), 35)
-            if (direcao == 1) {
+            if (direcao == 1 && lockout_nail == 0) {
                 flipRight()
                 direcao = 2
             } else {
@@ -224,11 +230,17 @@
     }
     }
 
+    // DASH CAVALEIRO -------------------------------------------------------------------------------------------------
+
+    function start_dash() {
+
+    }
+
     // GRAVIDADE E PULO -----------------------------------------------------------------------------------------------
 
     function gravidade() {
         if(global_top < 510 && checar_pulo == 1) {
-            if (lockout == 0) global_top += 5
+            if (lockout == 0) global_top += 10
             fall_cycle()
         }
         else if (global_top == 510) {
@@ -256,8 +268,8 @@
         if (lockout == 0 && lockout_nail == 0)div_knight.innerHTML = img_jump_1
         checar_pulo = 0.5
         if (lockout == 0) global_top-= 10;
-        if (global_top <= 290) checar_pulo = 1;
-        if (checar_pulo < 1) setTimeout(() => pular() ,40);
+        if (global_top <= 290) setTimeout(() => checar_pulo = 1 ,50);
+        else if (checar_pulo < 1) setTimeout(() => pular() ,20);
     }
 
     // CHECAR SE ESTÁ PARADO -----------------------------------------------------------------------------------------------------------------------
@@ -294,7 +306,7 @@
             div_knight.innerHTML = img_swing_3
             cont_swing = 0;
             lockout_nail = 0;
-            setTimeout(() => cooldown_nail = 0, 300);
+            setTimeout(() => cooldown_nail = 0, 250);
             setTimeout(() => div_knight.innerHTML = img_idle1 ,50);
 
             return false
@@ -378,7 +390,7 @@
         div_casts.innerHTML = `<div id="fireball">
             ${img_fireball_1}
             </div>`
-        fireball.style.top = `${global_top}px`
+        fireball.style.top = `${global_top -10}px`
         if (direcao == 2) {
             fireball.style.transform = `scaleX(-1)`
             fireball.style.left = `${global_left}px`
