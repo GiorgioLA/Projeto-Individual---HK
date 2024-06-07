@@ -60,9 +60,9 @@ body {
     /* width: 85px; */
     /* height: 130px;; */
     position: absolute;
-    display: flex;
+    /* display: flex;
     align-items: center;
-    justify-content: center;
+    justify-content: center; */
 }
 
 #card {

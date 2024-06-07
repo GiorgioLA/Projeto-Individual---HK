@@ -11,7 +11,7 @@
     <div id="div_knight"></div>
     <div id="div_hornet"></div>
     <div id="div_casts"></div>
-    <div id="div_swing"></div>
+    <div id="div_swing">a</div>
     <div class="informacoes">
         <div>Vida: 9/9</div>
         <div id="div_cooldown">Alma Sombria: pronta</div>
@@ -86,6 +86,8 @@
     let cont_animation = 0;
 
     let dash_cooldown = 0;
+    let is_dashing = 0;
+    let dash_lockout = 0;
 
     let cooldown_nail = 0;
     let cont_swing = 0;
@@ -93,6 +95,7 @@
     let direcao_swing = 1;
     let nail_duration = 0;
     let aux_nail_duration = 0;
+    let soma_nail = 70;
 
     // CAVALEIRO ----------------------------------------------------------------------------------------------------------------------------------- 
     
@@ -131,7 +134,7 @@
     // MOVER CAVALEIRO (SEM HITBOX) -----------------------------------------------------------------------------------------------
 
     function mover_knight(event) {
-        if (lockout == 1 || comecou == 'não') return false
+        if (lockout >= 1 || comecou == 'não') return false
         console.log("PARÂMETRO DO EVENTO DISPARADO: ", event,"TEMPO ATUAL:", timer.toFixed(3));
         if (event.key == "w" && global_top == 510 && checar_pulo == 0) pular()
         else if (event.key == "a" && global_left > 40 && lockout == 0){
@@ -144,8 +147,16 @@
         }
         else if (event.key == ' ' && cooldown == 0) cast_fireball()
         else if (event.key == 'Enter' && cooldown_nail == 0) swing_nail()
-        else if (event.key == 'Shift' && lockout == 0 && dash_cooldown == 0) {
-        
+        else if (event.key == 'Shift' && lockout == 0 && dash_cooldown == 0 && is_dashing == 0 && dash_lockout == 0) {
+            lockout = 2;
+            dash_cooldown = 1;
+            dash_lockout = 1
+            checar_pulo = 1;
+            is_dashing = 1;
+            start_dash();
+            setTimeout (()=> lockout = 0,400)
+            setTimeout (()=> dash_lockout = 0,800)
+            setTimeout (()=> dash_cooldown = 0,400)
         }
         
         div_knight.style.top = `${global_top}${unidade_medida}`;
@@ -166,7 +177,7 @@
     }
 
     function esquerda() {
-            if (global_left > 40)global_left -= 13;
+            if (global_left > 40 && is_dashing == 0)global_left -= 13;
             div_knight.style.left = `${global_left}${unidade_medida}`;        
             if(pararL == 1 || lockout == 1) return false
             walk()
@@ -180,7 +191,7 @@
             }
 
     function direita() { 
-        if (global_left < 1080)global_left += 13;
+        if (global_left < 1080 &&  is_dashing == 0)global_left += 13;
             div_knight.style.left = `${global_left}${unidade_medida}`;    
             if(pararR == 1 || lockout == 1) return false
             walk()
@@ -195,12 +206,14 @@
 
     function flipRight() {
         div_knight.style.transform = `scaleX(-1)`
+        soma_nail = 70
     }
 
     // Inverter direção(2)
 
     function flipLeft() {
         div_knight.style.transform = `scaleX(+1)`
+        soma_nail = -140
     }
 
     function walk() {
@@ -233,7 +246,14 @@
     // DASH CAVALEIRO -------------------------------------------------------------------------------------------------
 
     function start_dash() {
-
+        if (global_left > 40 && global_left < 1080) {
+            let direcao_dash = -1;
+            if (direcao == 2) direcao_dash = 1;
+            global_left += 30 * direcao_dash
+            div_knight.style.left = `${global_left}px`
+            }
+        if (dash_cooldown == 1) setTimeout(()=> start_dash(),50)
+        else is_dashing = 0;
     }
 
     // GRAVIDADE E PULO -----------------------------------------------------------------------------------------------
@@ -266,7 +286,7 @@
 
     function pular() {
         if (lockout == 0 && lockout_nail == 0)div_knight.innerHTML = img_jump_1
-        checar_pulo = 0.5
+        // checar_pulo = 0.5    
         if (lockout == 0) global_top-= 10;
         if (global_top <= 290) setTimeout(() => checar_pulo = 1 ,50);
         else if (checar_pulo < 1) setTimeout(() => pular() ,20);
@@ -324,11 +344,11 @@
 
         if (direcao == 2) {
             swing.style.transform = `scaleX(-1)`
-            div_swing.style.left = `${global_left + 70}px`
+            div_swing.style.left = `${global_left + soma_nail}px`
             div_swing.style.top = `${global_top}px`
             // posicao_div_swing = Number(global_left)
         } else {
-            div_swing.style.left = `${global_left - 140}px`
+            div_swing.style.left = `${global_left + soma_nail}px`
             div_swing.style.top = `${global_top}px`
             // posicao_div_swing = Number(global_left)
         }
@@ -339,6 +359,7 @@
 
     function follow_knight() {
         setInterval(() => div_swing.style.top = `${global_top}px`,80);
+        setInterval(() => div_swing.style.left = `${global_left + soma_nail}px`,80);
         if (aux_nail_duration == 0) {
             aux_nail_duration++
         } else if (aux_nail_duration == 1) {
