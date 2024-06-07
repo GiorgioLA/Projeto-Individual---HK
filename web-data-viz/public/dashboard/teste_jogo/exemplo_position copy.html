@@ -37,7 +37,7 @@
     </style>
 </head>
 <!-- "event" é um parâmetro que indica que sua função irá receber o evento disparado "ao pressionar uma tecla" -->
-<body onkeydown="mover_nuvem(event)" onkeyup="pararTotal(event)">
+<body onkeydown="mover_nuvem(event)" onkeyup="parar_fnc(event)">
     <div>
         <div id="div_pink"></div>
         <div id="div_nuvem">
@@ -60,7 +60,7 @@
 
 <script>
     var global_top = 0; // distância atual entre o elemento e o topo da página
-    var global_top_2 = 200; // distância atual entre o elemento e o topo da página
+    var global_top_2 = 100; // distância atual entre o elemento e o topo da página
     var global_left = 0; // distância atual entre o elemento e a lateral esquerda da página
     var global_left_2 = 0; // distância atual entre o elemento e a lateral esquerda da página
     var unidade_medida = "px";
@@ -80,50 +80,59 @@
         } else if (event.key == "ArrowUp") { // "ArrowUp" é a tecla de seta para cima
             global_top_2 -= 10;
         } else if (event.key == "ArrowLeft") { // "ArrowLeft" é a tecla de seta para esquerda
-        if (andandoL == 0 ) moveLeft()
-            andandoL = 1;
-            global_left_2 += 10;
+            global_left_2 -= 10;
         } else if (event.key == "ArrowRight") { // "ArrowRight" é a tecla de seta para direita
-            if (andandoR == 0 ) moveRight()
-            andandoR = 1;
+            if (aux == 0 ) 
+            moveRight()
             global_left_2 += 10;
-        }
+            aux = 1;
+            setTimeout(()=> chk_right = 1 , 300)
+            }
 
         div_nuvem.style.top = `${global_top}${unidade_medida}`; // atualiza a posição do topo da nuvem
         div_nuvem.style.left = `${global_left}${unidade_medida}`; // atualiza a posição da esquerda da nuvem
         div_nuvem_2.style.top = `${global_top_2}${unidade_medida}`; // atualiza a posição do topo da nuvem
         div_nuvem_2.style.left = `${global_left_2}${unidade_medida}`; // atualiza a posição da esquerda da nuvem
+
+        // `${X}${Y}` indica que desejamos o valor X com a unidade Y, como "100px" ou "50%", sendo X o valor e Y a unidade
     }
 
-    let andandoR = 0;
-    let pararR = 0;
-    let andandoL = 0;
-    let pararL = 0;
-    
+    let aux = 0;
+    let parar = 0
+    let aux_2 = 0
+
+    function parar_fnc(event) {
+        console.log("SKIBIDU DO EVENTO DISPARADO: ", event); // exibindo o evento disparado no console (abra o console e veja os resultados)
+        if (event.key == 'ArrowRight' && chk_right == 0) {
+            if (aux_2 == 0) {
+                aux_2 = 1;
+                parar = 1
+            }
+            else if (aux_2 == 1) {
+                aux_2 = 0;
+                parar = 0
+            }
+        } else chk_right = 0;
+    }
+
     function moveRight() {
         global_left += 10;
         div_nuvem.style.left = `${global_left}${unidade_medida}`; // atualiza a posição da esquerda da nuvem
-        if (pararR == 1) return false;
+        // if (parar == 1) return false;
         setTimeout(()=>moveRight(), 35)
     }
 
-    function pararTotal(event) {
-        if (event.key == 'ArrowRight'){
-        pararR = 1
-        andandoR = 0
-        setTimeout(()=> pararR = 0, 35)
-    }
-    if (event.key == 'ArrowLeft'){
-        pararL = 1
-        andandoL = 0
-        setTimeout(()=> pararL = 0, 35)
-    }
-    }
 
-    function moveLeft() {
-        global_left -= 10;
-        div_nuvem.style.left = `${global_left}${unidade_medida}`; // atualiza a posição da esquerda da nuvem
-        if (pararL == 1) return false;
-        setTimeout(()=>moveLeft(), 35)
-    }
+    // function mover_sozinho() {
+    //     global_left += 5; // incrementa a distância do lado esquerdo em 1 
+    //     div_nuvem.style.left = `${global_left}${unidade_medida}`; // atualiza a posição da nuvem
+
+    //     // se a distância do lado esquerdo for maior que 100<unidade_medida>, limpa o intervalo criado;
+    //     if (global_left > 100) {
+    //         clearInterval(intervalo);
+    //     }
+    // }
+
+    // var intervalo = setInterval(mover_sozinho, 100); 
+    // define um intervalo que invoca a função "mover_sozinho" a cada 100 milissegundos
 </script>

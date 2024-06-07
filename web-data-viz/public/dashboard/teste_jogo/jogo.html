@@ -6,7 +6,7 @@
     <title>Document</title>
     <link rel="stylesheet" href="teste_jogo.css">
 </head>
-<body onkeydown="mover_knight(event)" onload="carreguei()">
+<body onkeyup="pararTotal(event)" onkeydown="mover_knight(event)" onload="carreguei()">
     <div class="main"></div>
     <div id="div_knight"></div>
     <div id="div_hornet"></div>
@@ -30,11 +30,13 @@
     let timer = 0;
     let comecou = 'não'
 
+    // FUNÇÕES DE INICIALIZAÇÃO ----------------------------------------------------------------------------------------------------------------------
+
     function carreguei() {
         bem_vindo()
         gravidade()
         check_still()
-        direita()
+        // direita()
     }
 
     function comecar() {
@@ -51,22 +53,26 @@
 
     function comecar_contagem() {
         timer+= 0.1
-        tempo.innerHTML = timer.toFixed(1);
+        let bingus = timer.toFixed(1)
+        tempo.innerHTML = bingus;
         setTimeout(()=> comecar_contagem(), 100)
     }
 
-    // direção para bola de fogo
+    // DECLARANDO VARIÁVEIS ---------------------------------------------------------------------------------------------------------------------
+
     let d = 0;
 
-    // Posição cavaleiro
     let global_top = 510;
     let global_left = 60;
 
     let unidade_medida = 'px';
-    
-    // Auxiliar
     let checar_pulo = 0;
     let direcao = 1;
+    let andandoR = 0;
+    let pararR = 0;
+    let andandoL = 0;
+    let pararL = 0;
+
     let cont_fall = 1;
     let cont_walk = 1;
     
@@ -123,10 +129,16 @@
 
     function mover_knight(event) {
         if (lockout == 1 || comecou == 'não') return false
-        console.log("PARÂMETRO DO EVENTO DISPARADO: ", event);
+        console.log("PARÂMETRO DO EVENTO DISPARADO: ", event,"TEMPO ATUAL:", timer.toFixed(3));
         if (event.key == "w" && global_top == 510 && checar_pulo == 0) pular()
-        else if (event.key == "a" && global_left > 0 && lockout == 0) esquerda()
-        else if (event.key == "d" && global_left < 1080 && lockout == 0) direita()
+        else if (event.key == "a" && global_left > 0 && lockout == 0){
+            if (andandoL == 0 ) esquerda()
+            andandoL = 1
+        }
+        else if (event.key == "d" && global_left < 1080 && lockout == 0) {
+            if (andandoR == 0) direita()
+            andandoR = 1
+        }
         else if (event.key == ' ' && cooldown == 0) cast_fireball()
         else if (event.key == 'Enter' && cooldown_nail == 0) swing_nail()
         
@@ -134,18 +146,39 @@
         div_knight.style.left = `${global_left}${unidade_medida}`;
     }
 
+    function pararTotal() {
+    if (event.key == 'a'){
+        pararL = 1
+        andandoL = 0
+        setTimeout(()=> pararL = 0, 35)
+    }
+    if (event.key == 'd'){
+        pararR = 1
+        andandoR = 0
+        setTimeout(()=> pararR = 0, 35)
+    }
+    }
+
     function esquerda() {
             global_left -= 10;
+            div_knight.style.left = `${global_left}${unidade_medida}`;        
+            if(pararL == 1 || lockout == 1) return false
+            walk()
             if (direcao == 2) {
                 flipLeft()
                 direcao = 1
             } else {
                 walk()
             }
-    }
+            setTimeout (()=> esquerda(), 35)
+            }
 
     function direita() { 
             global_left += 10;
+            div_knight.style.left = `${global_left}${unidade_medida}`;    
+            if(pararR == 1 || lockout == 1) return false
+            walk()
+            setTimeout (()=> direita(), 35)
             if (direcao == 1) {
                 flipRight()
                 direcao = 2

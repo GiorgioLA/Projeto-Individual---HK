@@ -6,6 +6,7 @@ body {
     align-items: center;
     background-color: black;
     cursor: url(../../assets/images/Hollow_Knight_Cursor/cursor.cur), auto;
+    overflow-y: hidden;
 
 }
 
