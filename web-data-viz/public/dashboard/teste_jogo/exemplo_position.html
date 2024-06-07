@@ -51,7 +51,31 @@
     var global_top = 0; // distância atual entre o elemento e o topo da página
     var global_left = 0; // distância atual entre o elemento e a lateral esquerda da página
     var unidade_medida = "px";
+
+
+    document.addEventListener("moverBloco", function(evt) {
+        switch (evt.keyCode) {
+        case 83:
+          direction = "down";
+          break;
+        case 87:
+          direction = "up";
+          break;
+        case 40:
+          direction = "down";
+          break;
+        case 38:
+          direction = "up";
+          break;
+        default:
+          direction = null;
+        }
+    })
     
+    document.addEventListener("keyup", function (evt) {
+  direction = null;
+    })
+
 
     function mover_nuvem(event) { // "event" é o parâmetro/valor que será recebido pela função "mover_nuvem()" quando ela for invocada ao pressionar a tecla
         
@@ -77,15 +101,15 @@
     }
 
 
-    function mover_sozinho() {
-        global_left += 5; // incrementa a distância do lado esquerdo em 1 
-        div_nuvem.style.left = `${global_left}${unidade_medida}`; // atualiza a posição da nuvem
+    // function mover_sozinho() {
+    //     global_left += 5; // incrementa a distância do lado esquerdo em 1 
+    //     div_nuvem.style.left = `${global_left}${unidade_medida}`; // atualiza a posição da nuvem
 
-        // se a distância do lado esquerdo for maior que 100<unidade_medida>, limpa o intervalo criado;
-        if (global_left > 100) {
-            clearInterval(intervalo);
-        }
-    }
+    //     // se a distância do lado esquerdo for maior que 100<unidade_medida>, limpa o intervalo criado;
+    //     if (global_left > 100) {
+    //         clearInterval(intervalo);
+    //     }
+    // }
 
     var intervalo = setInterval(mover_sozinho, 100); 
     // define um intervalo que invoca a função "mover_sozinho" a cada 100 milissegundos

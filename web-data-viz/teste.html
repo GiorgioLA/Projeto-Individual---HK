@@ -1,17 +1,41 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
-    <button onclick="testar()">teste</button>
-</body>
+<!doctype html>
+<html>
+  <head>
+    <title>Exemplo de Evento DOM</title>
+
+    <style>
+      #t {
+        border: 1px solid red;
+      }
+      #t1 {
+        background-color: pink;
+      }
+    </style>
+
+    <script>
+      // Função para mudar o conteúdo de t2
+      function modifyText() {
+        var t2 = document.getElementById("t2");
+        t2.firstChild.nodeValue = "three";
+      }
+
+      // Função para adicionar uma espera de evento em t
+      function load() {
+        var el = document.getElementById("t");
+        el.addEventListener("click", modifyText, false);
+      }
+
+      document.addEventListener("DOMContentLoaded", load, false);
+    </script>
+  </head>
+  <body>
+    <table id="t">
+      <tr>
+        <td id="t1">one</td>
+      </tr>
+      <tr>
+        <td id="t2">two</td>
+      </tr>
+    </table>
+  </body>
 </html>
-<script>
-    function testar() {
-        let teste = 'bingus'
-        alert(teste)
-    }
-</script>

@@ -299,7 +299,7 @@ button { /* Customização dos botões */
   display: flex;
   justify-content: center;
   align-items: center;
-    cursor: url(../assets/images/Hollow_Knight_Cursor/cursor03.cur), auto;
+  cursor: url(../assets/images/Hollow_Knight_Cursor/cursor03.cur), auto;
 }
 
 button:hover {

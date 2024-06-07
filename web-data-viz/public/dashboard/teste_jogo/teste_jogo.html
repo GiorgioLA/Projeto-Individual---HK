@@ -6,23 +6,61 @@
     <title>Document</title>
     <link rel="stylesheet" href="teste_jogo.css">
 </head>
-<body onkeydown="mover_knight(event)" onload="gravidade(), check_still()">
+<body onkeydown="mover_knight(event)" onload="carreguei()">
     <div class="main"></div>
-    <div id="div_knight">
-        <img src="../../assets/images/knight_sprite_sheet/knight_walk_1.png">
-    </div>
+    <div id="div_knight"></div>
+    <div id="div_hornet"></div>
     <div id="div_casts"></div>
     <div id="div_swing"></div>
+    <div class="informacoes">
+        <div>Vida: 9/9</div>
+        <div id="div_cooldown">Alma Sombria: pronta</div>
+        Tempo: <span id="tempo"></span>
+    </div>
+    <div id="card" style="display: none;">
+        <img class="dialogue" src="../../assets/images/top_dialogue_box-removebg-preview.png" alt="">
+        <span>Bem vindo ao Protótipo da batalha contra um dos chefes do jogo: Hornet!</span>
+        <span>Utilize os botões: W, A e D para se mover, Enter para atacar, Espaço para lançar um feitiço e Shift para esquivar</span>
+        <button id="botao_comecar" onclick="comecar()">Comecar</button>
+        <img class="dialogue" src="../../assets/images/bottom_dialogue_box-removebg-preview.png" alt="">
+    </div>
 </body>
 </html>
 <script>
+    let timer = 0;
+    let comecou = 'não'
+
+    function carreguei() {
+        bem_vindo()
+        gravidade()
+        check_still()
+        direita()
+    }
+
+    function comecar() {
+        comecar_contagem()
+        comecou = 'sim'
+        card.style.display = 'none'
+        // function futura para "acordar" hornet
+    }
+
+    function bem_vindo() {
+        card.style.display = 'flex'
+        setTimeout (()=> botao_comecar.style.display = "flex", 1000)
+    }
+
+    function comecar_contagem() {
+        timer+= 0.1
+        tempo.innerHTML = timer.toFixed(1);
+        setTimeout(()=> comecar_contagem(), 100)
+    }
 
     // direção para bola de fogo
     let d = 0;
 
     // Posição cavaleiro
-    let global_top = 488;
-    let global_left = 300;
+    let global_top = 510;
+    let global_left = 60;
 
     let unidade_medida = 'px';
     
@@ -47,91 +85,54 @@
     let nail_duration = 0;
     let aux_nail_duration = 0;
 
+    // CAVALEIRO ----------------------------------------------------------------------------------------------------------------------------------- 
     
     const last_position = []
-    const img_idle1 = `<img src="../../assets/images/knight_sprite_sheet/knight_idle_1.png">`;
-    const img_fall1 = `<img src="../../assets/images/knight_sprite_sheet/knight_fall_1.png">`;
-    const img_fall2 = `<img src="../../assets/images/knight_sprite_sheet/knight_fall_2.png">`;
-    const img_fall3 = `<img src="../../assets/images/knight_sprite_sheet/knight_fall_3.png">`;
-    const img_jump_1 = `<img src="../../assets/images/knight_sprite_sheet/knight_jump_1.png">`;
-    const img_walk_1 =  `<img src="../../assets/images/knight_sprite_sheet/knight_walk_1.png">`;
-    const img_walk_2 =  `<img src="../../assets/images/knight_sprite_sheet/knight_walk_2.png">`;
-    const img_walk_3 =  `<img src="../../assets/images/knight_sprite_sheet/knight_walk_3.png">`;
-    const img_walk_4 =  `<img src="../../assets/images/knight_sprite_sheet/knight_walk_4.png">`;
-    const img_walk_5 =  `<img src="../../assets/images/knight_sprite_sheet/knight_walk_5.png">`;
-    const img_cast_1 =  `<img src="../../assets/images/knight_sprite_sheet/knight_cast_1.png">`;
-    const img_cast_2 =  `<img src="../../assets/images/knight_sprite_sheet/knight_cast_2.png">`;
-    const img_cast_3 =  `<img src="../../assets/images/knight_sprite_sheet/knight_cast_3.png">`;
-    const img_fireball_1 = `<img src="../../assets/images/knight_sprite_sheet/knight_fireball_1.png">`;
-    const img_fireball_2 = `<img src="../../assets/images/knight_sprite_sheet/knight_fireball_2.png">`;
-    const img_fireball_3 = `<img src="../../assets/images/knight_sprite_sheet/knight_fireball_3.png">`;
-    const img_fireball_4 = `<img src="../../assets/images/knight_sprite_sheet/knight_fireball_4.png">`;
-    const img_swing_1 = `<img src="../../assets/images/knight_sprite_sheet/knight_swing_1.png">`;
-    const img_swing_2 = `<img src="../../assets/images/knight_sprite_sheet/knight_swing_2.png">`;
-    const img_swing_3 = `<img src="../../assets/images/knight_sprite_sheet/knight_swing_3.png">`;
-    const img_swing_4 = `<img src="../../assets/images/knight_sprite_sheet/knight_swing_4.png">`;
+    const img_idle1 = `<img class="style_knight" src="../../assets/images/knight_sprite_sheet/knight_idle_1.png">`;
+    const img_fall1 = `<img class="style_knight" src="../../assets/images/knight_sprite_sheet/knight_fall_1.png">`;
+    const img_fall2 = `<img class="style_knight" src="../../assets/images/knight_sprite_sheet/knight_fall_2.png">`;
+    const img_fall3 = `<img class="style_knight" src="../../assets/images/knight_sprite_sheet/knight_fall_3.png">`;
+    const img_jump_1 = `<img class="style_knight" src="../../assets/images/knight_sprite_sheet/knight_jump_1.png">`;
+    const img_walk_1 =  `<img class="style_knight" src="../../assets/images/knight_sprite_sheet/knight_walk_1.png">`;
+    const img_walk_2 =  `<img class="style_knight" src="../../assets/images/knight_sprite_sheet/knight_walk_2.png">`;
+    const img_walk_3 =  `<img class="style_knight" src="../../assets/images/knight_sprite_sheet/knight_walk_3.png">`;
+    const img_walk_4 =  `<img class="style_knight" src="../../assets/images/knight_sprite_sheet/knight_walk_4.png">`;
+    const img_walk_5 =  `<img class="style_knight" src="../../assets/images/knight_sprite_sheet/knight_walk_5.png">`;
+    const img_cast_1 =  `<img class="style_knight" src="../../assets/images/knight_sprite_sheet/knight_cast_1.png">`;
+    const img_cast_2 =  `<img class="style_knight" src="../../assets/images/knight_sprite_sheet/knight_cast_2.png">`;
+    const img_cast_3 =  `<img class="style_knight" src="../../assets/images/knight_sprite_sheet/knight_cast_3.png">`;
+    const img_fireball_1 = `<img style="height: 90px;" src="../../assets/images/knight_sprite_sheet/knight_fireball_1.png">`;
+    const img_fireball_2 = `<img style="height: 90px;" src="../../assets/images/knight_sprite_sheet/knight_fireball_2.png">`;
+    const img_fireball_3 = `<img style="height: 90px;" src="../../assets/images/knight_sprite_sheet/knight_fireball_3.png">`;
+    const img_fireball_4 = `<img style="height: 90px;" src="../../assets/images/knight_sprite_sheet/knight_fireball_4.png">`;
+    const img_swing_1 = `<img class="style_knight" src="../../assets/images/knight_sprite_sheet/knight_swing_1.png">`;
+    const img_swing_2 = `<img class="style_knight" src="../../assets/images/knight_sprite_sheet/knight_swing_2.png">`;
+    const img_swing_3 = `<img class="style_knight" src="../../assets/images/knight_sprite_sheet/knight_swing_3.png">`;
+    const img_swing_4 = `<img class="style_knight" src="../../assets/images/knight_sprite_sheet/knight_swing_4.png">`;
     const img_nail_1 = `<img src="../../assets/images/knight_sprite_sheet/knight_nail_1.png">`;
     const img_nail_2 = `<img src="../../assets/images/knight_sprite_sheet/knight_nail_2.png">`;
     const img_nail_3 = `<img src="../../assets/images/knight_sprite_sheet/knight_nail_3.png">`;
 
+    // HORNET ------------------------------------------------------------------------------------------------------------------------------------
 
-    //  Registrando Inputs
+    const img_hornet_idle1 = `<img class="style_hornet" src="../../assets/images/hornet_sprite_sheet/Hornet - idle0000.png">`;
+
+    div_hornet.innerHTML = img_hornet_idle1;
+
+    // MOVER CAVALEIRO (SEM HITBOX) -----------------------------------------------------------------------------------------------
 
     function mover_knight(event) {
-        if (lockout == 1) return false
+        if (lockout == 1 || comecou == 'não') return false
         console.log("PARÂMETRO DO EVENTO DISPARADO: ", event);
-        if (event.key == "w" && global_top == 488 && checar_pulo == 0) pular()
-        else if (event.key == "a" && global_left > 250 && lockout == 0) esquerda()
-        else if (event.key == "d" && global_left < 1180 && lockout == 0) direita()
+        if (event.key == "w" && global_top == 510 && checar_pulo == 0) pular()
+        else if (event.key == "a" && global_left > 0 && lockout == 0) esquerda()
+        else if (event.key == "d" && global_left < 1080 && lockout == 0) direita()
         else if (event.key == ' ' && cooldown == 0) cast_fireball()
         else if (event.key == 'Enter' && cooldown_nail == 0) swing_nail()
         
         div_knight.style.top = `${global_top}${unidade_medida}`;
         div_knight.style.left = `${global_left}${unidade_medida}`;
     }
-
-    // Gravidade constante
-
-    function gravidade() {
-        if(global_top < 488 && checar_pulo == 1) {
-            if (lockout == 0) global_top += 10
-            fall_cycle()
-        }
-        else if (global_top == 488) {
-            if (checar_pulo == 1) div_knight.innerHTML = img_idle1
-            checar_pulo = 0 
-        }
-        div_knight.style.top = `${global_top}${unidade_medida}`;
-        setTimeout(() => gravidade() ,40);
-    }
-
-    // Animação do personagem caindo
-
-    function fall_cycle() {
-        if (lockout == 0 && lockout_nail == 0){
-        if (cont_fall == 1) {
-            cont_fall = 2;
-            div_knight.innerHTML = img_fall1
-        } else if (cont_fall == 2) {
-            cont_fall = 3;
-            div_knight.innerHTML = img_fall2;
-        } else if (cont_fall == 3) {
-            cont_fall = 1;
-            div_knight.innerHTML = img_fall3
-        }}
-    }
-
-    // Animação e funcionalidade do pulo
-
-    function pular() {
-        if (lockout == 0 && lockout_nail == 0)div_knight.innerHTML = img_jump_1
-        checar_pulo = 0.5
-        if (lockout == 0) global_top-= 10;
-        if (global_top <= 290) checar_pulo = 1;
-        if (checar_pulo < 1) setTimeout(() => pular() ,40);
-    }
-
-    // Andar para a esquerda
 
     function esquerda() {
             global_left -= 10;
@@ -143,8 +144,6 @@
             }
     }
 
-    // Andar para a direita
-
     function direita() { 
             global_left += 10;
             if (direcao == 1) {
@@ -155,8 +154,6 @@
             }
     }
 
-    // Inverter direção(1)
-
     function flipRight() {
         div_knight.style.transform = `scaleX(-1)`
     }
@@ -166,8 +163,6 @@
     function flipLeft() {
         div_knight.style.transform = `scaleX(+1)`
     }
-
-    // Animação andar
 
     function walk() {
 
@@ -196,7 +191,43 @@
     }
     }
 
-    // Animação parado
+    // GRAVIDADE E PULO -----------------------------------------------------------------------------------------------
+
+    function gravidade() {
+        if(global_top < 510 && checar_pulo == 1) {
+            if (lockout == 0) global_top += 5
+            fall_cycle()
+        }
+        else if (global_top == 510) {
+            if (checar_pulo == 1) div_knight.innerHTML = img_idle1
+            checar_pulo = 0 
+        }
+        div_knight.style.top = `${global_top}${unidade_medida}`;
+        setTimeout(() => gravidade() ,20);
+    }
+
+    function fall_cycle() {
+        if (lockout == 0 && lockout_nail == 0){
+        if (cont_fall == 1 || cont_fall == 2) {
+            cont_fall++;
+            div_knight.innerHTML = img_fall3
+        } else if (cont_fall == 3 || cont_fall == 4) {
+            cont_fall++
+            div_knight.innerHTML = img_fall3;
+        }  else if (cont_fall == 5) {
+            cont_fall = 1
+        }}
+    }
+
+    function pular() {
+        if (lockout == 0 && lockout_nail == 0)div_knight.innerHTML = img_jump_1
+        checar_pulo = 0.5
+        if (lockout == 0) global_top-= 10;
+        if (global_top <= 290) checar_pulo = 1;
+        if (checar_pulo < 1) setTimeout(() => pular() ,40);
+    }
+
+    // CHECAR SE ESTÁ PARADO -----------------------------------------------------------------------------------------------------------------------
 
     function check_still() {
         last_position.push(global_left)
@@ -207,17 +238,13 @@
     setTimeout(() => check_still() ,1000);
     }
 
+    // ESPADA (SEM HITBOX) -------------------------------------------------------------------------------------------------------------------------
+
     function swing_nail() {
-        cooldown_nail = 5;
+        cooldown_nail = 1;
         lockout_nail = 1;
-        cooldown_nail_fnc()
         swing_animation()
         swing_fnc()
-    }
-
-    function cooldown_nail_fnc() {
-        cooldown_nail--
-        if(cooldown_nail > 0) setTimeout(() => cooldown_nail_fnc(), 200);
     }
 
     function swing_animation() {
@@ -227,14 +254,15 @@
         } else if (cont_swing == 1) {
             div_knight.innerHTML = img_swing_4
             cont_swing++
+        // } else if (cont_swing == 2) {
+        //     div_knight.innerHTML = img_swing_2
+        //     cont_swing++
         } else if (cont_swing == 2) {
-            div_knight.innerHTML = img_swing_2
-            cont_swing++
-        } else if (cont_swing == 3) {
             div_knight.innerHTML = img_swing_3
             cont_swing = 0;
             lockout_nail = 0;
-            setTimeout(() => div_knight.innerHTML = img_idle1 ,100);
+            setTimeout(() => cooldown_nail = 0, 300);
+            setTimeout(() => div_knight.innerHTML = img_idle1 ,50);
 
             return false
         }
@@ -260,19 +288,29 @@
             // posicao_div_swing = Number(global_left)
         }
         nail_duration = 2
-        setTimeout(() => follow_knight(),400);
+        setTimeout(() => follow_knight(),50);
         // div_swing.style.left = `${global_left + 100 * direcao_swing}px`
     }
 
     function follow_knight() {
+        setInterval(() => div_swing.style.top = `${global_top}px`,80);
         if (aux_nail_duration == 0) {
-            swing.innerHTML
+            aux_nail_duration++
+        } else if (aux_nail_duration == 1) {
+            aux_nail_duration++
+        } else if (aux_nail_duration == 2) {
+            div_swing.innerHTML = ``
+            aux_nail_duration = 0;
+            return false
         }
+        setTimeout(() => follow_knight(),80);
     }
+
+    // BOLA DE "FOGO" (SEM HITBOX) -----------------------------------------------------------------------------------------------------------
 
     function cast_fireball() {
         lockout = 1;
-        cooldown = 10;
+        cooldown = 5;
         cooldown_fireball()
         cast_animation()
         setTimeout(() => 
@@ -325,7 +363,7 @@
         // alert(d)
         // alert(posicao_fireball)
         // alert(global_left)
-        if (posicao_fireball > 150 && posicao_fireball < 1200) {
+        if (posicao_fireball > 0 && posicao_fireball < 1080) {
             posicao_fireball = posicao_fireball - 50 * d
             // alert(posicao_fireball)
             fireball.style.left = `${posicao_fireball}px`
@@ -350,9 +388,17 @@
 
     function cooldown_fireball() {
         cooldown--
+        div_cooldown.innerHTML = `Alma Sombria: ${cooldown}`
         if(cooldown > 0) setTimeout(() => cooldown_fireball(),1000);
+        else div_cooldown.innerHTML = `Alma Sombria: pronta`
 
     }
+
+    // HORNET (SEM HITBOX) ---------------------------------------------------------------------------------------------------------------------------
+
+
+
+    // HITBOX ----------------------------------------------------------------------------------------------------------------------------------------
 
 
 </script>
