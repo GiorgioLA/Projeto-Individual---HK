@@ -96,8 +96,9 @@
     let nail_duration = 0;
     let aux_nail_duration = 0;
     let soma_nail = 70;
+    let apertando_dash = 0;
 
-    // CAVALEIRO ----------------------------------------------------------------------------------------------------------------------------------- 
+    // IMAGENS CAVALEIRO ------------------------------------------------------------------------------------------------------------------------ 
     
     const last_position = []
     const img_idle1 = `<img class="style_knight" src="../../assets/images/knight_sprite_sheet/knight_idle_1.png">`;
@@ -124,6 +125,9 @@
     const img_nail_1 = `<img src="../../assets/images/knight_sprite_sheet/knight_nail_1.png">`;
     const img_nail_2 = `<img src="../../assets/images/knight_sprite_sheet/knight_nail_2.png">`;
     const img_nail_3 = `<img src="../../assets/images/knight_sprite_sheet/knight_nail_3.png">`;
+    const img_dash_1 = `<img src="../../assets/images/knight_sprite_sheet/knight_dash_1.png">`;
+    const img_dash_2 = `<img src="../../assets/images/knight_sprite_sheet/knight_dash_2.png">`;
+    const img_dash_3 = `<img src="../../assets/images/knight_sprite_sheet/knight_dash_3.png">`;
 
     // HORNET ------------------------------------------------------------------------------------------------------------------------------------
 
@@ -145,18 +149,30 @@
             if (andandoR == 0) direita()
             andandoR = 1
         }
-        else if (event.key == ' ' && cooldown == 0) cast_fireball()
+        else if (event.key == ' ' && cooldown == 0 && dash_lockout == 0) cast_fireball()
         else if (event.key == 'Enter' && cooldown_nail == 0) swing_nail()
         else if (event.key == 'Shift' && lockout == 0 && dash_cooldown == 0 && is_dashing == 0 && dash_lockout == 0) {
+            if (apertando_dash == 0){
+            apertando_dash = 1;
             lockout = 2;
             dash_cooldown = 1;
             dash_lockout = 1
             checar_pulo = 1;
             is_dashing = 1;
+            pararR = 1;
+            pararL = 1
+            andandoL = 0
+            setTimeout(()=> pararL = 0, 35)
+            pararR = 1
+            andandoR = 0
+            setTimeout(()=> pararR = 0, 35)
             start_dash();
-            setTimeout (()=> lockout = 0,400)
-            setTimeout (()=> dash_lockout = 0,800)
-            setTimeout (()=> dash_cooldown = 0,400)
+            animacao_dash(1);
+            setTimeout (()=> lockout = 0, 450)
+            setTimeout (()=> pararR = 0, 450)
+            setTimeout (()=> dash_lockout = 0, 800)
+            setTimeout (()=> apertando_dash = 0, 800)
+            setTimeout (()=> dash_cooldown = 0, 400)}
         }
         
         div_knight.style.top = `${global_top}${unidade_medida}`;
@@ -173,6 +189,14 @@
         pararR = 1
         andandoR = 0
         setTimeout(()=> pararR = 0, 35)
+    }
+    if (event.key == 'Shift'){
+        pararR = 1
+        andandoR = 0
+        setTimeout(()=> pararR = 0, 35)
+        pararL = 1
+        andandoL = 0
+        setTimeout(()=> pararL = 0, 35)
     }
     }
 
@@ -256,6 +280,41 @@
         else is_dashing = 0;
     }
 
+    function animacao_dash(parametro_dash) {
+        if (parametro_dash == 1) {
+            div_knight.innerHTML = `<img class="style_knight" src="../../assets/images/knight_sprite_sheet/knight_dash_1.png">`;
+            setTimeout(()=> animacao_dash(2), 40)
+            console.log('oi')
+        } else if (parametro_dash == 2) {
+            div_knight.innerHTML = `<img class="style_knight" src="../../assets/images/knight_sprite_sheet/knight_dash_1.png">`;
+            setTimeout(()=> animacao_dash(3), 40)
+            console.log('oi2')
+        }  else if (parametro_dash == 3) {
+            div_knight.innerHTML = `<img class="style_knight" src="../../assets/images/knight_sprite_sheet/knight_dash_1.png">`;
+            setTimeout(()=> animacao_dash(4), 40)
+        }  else if (parametro_dash == 4) {
+            div_knight.innerHTML = `<img class="style_knight" src="../../assets/images/knight_sprite_sheet/knight_dash_2.png">`;
+            setTimeout(()=> animacao_dash(5), 40)
+        }  else if (parametro_dash == 5) {
+            div_knight.innerHTML = `<img class="style_knight" src="../../assets/images/knight_sprite_sheet/knight_dash_2.png">`;
+            setTimeout(()=> animacao_dash(6), 40)
+        }  else if (parametro_dash == 6) {
+            div_knight.innerHTML = `<img class="style_knight" src="../../assets/images/knight_sprite_sheet/knight_dash_2.png">`;
+            setTimeout(()=> animacao_dash(7), 40)
+        }  else if (parametro_dash == 7) {
+            div_knight.innerHTML = `<img class="style_knight" src="../../assets/images/knight_sprite_sheet/knight_dash_2.png">`;
+            setTimeout(()=> animacao_dash(8), 40)
+        }  else if (parametro_dash == 8) {
+            div_knight.innerHTML = `<img class="style_knight" src="../../assets/images/knight_sprite_sheet/knight_dash_2.png">`;
+            setTimeout(()=> animacao_dash(9), 40)
+        }  else if (parametro_dash == 9) {
+            div_knight.innerHTML = `<img class="style_knight" src="../../assets/images/knight_sprite_sheet/knight_dash_3.png">`;
+            setTimeout(()=> animacao_dash(10), 40)
+        }  else if (parametro_dash == 10) {
+            div_knight.innerHTML = `<img class="style_knight" src="../../assets/images/knight_sprite_sheet/knight_idle_1.png">`;
+        }
+    }
+
     // GRAVIDADE E PULO -----------------------------------------------------------------------------------------------
 
     function gravidade() {
@@ -297,7 +356,7 @@
     function check_still() {
         last_position.push(global_left)
 
-        if ((global_left[last_position.lenght] == global_left[last_position.length - 3]) && checar_pulo == 0 && lockout_nail == 0) {
+        if ((global_left[last_position.lenght] == global_left[last_position.length - 3]) && checar_pulo == 0 && lockout_nail == 0 && is_dashing == 0) {
             div_knight.innerHTML = img_idle1
         }
     setTimeout(() => check_still() ,1000);
