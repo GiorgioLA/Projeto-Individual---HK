@@ -12,10 +12,15 @@
     <div id="div_hornet"></div>
     <div id="div_casts"></div>
     <div id="div_swing">a</div>
+    <div id="div_agulha"></div>
+    <div id="div_harpao"></div>
+
     <div class="informacoes">
         <div>Vida: 9/9</div>
         <div id="div_cooldown">Alma Sombria: pronta</div>
-        Tempo: <span id="tempo"></span>
+        Tempo: <span id="tempo"></span> <br>
+        Ativar Hornet <button id="ativar_chefe" style="display: none;" onclick="ativar_hornet()">Ativar</button> <br>
+        Ataque Longo 1 <button onclick="ataque_longo_1(1)">Ativar</button> <br>
     </div>
     <div id="card" style="display: none;">
         <img class="dialogue" src="../../assets/images/top_dialogue_box-removebg-preview.png" alt="">
@@ -44,6 +49,7 @@
         comecar_contagem()
         comecou = 'sim'
         card.style.display = 'none'
+        ativar_chefe.style.display  = 'flex'
         // function futura para "acordar" hornet
     }
 
@@ -131,9 +137,145 @@
 
     // HORNET ------------------------------------------------------------------------------------------------------------------------------------
 
-    const img_hornet_idle1 = `<img class="style_hornet" src="../../assets/images/hornet_sprite_sheet/Hornet - idle0000.png">`;
+    const img_hornet_idle_1 = `<img class="style_hornet" src="../../assets/images/hornet_sprite_sheet/Hornet - idle0000.png">`;
+    const img_hornet_start_1 = `<img class="style_hornet" src="../../assets/images/hornet_sprite_sheet/hornet_start_1.png">`;
+    const img_hornet_start_2 = `<img class="style_hornet" src="../../assets/images/hornet_sprite_sheet/hornet_start_2.png">`;
+    const img_hornet_start_3 = `<img class="style_hornet" src="../../assets/images/hornet_sprite_sheet/hornet_start_3.png">`;
+    const img_hornet_start_4 = `<img class="style_hornet" src="../../assets/images/hornet_sprite_sheet/hornet_start_4.png">`;
+    const img_hornet_start_5 = `<img class="style_hornet" src="../../assets/images/hornet_sprite_sheet/hornet_start_5.png">`;
+    const img_hornet_throw_1 = `<img class="style_hornet_throw" src="../../assets/images/hornet_sprite_sheet/Hornet-throw_side0000.png">`;
+    const img_hornet_throw_2 = `<img class="style_hornet_throw" src="../../assets/images/hornet_sprite_sheet/Hornet-throw_side0001.png">`;
+    const img_hornet_throw_3 = `<img class="style_hornet_throw" src="../../assets/images/hornet_sprite_sheet/Hornet-throw_side0002.png">`;
+    const img_hornet_throw_4 = `<img class="style_hornet_throw" src="../../assets/images/hornet_sprite_sheet/Hornet-throw_side0003.png">`;
+    const img_hornet_throw_5 = `<img class="style_hornet_throw" src="../../assets/images/hornet_sprite_sheet/Hornet-throw_side0004.png">`;
+    const img_hornet_throw_6 = `<img class="style_hornet_throw" src="../../assets/images/hornet_sprite_sheet/Hornet-throw_side0005.png">`;
+    const img_hornet_throw_7 = `<img class="style_hornet_throw" src="../../assets/images/hornet_sprite_sheet/Hornet-throw_side0006.png">`;
+    const img_hornet_throw_8 = `<img class="style_hornet_throw" src="../../assets/images/hornet_sprite_sheet/Hornet-throw_side0007.png">`;
+    const img_hornet_needle_1 = `<img class="style_hornet_throw" src="../../assets/images/hornet_sprite_sheet/hornet_needle_1.png">`;
+    const img_hornet_needle_2 = `<img class="style_hornet_throw" src="../../assets/images/hornet_sprite_sheet/hornet_needle_2.png">`;
+    const img_hornet_needle_3 = `<img class="style_hornet_throw" src="../../assets/images/hornet_sprite_sheet/hornet_needle_3.png">`;
+    const img_hornet_harpoon_1 = `<img class="style_hornet_throw" src="../../assets/images/hornet_sprite_sheet/Hornet-weapon-harpoon_thread_v020003.png">`;
+    const img_hornet_harpoon_2 = `<img class="style_hornet_throw" src="../../assets/images/hornet_sprite_sheet/Hornet-weapon-harpoon_thread_v020004.png">`;
+    const img_hornet_harpoon_3 = `<img class="style_hornet_throw" src="../../assets/images/hornet_sprite_sheet/Hornet-weapon-harpoon_thread_v020005.png">`;
+    const img_hornet_harpoon_4 = `<img class="style_hornet_throw" src="../../assets/images/hornet_sprite_sheet/Hornet-weapon-harpoon_thread_v020006.png">`;
+    const img_hornet_harpoon_5 = `<img class="style_hornet_throw" src="../../assets/images/hornet_sprite_sheet/Hornet-weapon-harpoon_thread_v020007.png">`;
+    const img_hornet_harpoon_6 = `<img class="style_hornet_throw" src="../../assets/images/hornet_sprite_sheet/Hornet-weapon-harpoon_thread_v020008.png">`;
 
-    div_hornet.innerHTML = img_hornet_idle1;
+    let distancia_left_abs = 0;
+    let distancia_top_abs = 0;
+    let distancia_real_abs = 0;
+    
+    let distancia_left = 0;
+
+    let hornet_left = 900;
+    let hornet_top = 480;
+    let n_ataques = 0;
+    div_hornet.innerHTML = img_hornet_idle_1; 
+
+    function animacao_start_up(start_up) {
+        if (start_up == 1) {
+            div_hornet.innerHTML = img_hornet_start_1;
+            setTimeout(()=> animacao_start_up(2), 150) 
+        } if (start_up == 2) {
+            div_hornet.innerHTML = img_hornet_start_2;
+            setTimeout(()=> animacao_start_up(3), 150) 
+        } if (start_up == 3) {
+            div_hornet.innerHTML = img_hornet_start_3;
+            setTimeout(()=> animacao_start_up(4), 150) 
+        } if (start_up == 4) {
+            div_hornet.innerHTML = img_hornet_start_4;
+            setTimeout(()=> animacao_start_up(5), 150) 
+        } if (start_up == 5) {
+            div_hornet.innerHTML = img_hornet_start_5;
+            setTimeout(() => div_hornet.innerHTML = img_hornet_idle_1  ,300)
+            setTimeout(() => luta(),350)
+        }
+    }
+
+    function ativar_hornet() {
+        ativar_chefe.style.display = 'none';
+        animacao_start_up(1);
+    }
+
+    function luta() {
+        let n_ataques = (Math.random() * 3 + 0.5).toFixed(0)
+        atacar(n_ataques)
+    }
+
+    function atacar(golpes) {
+        distancia_left_abs = Math.abs(global_left - hornet_left);
+        distancia_top_abs = Math.abs(global_top - hornet_top);
+        distância_real_abs = (Math.pow(Math.pow(distancia_left_abs, 2) + Math.pow(distancia_top_abs, 2), 0.5)).toFixed(0)
+
+        distancia_left = global_left - hornet_left;
+        
+        if (distância_real_abs > 400) {
+            let decidir_ataque = (Math.random() * 2 + 0.5).toFixed(0)
+            if (decidir_ataque == 1) {
+                ataque_longo_1(1)
+            } else {
+
+            }
+            // ataque a distancia
+        } else {
+            // ataque perto
+        }
+    }
+
+    function ataque_longo_1(longo_1) {
+        distancia_left = global_left - hornet_left;
+        if (distancia_left > 0) div_hornet.style.transform = (`scaleX(-1)`)
+        else div_hornet.style.transform = (`scaleX(+1)`)
+        if (longo_1 == 1) {
+            div_hornet.innerHTML = img_hornet_throw_1
+            setTimeout(()=> ataque_longo_1(2) ,100)
+        } else if (longo_1 == 2) {
+            div_hornet.innerHTML = img_hornet_throw_2
+            setTimeout(()=> ataque_longo_1(3) ,100)
+        } else if (longo_1 == 3) {
+            div_hornet.innerHTML = img_hornet_throw_3
+            setTimeout(()=> ataque_longo_1(4) ,100)
+        } else if (longo_1 == 4) {
+            div_hornet.innerHTML = img_hornet_throw_4
+            setTimeout(()=> ataque_longo_1(5) ,100)
+        } else if (longo_1 == 5) {
+            div_hornet.innerHTML = img_hornet_throw_5
+            setTimeout(()=> ataque_longo_1(6) ,100)
+        } else if (longo_1 == 6) {
+            div_hornet.innerHTML = img_hornet_throw_6
+            setTimeout(()=> ataque_longo_1(7) ,100)
+        } else if (longo_1 == 7) {
+            div_hornet.innerHTML = img_hornet_throw_7
+            setTimeout(()=> ataque_longo_1(8) ,100)
+        } else if (longo_1 == 8) {
+            div_hornet.innerHTML = img_hornet_throw_8
+            setTimeout(()=> loop_longo_1(10, 1) ,100)
+        }
+    }
+
+    function loop_longo_1(total, frame_atual) {
+        if (total > 0) {
+            if (frame_atual == 1){
+                div_hornet.innerHTML = img_hornet_throw_7
+                setTimeout(()=> loop_longo_1(total - 1, 2) ,100)
+            } else if (frame_atual == 2){
+                div_hornet.innerHTML = img_hornet_throw_8
+                setTimeout(()=> loop_longo_1(total - 1, 3) ,100)
+            } else if (frame_atual == 3){
+                div_hornet.innerHTML = img_hornet_throw_6
+                setTimeout(()=> loop_longo_1(total - 1, 1) ,100)
+            }
+        } else {
+            setTimeout(()=> div_hornet.innerHTML = img_hornet_throw_5 ,100)
+            setTimeout(()=> div_hornet.innerHTML = img_hornet_throw_4 ,200)
+            setTimeout(()=> div_hornet.innerHTML = img_hornet_throw_3 ,300)
+            setTimeout(()=> div_hornet.innerHTML = img_hornet_throw_2 ,400)
+            setTimeout(()=> div_hornet.innerHTML = img_hornet_throw_1 ,500)
+            setTimeout(()=> div_hornet.innerHTML = img_hornet_idle_1 ,600)
+            if (n_ataques > 0) setTimeout(()=> atacar(),700)
+            else setTimeout(()=> luta(),700)
+        }
+    }
 
     // MOVER CAVALEIRO (SEM HITBOX) -----------------------------------------------------------------------------------------------
 
@@ -242,7 +384,7 @@
 
     function walk() {
 
-    if (checar_pulo == 0 && lockout_nail == 0) {
+    if (checar_pulo == 0 && lockout_nail == 0 && global_top == 510) {
         if (cont_walk == 1 || cont_walk == 2) {
             div_knight.innerHTML = img_walk_1
             cont_walk++
