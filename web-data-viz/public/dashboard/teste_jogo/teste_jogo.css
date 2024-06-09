@@ -35,11 +35,27 @@ body {
     height: 160px;
 }
 
+.style_hornet_needle {
+    width: 150px;
+}
+
 #div_knight {
     top: 510px;
     left: 140px;
     width: 85px;
     height: 130px;
+    position: absolute;
+}
+
+#div_agulha {
+    position: absolute;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 50px;
+}
+
+#div_harpao {
     position: absolute;
 }
 

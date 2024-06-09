@@ -11,7 +11,7 @@
     <div id="div_knight"></div>
     <div id="div_hornet"></div>
     <div id="div_casts"></div>
-    <div id="div_swing">a</div>
+    <div id="div_swing"></div>
     <div id="div_agulha"></div>
     <div id="div_harpao"></div>
 
@@ -151,9 +151,9 @@
     const img_hornet_throw_6 = `<img class="style_hornet_throw" src="../../assets/images/hornet_sprite_sheet/Hornet-throw_side0005.png">`;
     const img_hornet_throw_7 = `<img class="style_hornet_throw" src="../../assets/images/hornet_sprite_sheet/Hornet-throw_side0006.png">`;
     const img_hornet_throw_8 = `<img class="style_hornet_throw" src="../../assets/images/hornet_sprite_sheet/Hornet-throw_side0007.png">`;
-    const img_hornet_needle_1 = `<img class="style_hornet_throw" src="../../assets/images/hornet_sprite_sheet/hornet_needle_1.png">`;
-    const img_hornet_needle_2 = `<img class="style_hornet_throw" src="../../assets/images/hornet_sprite_sheet/hornet_needle_2.png">`;
-    const img_hornet_needle_3 = `<img class="style_hornet_throw" src="../../assets/images/hornet_sprite_sheet/hornet_needle_3.png">`;
+    const img_hornet_needle_1 = `<img class="style_hornet_needle" src="../../assets/images/hornet_sprite_sheet/hornet_needle_1.png">`;
+    const img_hornet_needle_2 = `<img class="style_hornet_needle" src="../../assets/images/hornet_sprite_sheet/hornet_needle_2.png">`;
+    const img_hornet_needle_3 = `<img class="style_hornet_needle" src="../../assets/images/hornet_sprite_sheet/hornet_needle_3.png">`;
     const img_hornet_harpoon_1 = `<img class="style_hornet_throw" src="../../assets/images/hornet_sprite_sheet/Hornet-weapon-harpoon_thread_v020003.png">`;
     const img_hornet_harpoon_2 = `<img class="style_hornet_throw" src="../../assets/images/hornet_sprite_sheet/Hornet-weapon-harpoon_thread_v020004.png">`;
     const img_hornet_harpoon_3 = `<img class="style_hornet_throw" src="../../assets/images/hornet_sprite_sheet/Hornet-weapon-harpoon_thread_v020005.png">`;
@@ -166,6 +166,8 @@
     let distancia_real_abs = 0;
     
     let distancia_left = 0;
+    let multiplicador_agulha = 1;
+    let posicao_agulha = 900;
 
     let hornet_left = 900;
     let hornet_top = 480;
@@ -207,12 +209,12 @@
         distancia_top_abs = Math.abs(global_top - hornet_top);
         distância_real_abs = (Math.pow(Math.pow(distancia_left_abs, 2) + Math.pow(distancia_top_abs, 2), 0.5)).toFixed(0)
 
-        distancia_left = global_left - hornet_left;
-        
+        distancia_left = global_left - hornet_left;        
         if (distância_real_abs > 400) {
             let decidir_ataque = (Math.random() * 2 + 0.5).toFixed(0)
             if (decidir_ataque == 1) {
-                ataque_longo_1(1)
+                // ataque_longo_1(1)
+
             } else {
 
             }
@@ -223,33 +225,80 @@
     }
 
     function ataque_longo_1(longo_1) {
-        distancia_left = global_left - hornet_left;
-        if (distancia_left > 0) div_hornet.style.transform = (`scaleX(-1)`)
+        if (longo_1 == 1){
+            div_harpao.style.left = `${hornet_left - 550}px`;
+            div_harpao.style.top = `${hornet_top}px`;
+            div_agulha.style.left = `${hornet_left}px`;
+            div_agulha.style.top = `${hornet_top + 50}px`;
+            posicao_agulha = hornet_left;
+            setTimeout(()=> agulha_longo_1(1) ,300)
+            distancia_left = global_left - hornet_left;
+            multiplicador_agulha = 1
+            div_agulha.style.width= '150px'
+            div_agulha.style.height = '50px'
+        }
+        if (distancia_left > 0) {
+            div_hornet.style.transform = (`scaleX(-1)`)
+            div_harpao.style.transform = (`scaleX(-1)`)
+            div_agulha.style.transform = (`scaleX(-1)`)
+            multiplicador_agulha = -1;
+            div_harpao.style.left = `${hornet_left + 50}px`;  
+        }
         else div_hornet.style.transform = (`scaleX(+1)`)
         if (longo_1 == 1) {
             div_hornet.innerHTML = img_hornet_throw_1
-            setTimeout(()=> ataque_longo_1(2) ,100)
+            setTimeout(()=> ataque_longo_1(2) ,150)
         } else if (longo_1 == 2) {
             div_hornet.innerHTML = img_hornet_throw_2
-            setTimeout(()=> ataque_longo_1(3) ,100)
+            setTimeout(()=> ataque_longo_1(3) ,150)
         } else if (longo_1 == 3) {
             div_hornet.innerHTML = img_hornet_throw_3
-            setTimeout(()=> ataque_longo_1(4) ,100)
+            setTimeout(()=> ataque_longo_1(4) ,150)
         } else if (longo_1 == 4) {
             div_hornet.innerHTML = img_hornet_throw_4
+            div_harpao.innerHTML = img_hornet_harpoon_1
             setTimeout(()=> ataque_longo_1(5) ,100)
         } else if (longo_1 == 5) {
             div_hornet.innerHTML = img_hornet_throw_5
+            div_harpao.innerHTML = img_hornet_harpoon_2
             setTimeout(()=> ataque_longo_1(6) ,100)
         } else if (longo_1 == 6) {
             div_hornet.innerHTML = img_hornet_throw_6
+            div_harpao.innerHTML = img_hornet_harpoon_3
             setTimeout(()=> ataque_longo_1(7) ,100)
         } else if (longo_1 == 7) {
             div_hornet.innerHTML = img_hornet_throw_7
+            div_harpao.innerHTML = img_hornet_harpoon_4
             setTimeout(()=> ataque_longo_1(8) ,100)
         } else if (longo_1 == 8) {
             div_hornet.innerHTML = img_hornet_throw_8
+            div_harpao.innerHTML = img_hornet_harpoon_5
+            div_agulha.innerHTML = img_hornet_needle_2
             setTimeout(()=> loop_longo_1(10, 1) ,100)
+        }
+    }
+
+    function agulha_longo_1(parametro_agulha_L1) {
+        let aux = parametro_agulha_L1;
+        if (aux < 24) {
+            div_agulha.innerHTML = img_hornet_needle_1;
+            posicao_agulha = posicao_agulha - 26 * multiplicador_agulha 
+            div_agulha.style.left = `${posicao_agulha}px`
+            setTimeout(()=>agulha_longo_1(aux + 1), 25)
+        }
+    }
+
+    function voltar_agulha_1(parametro_voltar_agulha_L1) {
+        let aux = parametro_voltar_agulha_L1;
+        if (aux < 24) {
+            div_agulha.innerHTML = img_hornet_needle_1;
+            posicao_agulha = posicao_agulha + 26 * multiplicador_agulha 
+            div_agulha.style.left = `${posicao_agulha}px`
+            setTimeout(()=>voltar_agulha_1(aux + 1), 25)
+        } else {
+            div_agulha.style.width = '0'
+            div_agulha.style.height = '0'
+            div_agulha.innerHTML = ''
         }
     }
 
@@ -266,14 +315,37 @@
                 setTimeout(()=> loop_longo_1(total - 1, 1) ,100)
             }
         } else {
-            setTimeout(()=> div_hornet.innerHTML = img_hornet_throw_5 ,100)
-            setTimeout(()=> div_hornet.innerHTML = img_hornet_throw_4 ,200)
-            setTimeout(()=> div_hornet.innerHTML = img_hornet_throw_3 ,300)
-            setTimeout(()=> div_hornet.innerHTML = img_hornet_throw_2 ,400)
-            setTimeout(()=> div_hornet.innerHTML = img_hornet_throw_1 ,500)
-            setTimeout(()=> div_hornet.innerHTML = img_hornet_idle_1 ,600)
-            if (n_ataques > 0) setTimeout(()=> atacar(),700)
-            else setTimeout(()=> luta(),700)
+            voltar_agulha_1(1)
+            voltar_longo_1(1)
+        }
+    }
+
+    function voltar_longo_1(param_voltar_L1) {
+        let aux = param_voltar_L1;
+        if (aux == 1) {
+            div_hornet.innerHTML = img_hornet_throw_5;
+            div_harpao.innerHTML = img_hornet_harpoon_4;
+            setTimeout(()=> voltar_longo_1(2),100);
+        } else if (aux == 2) {
+            div_hornet.innerHTML = img_hornet_throw_4;
+            div_harpao.innerHTML = img_hornet_harpoon_3;
+            setTimeout(()=> voltar_longo_1(3),100);
+        } else if (aux == 3) {
+            div_hornet.innerHTML = img_hornet_throw_3;
+            div_harpao.innerHTML = img_hornet_harpoon_2;
+            setTimeout(()=> voltar_longo_1(4),100);
+        } else if (aux == 4) {
+            div_hornet.innerHTML = img_hornet_throw_2;
+            div_harpao.innerHTML = img_hornet_harpoon_1;
+            setTimeout(()=> voltar_longo_1(5),100);
+        } else if (aux == 5) {
+            div_hornet.innerHTML = img_hornet_throw_1;
+            div_harpao.innerHTML = '';
+            setTimeout(()=> voltar_longo_1(6),100);
+        } else {
+            div_hornet.innerHTML = img_hornet_idle_1
+            if (n_ataques > 0) setTimeout(()=> atacar(),400)
+            else setTimeout(()=> luta(),1000)
         }
     }
 
@@ -415,7 +487,7 @@
         if (global_left > 40 && global_left < 1080) {
             let direcao_dash = -1;
             if (direcao == 2) direcao_dash = 1;
-            global_left += 30 * direcao_dash
+            global_left += 35 * direcao_dash
             div_knight.style.left = `${global_left}px`
             }
         if (dash_cooldown == 1) setTimeout(()=> start_dash(),50)
