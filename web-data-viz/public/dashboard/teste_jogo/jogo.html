@@ -244,7 +244,12 @@
             multiplicador_agulha = -1;
             div_harpao.style.left = `${hornet_left + 50}px`;  
         }
-        else div_hornet.style.transform = (`scaleX(+1)`)
+        else{
+            div_hornet.style.transform = (`scaleX(+1)`)
+            div_harpao.style.transform = (`scaleX(+1)`)
+            div_agulha.style.transform = (`scaleX(+1)`)
+            
+        }
         if (longo_1 == 1) {
             div_hornet.innerHTML = img_hornet_throw_1
             setTimeout(()=> ataque_longo_1(2) ,150)
