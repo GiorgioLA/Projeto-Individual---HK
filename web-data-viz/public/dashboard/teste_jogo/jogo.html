@@ -138,11 +138,12 @@
     // HORNET ------------------------------------------------------------------------------------------------------------------------------------
 
     const img_hornet_idle_1 = `<img class="style_hornet" src="../../assets/images/hornet_sprite_sheet/Hornet - idle0000.png">`;
-    const img_hornet_start_1 = `<img class="style_hornet" src="../../assets/images/hornet_sprite_sheet/hornet_start_1.png">`;
-    const img_hornet_start_2 = `<img class="style_hornet" src="../../assets/images/hornet_sprite_sheet/hornet_start_2.png">`;
-    const img_hornet_start_3 = `<img class="style_hornet" src="../../assets/images/hornet_sprite_sheet/hornet_start_3.png">`;
-    const img_hornet_start_4 = `<img class="style_hornet" src="../../assets/images/hornet_sprite_sheet/hornet_start_4.png">`;
+    const img_hornet_start_1 = `<img style="height: 140px;" class="style_hornet" src="../../assets/images/hornet_sprite_sheet/hornet_start_1.png">`;
+    const img_hornet_start_2 = `<img style="height: 170px;" class="style_hornet" src="../../assets/images/hornet_sprite_sheet/hornet_start_2.png">`;
+    const img_hornet_start_3 = `<img style="height: 185px;" class="style_hornet" src="../../assets/images/hornet_sprite_sheet/hornet_start_3.png">`;
+    const img_hornet_start_4 = `<img style="height: 155px;" class="style_hornet" src="../../assets/images/hornet_sprite_sheet/hornet_start_4.png">`;
     const img_hornet_start_5 = `<img class="style_hornet" src="../../assets/images/hornet_sprite_sheet/hornet_start_5.png">`;
+    const img_hornet_start_6 = `<img style="height: 120px;" class="style_hornet" src="../../assets/images/hornet_sprite_sheet/hornet_start_6.png">`;
     const img_hornet_throw_1 = `<img class="style_hornet_throw" src="../../assets/images/hornet_sprite_sheet/Hornet-throw_side0000.png">`;
     const img_hornet_throw_2 = `<img class="style_hornet_throw" src="../../assets/images/hornet_sprite_sheet/Hornet-throw_side0001.png">`;
     const img_hornet_throw_3 = `<img class="style_hornet_throw" src="../../assets/images/hornet_sprite_sheet/Hornet-throw_side0002.png">`;
@@ -177,25 +178,43 @@
     function animacao_start_up(start_up) {
         if (start_up == 1) {
             div_hornet.innerHTML = img_hornet_start_1;
-            setTimeout(()=> animacao_start_up(2), 150) 
-        } if (start_up == 2) {
+            div_hornet.style.left = '850px'
+            div_hornet.style.top = '480px'
+            setTimeout(()=> animacao_start_up(2), 100) 
+        } else if (start_up == 2) {
             div_hornet.innerHTML = img_hornet_start_2;
-            setTimeout(()=> animacao_start_up(3), 150) 
-        } if (start_up == 3) {
+            div_hornet.style.left = '850px'
+            div_hornet.style.top = '465px'
+            setTimeout(()=> animacao_start_up(3), 100) 
+        } else if (start_up == 3) {
             div_hornet.innerHTML = img_hornet_start_3;
-            setTimeout(()=> animacao_start_up(4), 150) 
-        } if (start_up == 4) {
+            div_hornet.style.left = '850px'
+            div_hornet.style.top = '465px'
+            setTimeout(()=> animacao_start_up(4), 100) 
+        } else if (start_up == 4) {
             div_hornet.innerHTML = img_hornet_start_4;
-            setTimeout(()=> animacao_start_up(5), 150) 
-        } if (start_up == 5) {
+            div_hornet.style.left = '850px'
+            div_hornet.style.top = '470px'
+            setTimeout(()=> animacao_start_up(5), 100) 
+        } else if (start_up == 5) {
             div_hornet.innerHTML = img_hornet_start_5;
+            div_hornet.style.left = '850px'
+            div_hornet.style.top = '480px'
+            setTimeout(()=> animacao_start_up(6), 100) 
+        } else if (start_up == 6) {
+            div_hornet.innerHTML = img_hornet_start_6;
+            div_hornet.style.left = '850px'
+            div_hornet.style.top = '490px'
             setTimeout(() => div_hornet.innerHTML = img_hornet_idle_1  ,300)
+            setTimeout(() => div_hornet.style.top = '480px',300)
+            setTimeout(() => div_hornet.style.left = '900px',300)
             setTimeout(() => luta(),350)
+
         }
     }
 
     function ativar_hornet() {
-        ativar_chefe.style.display = 'none';
+        // ativar_chefe.style.display = 'none';
         animacao_start_up(1);
     }
 
@@ -295,7 +314,7 @@
 
     function voltar_agulha_1(parametro_voltar_agulha_L1) {
         let aux = parametro_voltar_agulha_L1;
-        if (aux < 24) {
+        if (aux < 18) {
             div_agulha.innerHTML = img_hornet_needle_1;
             posicao_agulha = posicao_agulha + 26 * multiplicador_agulha 
             div_agulha.style.left = `${posicao_agulha}px`
@@ -320,7 +339,7 @@
                 setTimeout(()=> loop_longo_1(total - 1, 1) ,100)
             }
         } else {
-            voltar_agulha_1(1)
+            setTimeout(()=> voltar_agulha_1(1), 200)
             voltar_longo_1(1)
         }
     }
