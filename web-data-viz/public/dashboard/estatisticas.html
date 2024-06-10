@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <!-- <link rel="shortcut icon" href="../assets/icon/favicon2.ico" type="image/x-icon"> -->
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HallowNest Insights | Estatísticas</title>
+
+    <link rel="shortcut icon" type="imagex/png" href="../assets/images/hallownest_insights_logo.png">
+    <link rel="stylesheet" href="./../css/dashboards.css">
+    <!-- <link rel="stylesheet" href="./../css/estilo.css" /> -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body onload="obter_dados(1); swap_page(1)">
+<div class="screen estatisticas">
+    <div class="blackout">
+        <div class="header navbar">
+            <span class="titulo">
+                <img class="logo" src="../assets/images/hallownest_insights_logo.png">
+                <a href="../index.html"> HallowNest Insights </a></span>
+                <ul class="lista">
+                <li><span><a href="inicio.html">Início</a></span></li>
+                <li><span>|</span></li>
+                <li><span><a href="inventario.html">Inventário</a></span></li>
+                <li><span>|</span></li>
+                <li><span><a href="simulador.html">Simulador</a></span></li>
+                <li><span>|</span></li>
+                <li><span><a href="hallownest.html">Hallownest</a></span></li>
+                <li><span>|</span></li>
+                <li><span><a style="text-decoration: underline;">Estatísticas</a></span></li>
+                </ul>
+            </div>
+        <div class="main">
+            <div class="container">
+                <div class="barrinha">
+                    <button onclick="swap_page(1)">Minha conta</button>
+                    <button onclick="swap_page(2)">Total Inventário</button>
+                    <button onclick="swap_page(3)">Total Simulação</button>
+                </div>
+                <div id="div_minha" class="content">
+                    <div>
+                        <div>
+                            <canvas id="chartMyData"></canvas>
+                        </div>
+                    </div>
+                    <div></div>
+                </div>
+                <div id="div_inventario" class="content"></div>
+                <div id="div_simulacao" class="content"></div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>
+<script>
+
+const chartMyData1 = document.getElementById('chartMyData') 
+
+function swap_page(botao) {
+    if (botao == 1) {
+        div_minha.style.display = 'flex'
+        div_inventario.style.display = 'none'
+        div_simulacao.style.display = 'none'
+    } else if (botao == 2) {
+        div_minha.style.display = 'none'
+        div_inventario.style.display = 'flex'
+        div_simulacao.style.display = 'none'
+    } else if (botao == 3) {
+        div_minha.style.display = 'none'
+        div_inventario.style.display = 'none'
+        div_simulacao.style.display = 'flex'
+    }
+}
+
+let idUsuario = sessionStorage.ID_USUARIO
+
+function obter_dados(param) {
+    if (param == 1){ 
+    let porcentagem = 0;
+        fetch("/avisos/obterDadosDash", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },body: JSON.stringify({
+            idUsuarioServer: idUsuario
+          })
+        }).then(function (resposta) {
+            if (resposta.ok) {
+                resposta.json().then(json => {
+                    console.log(json);
+                    porcentagem = json.porcentagem
+                });
+            setTimeout(()=>plotar(1, porcentagem), 2000)
+            }
+        }).catch(function (erro) {
+            console.log(erro);
+        })
+    }
+}
+
+function plotar(grafico, porcentagem) {
+    if(grafico == 1) {
+        new Chart(chartMyData1,{
+            type:'doughnut',
+            data : {
+                labels: ['Progressão', 'Restante'],
+                datasets: [{
+                    label: 'Em porcentagem',
+                    data: [porcentagem, 100 - porcentagem],
+                    // borderWidth: 1,
+                    backgroundColor: [
+                        'white',
+                        'rgba(0, 0, 0, 0)',
+                    ]
+                }]
+            },
+            options : {
+
+            }
+        })
+    }
+}
+
+</script>

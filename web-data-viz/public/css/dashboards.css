@@ -254,7 +254,7 @@ option {
   display: flex;
   list-style: none;
   margin-right: 40px;
-  width: 500px;
+  width: 700px;
   height: 100%;
   align-items: center;
   justify-content: space-between;
@@ -665,6 +665,55 @@ area {
 
 .dialogue {
   width: 255px;
+}
+
+.estatisticas {
+  background-image: url(../assets/images/Screenshot_HK_Cornifer_06.png);
+}
+
+.estatisticas .container {
+  width: 90%;
+  border: white solid 1px;
+  height: 700px;
+  background-color: rgba(0,0,0,0.7);
+}
+
+.estatisticas .barrinha {
+  height: 10%;
+  width: 100%;
+  display: flex;
+}
+
+.estatisticas .barrinha button {
+  width: 33.333%;
+  height: 100%;
+  color: white;
+  background-color: rgba(0,0,0,0.5);
+}
+
+.estatisticas .content {
+  height: 90%;
+  width: 100%;
+  color: white;
+}
+
+.estatisticas #div_inventario {
+  display: none;
+}
+
+.estatisticas #div_simulacao {
+  display: none;
+}
+
+.estatisticas #div_minha {
+  display: none;
+}
+
+.estatisticas #card {
+  position: absolute;
+  color: white;
+  left: 50%;
+  top: 50%;
 }
 
 @font-face { /* Fonte de Hollow Knight */

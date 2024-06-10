@@ -1,136 +1,40 @@
 var avisoModel = require("../models/avisoModel");
 
-function listar(req, res) {
-    avisoModel.listar().then(function (resultado) {
-        if (resultado.length > 0) {
-            res.status(200).json(resultado);
-        } else {
-            res.status(204).send("Nenhum resultado encontrado!")
-        }
-    }).catch(function (erro) {
-        console.log(erro);
-        console.log("Houve um erro ao buscar os avisos: ", erro.sqlMessage);
-        res.status(500).json(erro.sqlMessage);
-    });
-}
+function obterDadosDash(req, res) {
+    var idUsuario = req.body.idUsuarioServer;
+    console.log('oi! Estou no começo do controller')
 
-function listarPorUsuario(req, res) {
-    var idUsuario = req.params.idUsuario;
-
-    avisoModel.listarPorUsuario(idUsuario)
+    avisoModel.obterDadosDash(idUsuario)
         .then(
-            function (resultado) {
-                if (resultado.length > 0) {
-                    res.status(200).json(resultado);
-                } else {
-                    res.status(204).send("Nenhum resultado encontrado!");
+                function (resultadoBuscaDash) {
+                    console.log(`\nResultados encontrados: ${resultadoBuscaDash.length}`);
+                    console.log(`Resultados: ${JSON.stringify(resultadoBuscaDash)}`); // transforma JSON em String
+
+                    if (resultadoBuscaDash.length == 1) {
+                        console.log(resultadoBuscaDash);
+
+                                    res.json({
+                                        porcentagem: resultadoBuscaDash[0].porcentagem
+                                    });
+
+                            
+                    } else if (resultadoBuscaDash.length == 0) {
+                        res.status(403).send("Erro ao obter porcentagem. Nenhum dado encontrado");
+                    } else {
+                        res.status(403).send("Muitos dados encontrados.");
+                    }
                 }
-            }
-        )
-        .catch(
-            function (erro) {
-                console.log(erro);
-                console.log(
-                    "Houve um erro ao buscar os avisos: ",
-                    erro.sqlMessage
-                );
-                res.status(500).json(erro.sqlMessage);
-            }
-        );
-}
-
-function pesquisarDescricao(req, res) {
-    var descricao = req.params.descricao;
-
-    avisoModel.pesquisarDescricao(descricao)
-        .then(
-            function (resultado) {
-                if (resultado.length > 0) {
-                    res.status(200).json(resultado);
-                } else {
-                    res.status(204).send("Nenhum resultado encontrado!");
-                }
-            }
-        ).catch(
-            function (erro) {
-                console.log(erro);
-                console.log("Houve um erro ao buscar os avisos: ", erro.sqlMessage);
-                res.status(500).json(erro.sqlMessage);
-            }
-        );
-}
-
-function publicar(req, res) {
-    var titulo = req.body.titulo;
-    var descricao = req.body.descricao;
-    var idUsuario = req.params.idUsuario;
-
-    if (titulo == undefined) {
-        res.status(400).send("O título está indefinido!");
-    } else if (descricao == undefined) {
-        res.status(400).send("A descrição está indefinido!");
-    } else if (idUsuario == undefined) {
-        res.status(403).send("O id do usuário está indefinido!");
-    } else {
-        avisoModel.publicar(titulo, descricao, idUsuario)
-            .then(
-                function (resultado) {
-                    res.json(resultado);
-                }
-            )
-            .catch(
+            ).catch(
                 function (erro) {
                     console.log(erro);
-                    console.log("Houve um erro ao realizar o post: ", erro.sqlMessage);
+                    console.log("\nHouve um erro ao realizar o login! Erro: ", erro.sqlMessage);
                     res.status(500).json(erro.sqlMessage);
                 }
             );
-    }
-}
+    
 
-function editar(req, res) {
-    var novaDescricao = req.body.descricao;
-    var idAviso = req.params.idAviso;
-
-    avisoModel.editar(novaDescricao, idAviso)
-        .then(
-            function (resultado) {
-                res.json(resultado);
-            }
-        )
-        .catch(
-            function (erro) {
-                console.log(erro);
-                console.log("Houve um erro ao realizar o post: ", erro.sqlMessage);
-                res.status(500).json(erro.sqlMessage);
-            }
-        );
-
-}
-
-function deletar(req, res) {
-    var idAviso = req.params.idAviso;
-
-    avisoModel.deletar(idAviso)
-        .then(
-            function (resultado) {
-                res.json(resultado);
-            }
-        )
-        .catch(
-            function (erro) {
-                console.log(erro);
-                console.log("Houve um erro ao deletar o post: ", erro.sqlMessage);
-                res.status(500).json(erro.sqlMessage);
-            }
-        );
 }
 
 module.exports = {
-    listar,
-    listarPorUsuario,
-    pesquisarDescricao,
-    publicar,
-    editar,
-    deletar
+    obterDadosDash
 }
