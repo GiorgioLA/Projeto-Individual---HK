@@ -40,6 +40,14 @@ INSERT INTO habilidade VALUES
 	(default, 'Asas do Monarca', 'Mobilidade', 1),
 	(default, 'Lágrima de Isma', 'Mobilidade', 1),
 	(default, 'Ferrão dos Sonhos', 'Progressão', 3);
+
+CREATE TABLE jogo (
+idSecao int primary key auto_increment,
+segundos decimal(5,2),
+dano_recebido decimal(1,0),
+fkUsuario int,
+foreign key (fkUsuario) references Usuario(idUsuario)
+);
     
 SHOW TABLES;
 
@@ -55,3 +63,9 @@ SELECT * FROM inventario JOIN usuario ON idUsuario = fkUsuario;
 
 UPDATE inventario SET nivel = 1 WHERE fkUsuario = 1 AND fkHabilidade = 1;
 UPDATE inventario SET nivel = 1 WHERE fkUsuario = 2 AND fkHabilidade = 1;
+
+-- SELECTS PARA DASH >:D
+
+SELECT round(sum(nivel) * 6.666, 0) FROM inventario JOIN habilidade ON fkHabilidade = idHabilidade;
+CREATE VIEW inventarioUnico AS SELECT round(sum(nivel) * 6.666, 0) as porcentagem, fkUsuario FROM inventario JOIN habilidade ON fkHabilidade = idHabilidade GROUP BY fkUsuario;
+SELECT porcentagem FROM inventarioUnico WHERE fkUsuario = 1;
