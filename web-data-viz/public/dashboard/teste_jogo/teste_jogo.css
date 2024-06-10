@@ -43,6 +43,11 @@ body {
     width: 140px;
 }
 
+.style_hornet_walk {
+    height: 130px;
+}
+
+
 #div_knight {
     top: 510px;
     left: 140px;
