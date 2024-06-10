@@ -21,6 +21,7 @@
         Tempo: <span id="tempo"></span> <br>
         Ativar Hornet <button id="ativar_chefe" style="display: none;" onclick="ativar_hornet()">Ativar</button> <br>
         Ataque Longo 1 <button onclick="ataque_longo_1(1)">Ativar</button> <br>
+        Ataque Perto 1 <button onclick="ataque_perto_1(1)">Ativar</button> <br>
     </div>
     <div id="card" style="display: none;">
         <img class="dialogue" src="../../assets/images/top_dialogue_box-removebg-preview.png" alt="">
@@ -161,6 +162,10 @@
     const img_hornet_harpoon_4 = `<img class="style_hornet_throw" src="../../assets/images/hornet_sprite_sheet/Hornet-weapon-harpoon_thread_v020006.png">`;
     const img_hornet_harpoon_5 = `<img class="style_hornet_throw" src="../../assets/images/hornet_sprite_sheet/Hornet-weapon-harpoon_thread_v020007.png">`;
     const img_hornet_harpoon_6 = `<img class="style_hornet_throw" src="../../assets/images/hornet_sprite_sheet/Hornet-weapon-harpoon_thread_v020008.png">`;
+    const img_hornet_dash_1 = `<img class="style_hornet_dash" src="../../assets/images/hornet_sprite_sheet/hornet_dash_1.png">`;
+    const img_hornet_dash_2 = `<img class="style_hornet_dash" src="../../assets/images/hornet_sprite_sheet/hornet_dash_2.png">`;
+    const img_hornet_dash_3 = `<img style="height: 105px;" src="../../assets/images/hornet_sprite_sheet/hornet_dash_3.png">`;
+    const img_hornet_dash_4 = `<img class="style_hornet_dash" src="../../assets/images/hornet_sprite_sheet/hornet_dash_4.png">`;
 
     let distancia_left_abs = 0;
     let distancia_top_abs = 0;
@@ -237,11 +242,39 @@
             } else {
 
             }
-            // ataque a distancia
         } else {
-            // ataque perto
+            let decidir_ataque = (Math.random() * 2 + 0.5).toFixed(0)
+            if (decidir_ataque == 1) {
+                // ataque_perto_1(1, distancia_left)
+            }
         }
     }
+
+    // ATAQUES PERTO HORNET ------------------------------------------------------------------------------------------------------------------
+    // ATAQUE PERTO 1 -----------
+
+    function ataque_perto_1(perto_1, distancia) {
+        if (perto_1 == 1) {
+            if (distancia > 0)
+            div_hornet.style.transform = (`scaleX(-1)`)
+            div_hornet.innerHTML = img_hornet_dash_2
+            setTimeout(()=>ataque_perto_1(2),1000)
+        } else if (perto_1 == 2) {
+            div_hornet.innerHTML = img_hornet_dash_4
+            setTimeout(()=>ataque_perto_1(3),1000)
+        } else if (perto_1 == 3) {
+            div_hornet.innerHTML = img_hornet_dash_3
+            setTimeout(()=>atacar_perto_1(1, distcancia),1000)
+        }
+    }
+
+    function atacar_perto_1(perto_1) {
+        if (perto_1 < 20) {
+        }
+    }
+
+    // ATAQUES LONGOS HORNET -----------------------------------------------------------------------------------------------------------------
+    // ATAQUE LONGO 1 -----------
 
     function ataque_longo_1(longo_1) {
         if (longo_1 == 1){
