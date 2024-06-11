@@ -183,8 +183,34 @@ function obterDadosDash3(req, res) {
             );
 }
 
+function obterDadosDash4(req, res) {
+    // var idUsuario = req.body.idUsuarioServer;
+    console.log('oi! Estou no começo do controller')
+
+    avisoModel.obterDadosDash4()
+        .then(
+                function (resultadoBuscaDash4) {
+                    console.log(`\nResultados encontrados: ${resultadoBuscaDash4.length}`);
+                    console.log(`Resultados: ${JSON.stringify(resultadoBuscaDash4)}`); // transforma JSON em String
+                    console.log(resultadoBuscaDash4);
+                    res.json({
+                        total : resultadoBuscaDash4[0].total,
+                    });
+
+                            
+                }
+            ).catch(
+                function (erro) {
+                    console.log(erro);
+                    console.log("\nHouve um erro ao realizar o login! Erro: ", erro.sqlMessage);
+                    res.status(500).json(erro.sqlMessage);
+                }
+            );
+}
+
 module.exports = {
     obterDadosDash,
     obterDadosDash2,
-    obterDadosDash3
+    obterDadosDash3,
+    obterDadosDash4
 }

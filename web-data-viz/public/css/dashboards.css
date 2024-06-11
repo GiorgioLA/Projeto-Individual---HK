@@ -775,6 +775,11 @@ area {
   text-align: center;
 }
 
+.estatisticas .grafico_3 {
+  height: 400px;
+  width: 90%;
+}
+
 .text_box {
   font-size: 20px;
   width: 400px;
