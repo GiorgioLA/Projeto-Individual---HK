@@ -167,6 +167,7 @@
     const img_hornet_dash_2 = `<img class="style_hornet_dash" src="../../assets/images/hornet_sprite_sheet/hornet_dash_2.png">`;
     const img_hornet_dash_3 = `<img style="height: 105px;" src="../../assets/images/hornet_sprite_sheet/hornet_dash_3.png">`;
     const img_hornet_dash_4 = `<img class="style_hornet_dash" src="../../assets/images/hornet_sprite_sheet/hornet_dash_4.png">`;
+    const img_hornet_dash_6 = `<img class="style_hornet_dash" style="width: 150px;" src="../../assets/images/hornet_sprite_sheet/hornet_dash_6.png">`;
     const img_hornet_walk_1 = `<img class="style_hornet_walk" src="../../assets/images/hornet_sprite_sheet/hornet_walk_1.png">`;
     const img_hornet_walk_2 = `<img class="style_hornet_walk" src="../../assets/images/hornet_sprite_sheet/hornet_walk_3.png">`;
     const img_hornet_walk_3 = `<img class="style_hornet_walk" src="../../assets/images/hornet_sprite_sheet/hornet_walk_4.png">`;
@@ -312,11 +313,11 @@
         } else if (perto_1 == 2) {
             div_hornet.style.top = '500px'
             div_hornet.innerHTML = img_hornet_dash_4
-            setTimeout(()=>ataque_perto_1(3),800)
+            setTimeout(()=>ataque_perto_1(3),500)
         } else if (perto_1 == 3) {
             div_hornet.innerHTML = img_hornet_dash_3
             setTimeout(()=>atacar_perto_1(1, direcao_hornet),200)
-            setTimeout(()=>div_hornet.innerHTML = img_hornet_dash_1,200)
+            setTimeout(()=>div_hornet.innerHTML = img_hornet_dash_6,200)
         }
     }
 

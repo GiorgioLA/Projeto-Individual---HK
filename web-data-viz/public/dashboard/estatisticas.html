@@ -40,14 +40,39 @@
                     <button onclick="swap_page(3)">Total Simulação</button>
                 </div>
                 <div id="div_minha" class="content">
-                    <div>
-                        <div>
-                            <canvas id="chartMyData"></canvas>
+                    <div class="half_content">
+                        <div class="titulo" id="div_porcentagem" >Progressão no jogo<br> </div>
+                        <div class="grafico_1">
+                            <canvas id="chart1"></canvas>
+                        </div>
+                        <div class="text_box">A porcentagem equivale aos itens adquiridos, obtidos pela página do inventário. Cada item tem o mesmo peso</div>
+                        </div>
+                    <div class="half_content">
+                        <div class="box_doubles">
+                            <div class="double">
+                                <div class="titulo2">Tempo das vitórias no jogo</div>
+                                <div class="grafico_2">
+                                    <canvas id="chart2"></canvas>
+                                </div>
+                            </div>
+                            <div class="double">
+                                <div class="titulo2">Dano recebido em cada vitória</div>
+                                <div class="grafico_2">
+                                    <canvas id="chart3"></canvas>
+                                </div>
+                            </div>
+                        </div>
+                        <div id="div_usuario" class="mini_wide">
+
                         </div>
                     </div>
                     <div></div>
                 </div>
-                <div id="div_inventario" class="content"></div>
+                <div id="div_inventario" class="content">
+                    <div class="grafico_2">
+                        <canvas id="chart4"></canvas>
+                    </div>
+                </div>
                 <div id="div_simulacao" class="content"></div>
             </div>
         </div>
@@ -57,7 +82,10 @@
 </html>
 <script>
 
-const chartMyData1 = document.getElementById('chartMyData') 
+const chartMyData1 = document.getElementById('chart1') 
+const chartMyData2 = document.getElementById('chart2') 
+const chartMyData3 = document.getElementById('chart3') 
+const chartMyData4 = document.getElementById('chart4') 
 
 function swap_page(botao) {
     if (botao == 1) {
@@ -78,7 +106,6 @@ function swap_page(botao) {
 let idUsuario = sessionStorage.ID_USUARIO
 
 function obter_dados(param) {
-    if (param == 1){ 
     let porcentagem = 0;
         fetch("/avisos/obterDadosDash", {
             method: "POST",
@@ -92,16 +119,58 @@ function obter_dados(param) {
                 resposta.json().then(json => {
                     console.log(json);
                     porcentagem = json.porcentagem
-                });
-            setTimeout(()=>plotar(1, porcentagem), 2000)
-            }
+                    plotar(1, porcentagem)
+                    div_porcentagem.innerHTML += `${porcentagem}%`
+                    obter_dados(2)
+                    });
+                    }
         }).catch(function (erro) {
             console.log(erro);
         })
-    }
+    let segundos = [];
+    let dano_recebido = [];
+
+        fetch("/avisos/obterDadosDash2", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },body: JSON.stringify({
+            idUsuarioServer: idUsuario
+          })
+        }).then(function (resposta) {
+            if (resposta.ok) {
+                resposta.json().then(json => {
+                    console.log(json);
+                    console.log(json);
+                    plotar2(1, json)
+                    });
+                    }
+        }).catch(function (erro) {
+            console.log(erro);
+        })
+
+        fetch("/avisos/obterDadosDash3", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },body: JSON.stringify({
+            // idUsuarioServer: idUsuario
+          })
+        }).then(function (resposta) {
+            if (resposta.ok) {
+                resposta.json().then(json => {
+                    console.log(json);
+                    console.log(json);
+                    plotar3(1, json)
+                    });
+                    }
+        }).catch(function (erro) {
+            console.log(erro);
+        })
 }
 
 function plotar(grafico, porcentagem) {
+    // for(i = 0;)
     if(grafico == 1) {
         new Chart(chartMyData1,{
             type:'doughnut',
@@ -118,10 +187,131 @@ function plotar(grafico, porcentagem) {
                 }]
             },
             options : {
+                plugins : {
 
+                    
+                }
             }
         })
     }
+    // Chart.defaults.global.defaultFontColor = "#fff";
+}
+
+function plotar2(grafico, json) {
+    console.log('Cheguei de volta em estatisticas com o valor de:', json)
+    let data_value = ''
+    let label_value = ''
+    
+    if(grafico == 1) {
+        console.log(json)
+        console.log()
+        let seg1 = Number(json.P1_seg)
+        console.log('valor', json.P1_seg)
+        let seg2 = Number(json.P2_seg)
+        let seg3 = Number(json.P3_seg)
+        let seg4 = Number(json.P4_seg)
+        let seg5 = Number(json.P5_seg)
+
+        console.log (data_value)
+        console.log (label_value)
+
+        let data = {
+            labels: ['Vitória 1', 'Vitória 2', 'Vitória 3', 'Vitória 4', 'Vitória 5'],
+            datasets: [{
+                label: ['Em segundos'],
+                data: [seg1, seg2, seg3, seg4, seg5],
+                backgroundColor: [
+                        'white',
+                    ]
+            }]
+        }
+
+        new Chart(chartMyData2,{
+            type:'bar',
+            data : data,
+            options : {
+            }
+        })
+        plotar2(2, json)
+    } else if (grafico == 2) {
+        console.log(json)
+        console.log()
+        let dmg1 = Number(json.P1_dmg)
+        console.log('valor', json.P1_dmg)
+        let dmg2 = Number(json.P2_dmg)
+        let dmg3 = Number(json.P3_dmg)
+        let dmg4 = Number(json.P4_dmg)
+        let dmg5 = Number(json.P5_dmg)
+
+        console.log (data_value)
+        console.log (label_value)
+
+        let data = {
+            labels: ['Vitória 1', 'Vitória 2', 'Vitória 3', 'Vitória 4', 'Vitória 5'],
+            datasets: [{
+                label: ['Número de golpes recebidos'],
+                data: [dmg1, dmg2, dmg3, dmg4, dmg5],
+                backgroundColor: [
+                        'white',
+                    ]
+            }]
+        }
+
+        new Chart(chartMyData3,{
+            type:'bar',
+            data : data,
+            options : {
+
+            }
+        })
+        exibir_dados()
+    }
+}
+
+function plotar3(grafico, json) {
+    if(grafico == 1) {
+        let cntH1 = json[0].cnt;
+        let cntH2 = json[1].cnt;
+        let cntH3 = json[2].cnt;
+        let cntH4 = json[3].cnt;
+        let cntH5 = json[4].cnt;
+        let cntH6 = json[5].cnt;
+        let cntH7 = json[6].cnt;
+        let cntH8 = json[7].cnt;
+        let cntH9 = json[8].cnt;       
+
+
+        new Chart(chartMyData4,{
+            type:'doughnut',
+            data : {
+                labels: ['Espírito Vingativo', 'Mergulho Desolador', 'Espectros Uivantes', 'Manto de Asa de Mariposa', 'Garra de Louva-a-Deus',
+                'Coração de Cristal', 'Asas do Monarca', 'Lagrimas de Isma', 'Ferrão dos Sonhos' ],
+                datasets: [{
+                    label: 'Em porcentagem',
+                    data: [cntH1, cntH2, cntH3, cntH4, cntH5, cntH6, cntH7, cntH8, cntH9],
+                    // borderWidth: 1,
+                    backgroundColor: [
+                        'white',
+                        'rgba(0, 0, 0, 0)',
+                    ]
+                }]
+            },
+            options : {
+                plugins : {
+
+                    
+                }
+            }
+        })
+    }
+    // Chart.defaults.global.defaultFontColor = "#fff";
+}
+
+function exibir_dados() {
+    div_usuario.innerHTML = `
+        <div class="text_box">Bem vindo(a) ${sessionStorage.NOME_USUARIO}! Nessa tela, você encontra variados dados, tanto sobre sua interação com o site quanto a de outros
+        usuários!</div>
+    `
 }
 
 </script>

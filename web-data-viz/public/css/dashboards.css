@@ -57,9 +57,9 @@ option {
 
 .div_variaveis {
   height: auto;
-  width: 1500px;
+  width: 1400px;
   display: flex;
-  justify-content: space-around;
+  justify-content: space-between;
   margin-top: 25px;
 }
 
@@ -136,7 +136,7 @@ option {
 }
 
 .simulador .containerC {
-  width: 200px;
+  width: 180px;
   height: 300px;
   background-color: rgba(0,0,0,0.8);
   display: flex;
@@ -146,7 +146,7 @@ option {
 }
 
 .simulador .area_respostas {
-  width: 1450px;
+  width: 1400px;
   height: 300px;
   /* background-color: rgba(0,0,0,0.8); */
   display: flex;
@@ -235,7 +235,7 @@ option {
   width: 100%;
   height: 60px;
   display: flex;
-  justify-content: space-between;
+  justify-content: space-around;
   align-items: center;
   color: white;
 }
@@ -695,6 +695,8 @@ area {
   height: 90%;
   width: 100%;
   color: white;
+  display: flex;
+  justify-content: center;
 }
 
 .estatisticas #div_inventario {
@@ -714,6 +716,69 @@ area {
   color: white;
   left: 50%;
   top: 50%;
+}
+
+.estatisticas .content .half_content {
+  height: 100%;
+  width: 45%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-around;
+}
+
+.estatisticas .container .titulo {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  text-align: center;
+  font-size: 25px;
+}
+
+.estatisticas .grafico_1 {
+  height: 400px;
+  width: 400px;
+}
+
+.estatisticas .grafico_2 {
+  height: 138px;
+  width: 100%;
+}
+
+.estatisticas .half_content .double {
+  height: 100%;
+  width: 45%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+}
+
+.estatisticas .half_content .mini_wide {
+  width: 70%;
+  height: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.estatisticas .box_doubles {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+}
+
+.estatisticas .titulo2 {
+  height: 120px;
+  width: 100%;
+  font-size: 25px;
+  font-family: Trajan_Regular;
+  text-align: center;
+}
+
+.text_box {
+  font-size: 20px;
+  width: 400px;
+  text-align: center;
 }
 
 @font-face { /* Fonte de Hollow Knight */

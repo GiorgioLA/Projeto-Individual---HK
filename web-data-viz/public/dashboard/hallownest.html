@@ -12,7 +12,7 @@
     <link rel="stylesheet" href="./../css/dashboards.css">
     <!-- <link rel="stylesheet" href="./../css/estilo.css" /> -->
 </head>
-<body onload="obterDados(), dev_mode()">
+<body onload="obterDados()">
  <div class="screen hallownest">
     <div class="blackout">
         <div class="header navbar">
@@ -20,28 +20,16 @@
             <img style="width: 40px;" class="logo" src="../assets/images/hallownest_insights_logo.png">
             <a href="../index.html"> HallowNest Insights </a></span>
             <ul class="lista">
-              <li>
-                <span><a href="inicio.html">Inicio</a></span>
-              </li>
-              <li>
-                <span>|</span>
-              </li>
-              <li>
-                <span><a href="inventario.html">Inventário</a></span>
-              </li>
-              <li>
-                <span>|</span>
-              </li>
-              <li>
-                <span><a href="simulador.html">Simulador</a></span>
-              </li>
-              <li>
-                <span>|</span>
-              </li>
-              <li>
-                <span><u>Hallownest</u></span>
-              </li>
-            </ul>
+              <li><span><a href="inicio.html">Início</a></span></li>
+              <li><span>|</span></li>
+              <li><span><a href="inventario.html">Inventário</a></span></li>
+              <li><span>|</span></li>
+              <li><span><a href="simulador.html">Simulador</a></span></li>
+              <li><span>|</span></li>
+              <li><span><a style="text-decoration: underline;">Hallownest</a></span></li>
+              <li><span>|</span></li>
+              <li><span><a href="estatisticas.html">Estatísticas</a></span></li>
+              </ul>
         </div>
         <div class="main">
           <div class="container">
@@ -88,7 +76,7 @@ function howling_cliffs() {
     if (habilidade4 >= 1) {
       window.location = "areas/howling_cliffs.html";
     } else {
-      alert('Você precisa de mais habilidades para acessar essa área...')
+      alert('Você precisa de mais habilidades para acessar essa área... É uma grande escalada...')
     }
 }
 
@@ -100,7 +88,7 @@ function crystal_peaks() {
     if (habilidade5 == 1) {
       window.location = "areas/crystal_peaks.html";
     } else {
-      alert('Você precisa de mais habilidades para acessar essa área...')
+      alert('Você precisa de mais habilidades para acessar essa área... O chão parece Frágil...')
     }
 }
 
@@ -108,7 +96,7 @@ function greenpath() {
     if (habilidade1 >= 1) {
       window.location = "areas/greenpath.html";
     } else {
-      alert('Você precisa de mais habilidades para acessar essa área...')
+      alert('Você precisa de mais habilidades para acessar essa área... Esse guardião não está protegido de longe...')
     }
 }
 
@@ -120,7 +108,7 @@ function resting_grounds() {
     if (habilidade5 == 1) {
       window.location = "areas/resting_grounds.html";
     } else {
-      alert('Você precisa de mais habilidades para acessar essa área...')
+      alert('Você precisa de mais habilidades para acessar essa área... Acho que vi um caminho pelos picos de cristal...')
     }
 }
 
@@ -128,7 +116,7 @@ function queens_gardens() {
     if (habilidade6 == 1) {
       window.location = "areas/queens_gardens.html";
     } else {
-      alert('Você precisa de mais habilidades para acessar essa área...')
+      alert('Você precisa de mais habilidades para acessar essa área... Há uma piscina de ácido no caminho...')
     }
 }
 
@@ -136,7 +124,7 @@ function fog_canyon() {
     if (habilidade5 == 1) {
       window.location = "areas/fog_canyon.html";
     } else {
-      alert('Você precisa de mais habilidades para acessar essa área...')
+      alert('Você precisa de mais habilidades para acessar essa área... Posso escalar até lá...')
     }
 }
 
@@ -144,7 +132,7 @@ function fungal_wastes() {
     if (habilidade4 >= 1) {
       window.location = "areas/fungal_wastes.html";
     } else {
-      alert('Você precisa de mais habilidades para acessar essa área...')
+      alert('Você precisa de mais habilidades para acessar essa área... É um pulo longo...')
     }
 }
 
@@ -152,15 +140,15 @@ function city_of_tears() {
     if (habilidade5 == 1) {
       window.location = "areas/city_of_tears.html";
     } else {
-      alert('Você precisa de mais habilidades para acessar essa área...')
+      alert('Você precisa de mais habilidades para acessar essa área... É um longo pulo...')
     }
 }
 
 function kingdoms_edge() {
-    if (habilidade5 == 1) {
+    if (habilidade5 == 1 || habilidade2 == 1) {
       window.location = "areas/kingdoms_edge.html";
     } else {
-      alert('Você precisa de mais habilidades para acessar essa área...')
+      alert('Você precisa de mais habilidades para acessar essa área... Posso chegar lá ao passar pela cidade ou pela terra do descanso...')
     }
 }
 
@@ -168,7 +156,7 @@ function deepnest() {
     if (habilidade5 == 1) {
       window.location = "areas/deepnest.html";
     } else {
-      alert('Você precisa de mais habilidades para acessar essa área...')
+      alert('Você precisa de mais habilidades para acessar essa área... Posso chegar lá pelos fungus érmicos...')
     }
 }
 
@@ -176,15 +164,15 @@ function royal_waterways() {
     if (habilidade5 == 1) {
       window.location = "areas/royal_waterways.html";
     } else {
-      alert('Você precisa de mais habilidades para acessar essa área...')
+      alert('Você precisa de mais habilidades para acessar essa área... Deve haver um bueiro na cidade...')
     }
 }
 
 function ancient_basin() {
-    if (habilidade5 == 1) {
+    if (habilidade5 == 1 || habilidade2 == 1) {
       window.location = "areas/ancient_basin.html";
     } else {
-      alert('Você precisa de mais habilidades para acessar essa área...')
+      alert('Você precisa de mais habilidades para acessar essa área... Posso chegar lá pela cidade...')
     }
 }
 
@@ -236,9 +224,9 @@ fetch("/usuarios/obterInventario", {
             habilidade7 = json.habilidade7;
             habilidade8 = json.habilidade8;
             habilidade9 = json.habilidade9;
-          setTimeout(function () {
-              alert("Dados obtidos com sucesso! Customizando a página...");
-          }, 1000); // apenas para exibir o loading
+          // setTimeout(function () {
+          //     alert("Dados obtidos com sucesso! Customizando a página...");
+          // }, 1000); // apenas para exibir o loading
 
       });
 
