@@ -37,7 +37,7 @@
                 <div class="barrinha">
                     <button onclick="swap_page(1)">Minha conta</button>
                     <button onclick="swap_page(2)">Total Inventário</button>
-                    <button onclick="swap_page(3)">Total Simulação</button>
+                    <button onclick="swap_page(3)">Total Jogo</button>
                 </div>
                 <div id="div_minha" class="content">
                     <div class="half_content">
@@ -144,17 +144,21 @@ function obter_dados() {
             if (resposta.ok) {
                 resposta.json().then(json => {
                     // console.log(json);
-                    console.log(json);
+                    // console.log(json);
                     let jogou = json.jogou
-                    console.log(jogou)
-                    if (jogou == 'sim')plotar2(1, json)
-                    else avisar()
+                    // console.log(jogou)
+                    if (jogou == 'sim'){
+                        plotar2(1, json)
+                    }
+                    else {
+                        avisar()
+                    }
                     });
                     }
         }).catch(function (erro) {
             console.log(erro);
         })
-
+        // console.log('oi')
         fetch("/avisos/obterDadosDash3", {
             method: "POST",
             headers: {
@@ -167,7 +171,7 @@ function obter_dados() {
                 resposta.json().then(json => {
                     // console.log('alo');
                     // console.log(json);
-                    if (json.jogou == 'sim') plotar3(1, json)
+                    setTimeout(()=>plotar3(1, json), 1000) 
                     });
                     }
         }).catch(function (erro) {
@@ -336,8 +340,14 @@ function plotar3(grafico, json) {
 
 function avisar() {
     div_half_content.innerHTML = `
-    
+         <div class="mini_wide">
+             <span class="titulo2">Aqui será possível ver algumas das suas melhores tentativas na batalha com um chefe
+                depois de conseguir derrotá-la.
+                basta você achar ela...</span>
+             </div>
+         <div id="div_usuario" class="mini_wide"></div>
     `
+    exibir_dados()
 }
 
 function exibir_dados() {
