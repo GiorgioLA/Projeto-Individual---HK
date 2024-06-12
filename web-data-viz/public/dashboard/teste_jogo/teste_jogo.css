@@ -7,6 +7,7 @@ body {
     background-color: black;
     cursor: url(../../assets/images/Hollow_Knight_Cursor/cursor.cur), auto;
     overflow-y: hidden;
+    overflow-x: hidden;
 
 }
 
@@ -72,7 +73,7 @@ body {
     top: 480px;
     left: 900px;
     width: 60px;
-    height: 120px;
+    height: 110px;
     position: absolute;
     display: flex;
     justify-content: center;

@@ -21,6 +21,7 @@
 
     <div class="informacoes">
         Vida: <div id="div_hp">9</div>
+        Vida Chefe: <div id="div_hp_hornet">1200</div>
         <div id="div_cooldown">Alma Sombria: pronta</div>
         Tempo: <span id="tempo"></span> <br>
         Ativar Hornet <button id="ativar_chefe" style="display: none;" onclick="ativar_hornet()">Ativar</button> <br>
@@ -112,6 +113,7 @@
     let apertando_dash = 0;
 
     let hp = 9;
+    let hp_hornet = 1200;
 
     let knight_info = div_knight.getBoundingClientRect();
     let hornet_info = div_hornet.getBoundingClientRect();
@@ -202,7 +204,7 @@
     div_hornet.innerHTML = img_hornet_idle_1; 
 
     function ativar_hornet() {
-        // ativar_chefe.style.display = 'none';
+        ativar_chefe.style.display = 'none';
         animacao_start_up(1);
     }
 
@@ -385,7 +387,7 @@
             div_agulha.style.left = `${hornet_left}px`;
             div_agulha.style.top = `${hornet_top + 50}px`;
             posicao_agulha = hornet_left;
-            setTimeout(()=> agulha_longo_1(1, podeAtacar) ,300)
+            setTimeout(()=> agulha_longo_1(1, podeAtacar) ,900)
             distancia_left = global_left - hornet_left;
             direcao_hornet = 1
             div_agulha.style.width= '150px'
@@ -411,13 +413,13 @@
         }
         if (longo_1 == 1) {
             div_hornet.innerHTML = img_hornet_throw_1
-            setTimeout(()=> ataque_longo_1(2, podeAtacar) ,150)
+            setTimeout(()=> ataque_longo_1(2, podeAtacar) ,300)
         } else if (longo_1 == 2) {
             div_hornet.innerHTML = img_hornet_throw_2
-            setTimeout(()=> ataque_longo_1(3, podeAtacar) ,150)
+            setTimeout(()=> ataque_longo_1(3, podeAtacar) ,300)
         } else if (longo_1 == 3) {
             div_hornet.innerHTML = img_hornet_throw_3
-            setTimeout(()=> ataque_longo_1(4, podeAtacar) ,150)
+            setTimeout(()=> ataque_longo_1(4, podeAtacar) ,300)
         } else if (longo_1 == 4) {
             div_hornet.innerHTML = img_hornet_throw_4
             div_harpao.innerHTML = img_hornet_harpoon_1
@@ -712,8 +714,8 @@
     // GRAVIDADE E PULO -----------------------------------------------------------------------------------------------
 
     function gravidade() {
-        if(global_top < 510 && checar_pulo == 1) {
-            if (lockout == 0) global_top += 10
+        if(global_top < 510 && checar_pulo == 1 ) {
+            if (lockout == 0 && cut_dash == 0) global_top += 10
             fall_cycle()
         }
         else if (global_top == 510) {
@@ -752,7 +754,7 @@
     function check_still() {
         last_position.push(global_left)
 
-        if ((global_left[last_position.lenght] == global_left[last_position.length - 3]) && checar_pulo == 0 && lockout_nail == 0 && is_dashing == 0) {
+        if ((global_left[last_position.lenght] == global_left[last_position.length - 3]) && checar_pulo == 0 && lockout_nail == 0 && is_dashing == 0 && cut_dash == 0) {
             div_knight.innerHTML = img_idle1
         }
     setTimeout(() => check_still() ,1000);
@@ -803,11 +805,13 @@
             div_swing.style.left = `${global_left + soma_nail}px`
             div_swing.style.top = `${global_top}px`
             swing_info = div_swing.getBoundingClientRect();
+            nail_in_hornet(21)
             // posicao_div_swing = Number(global_left)
         } else {
             div_swing.style.left = `${global_left + soma_nail}px`
             div_swing.style.top = `${global_top}px`
             swing_info = div_swing.getBoundingClientRect();
+            nail_in_hornet(21)
             // posicao_div_swing = Number(global_left)
         }
         nail_duration = 2
@@ -818,6 +822,8 @@
     function follow_knight() {
         div_swing.style.top = `${global_top}px`
         div_swing.style.left = `${global_left + soma_nail}px`
+        swing_info = div_swing.getBoundingClientRect()
+        nail_in_hornet(21)
         if (aux_nail_duration == 0) {
             aux_nail_duration++
         } else if (aux_nail_duration == 1) {
@@ -826,6 +832,8 @@
             div_swing.innerHTML = ``
             div_swing.style.left = '-100px'
             div_swing.style.top = '-100px'
+            swing_info = div_swing.getBoundingClientRect()
+            nail_in_hornet(21)
             aux_nail_duration = 0;
             return false
         }
@@ -939,6 +947,7 @@
     let bateu_baixo = false;    
 
     let buffer = 0;
+    let buffer2 = 0;
 
     // knight_in_hornet()
     function knight_in_hornet() {
@@ -967,8 +976,15 @@
         // else teste = false
     }
 
-    function nail_in_hornet() {
+    function nail_in_hornet(dano) {
+        bateu_esquerda = swing_info.right > hornet_info.left 
+        bateu_direita = swing_info.left < hornet_info.right 
+        bateu_cima = swing_info.bottom > hornet_info.top 
+        bateu_baixo = swing_info.top < hornet_info.bottom 
 
+        if (bateu_direita && bateu_cima && bateu_baixo && bateu_esquerda) {
+            if (buffer2 == 0) causar_dano(dano)
+        }
     }
 
     function tomar_dano() {
@@ -978,8 +994,7 @@
             hp--
             div_hp.innerHTML = hp
             if (hp > 0) animacao_tomar_dano(1)
-        } else {
-        }
+        } 
     }
 
     function animacao_tomar_dano(parms) {
@@ -1001,6 +1016,28 @@
         }
         // else is_dashing = 0;
     }
+
+    function causar_dano(dano) {
+        buffer2 = 1;
+        console.log(dano)
+        hp_hornet = hp_hornet - dano;
+        setTimeout(()=> buffer2 = 0 ,600)
+        div_hp_hornet.innerHTML = hp_hornet
+            empurrar_hornet(1)
+    }
+
+    function empurrar_hornet(param) {
+        let mult = 1
+        if (direcao == 2) mult = -1;
+        if(hornet_left >= 40 && hornet_left <= 1080)hornet_left = hornet_left - 10 * mult
+        else if (hornet_left < 40) hornet_left = 40
+        else hornet_left = 1080
+        div_hornet.style.left = `${hornet_left}px`
+        hornet_info = div_hornet.getBoundingClientRect()
+        if (param <= 3) setTimeout(() => {
+            empurrar_hornet(param+1)
+        }, 100);
+    } 
 
 
 
