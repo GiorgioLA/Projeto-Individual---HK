@@ -19,8 +19,8 @@
         #div_nuvem {
             top: 0;
             left: 0;
-            width: 100px;
-            height: 100px;
+            width: 50px;
+            height: 50px;
             position: absolute;
             background-color: white;
             border: 2px solid black;
@@ -75,25 +75,42 @@
 
         // no evento, temos qual tecla foi pressionada (atributo ".key")
         if (event.key == "ArrowDown") { // "ArrowDown" é a tecla de seta para baixo
-            global_top += 10;
             global_top_2 += 10;
         } else if (event.key == "ArrowUp") { // "ArrowUp" é a tecla de seta para cima
             global_top_2 -= 10;
         } else if (event.key == "ArrowLeft") { // "ArrowLeft" é a tecla de seta para esquerda
-        if (andandoL == 0 ) moveLeft()
-            andandoL = 1;
-            global_left_2 += 10;
+            global_left_2 -= 10;
         } else if (event.key == "ArrowRight") { // "ArrowRight" é a tecla de seta para direita
-            if (andandoR == 0 ) moveRight()
-            andandoR = 1;
             global_left_2 += 10;
+        } else if (event.key == "s") { // "ArrowDown" é a tecla de seta para baixo
+            global_top += 10;
+        } else if (event.key == "w") { // "ArrowUp" é a tecla de seta para cima
+            global_top -= 10;
+        } else if (event.key == "a") { // "ArrowLeft" é a tecla de seta para esquerda
+            global_left -= 10;
+        } else if (event.key == "d") { // "ArrowRight" é a tecla de seta para direita
+            global_left += 10;
         }
 
         div_nuvem.style.top = `${global_top}${unidade_medida}`; // atualiza a posição do topo da nuvem
         div_nuvem.style.left = `${global_left}${unidade_medida}`; // atualiza a posição da esquerda da nuvem
         div_nuvem_2.style.top = `${global_top_2}${unidade_medida}`; // atualiza a posição do topo da nuvem
         div_nuvem_2.style.left = `${global_left_2}${unidade_medida}`; // atualiza a posição da esquerda da nuvem
+
+        let info_nuvem_1 = div_nuvem.getBoundingClientRect()
+        let info_nuvem_2 = div_nuvem_2.getBoundingClientRect()
+
+        // nuvem 1
+        bateu_esquerda_N1 = info_nuvem_1.right > info_nuvem_2.left 
+        bateu_direita_N1 = info_nuvem_1.left < info_nuvem_2.right 
+        bateu_cima_N1 = info_nuvem_1.bottom > info_nuvem_2.top 
+        bateu_baixo_N1 = info_nuvem_1.top < info_nuvem_2.bottom 
     }
+
+    let bateu_esquerda_N1 = false;
+    let bateu_direita_N1 = false;
+    let bateu_cima_N1 = false;
+    let bateu_baixo_N1 = false;
 
     let andandoR = 0;
     let pararR = 0;
