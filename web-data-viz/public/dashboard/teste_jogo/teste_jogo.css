@@ -62,7 +62,8 @@ body {
     display: flex;
     align-items: center;
     justify-content: center;
-    height: 50px;
+    height: 5px;
+    width: 40px;
 }
 
 #div_harpao {
@@ -90,8 +91,8 @@ body {
 }
 
 #div_swing {
-    width: 50px;
-    height: 50px;;
+    width: 150px;
+    height: 150px;;
     position: absolute;
     /* display: flex;
     align-items: center;
