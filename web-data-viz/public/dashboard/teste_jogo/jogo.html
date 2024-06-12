@@ -5,18 +5,22 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <link rel="stylesheet" href="teste_jogo.css">
-</head>
+</head>div_nail
 <body onkeyup="pararTotal(event)" onkeydown="mover_knight(event)" onload="carreguei()">
     <div class="main"></div>
     <div id="div_knight"></div>
     <div id="div_hornet"></div>
-    <div id="div_casts"></div>
-    <div id="div_swing"></div>
+    <div id="div_casts">
+        <div id="fireball"></div>
+    </div>
+    <div id="div_swing">
+        <div id="swing"></div>
+    </div>
     <div id="div_agulha"></div>
     <div id="div_harpao"></div>
 
     <div class="informacoes">
-        <div>Vida: 9/9</div>
+        Vida: <div id="div_hp">9</div>
         <div id="div_cooldown">Alma Sombria: pronta</div>
         Tempo: <span id="tempo"></span> <br>
         Ativar Hornet <button id="ativar_chefe" style="display: none;" onclick="ativar_hornet()">Ativar</button> <br>
@@ -96,6 +100,7 @@
     let dash_cooldown = 0;
     let is_dashing = 0;
     let dash_lockout = 0;
+    let cut_dash = 0
 
     let cooldown_nail = 0;
     let cont_swing = 0;
@@ -103,13 +108,16 @@
     let direcao_swing = 1;
     let nail_duration = 0;
     let aux_nail_duration = 0;
-    let soma_nail = 70;
+    let soma_nail = 170;
     let apertando_dash = 0;
+
+    let hp = 9;
 
     let knight_info = div_knight.getBoundingClientRect();
     let hornet_info = div_hornet.getBoundingClientRect();
-    let fireball_info = div_casts.getBoundingClientRect();
-    let neddle_info = div_agulha.getBoundingClientRect();
+    let fireball_info = fireball.getBoundingClientRect();
+    let needle_info = div_agulha.getBoundingClientRect();
+    let swing_info = div_swing.getBoundingClientRect();
 
     // IMAGENS CAVALEIRO ------------------------------------------------------------------------------------------------------------------------ 
     
@@ -141,6 +149,8 @@
     const img_dash_1 = `<img src="../../assets/images/knight_sprite_sheet/knight_dash_1.png">`;
     const img_dash_2 = `<img src="../../assets/images/knight_sprite_sheet/knight_dash_2.png">`;
     const img_dash_3 = `<img src="../../assets/images/knight_sprite_sheet/knight_dash_3.png">`;
+    const img_dmg_1 = `<img style='height: 100px;' src="../../assets/images/knight_sprite_sheet/knight_dmg_1.png">`;
+    const img_dmg_2 = `<img style='height: 100px;' src="../../assets/images/knight_sprite_sheet/knight_dmg_2.png">`;
 
     // HORNET ------------------------------------------------------------------------------------------------------------------------------------
 
@@ -197,6 +207,8 @@
     }
 
     function animacao_start_up(start_up) {
+        hornet_info = div_hornet.getBoundingClientRect();
+        knight_in_hornet()
         if (start_up == 1) {
             div_hornet.innerHTML = img_hornet_start_1;
             div_hornet.style.left = '850px'
@@ -294,6 +306,8 @@
         }
         hornet_left -= 25 * direcao_hornet;
         div_hornet.style.left = `${hornet_left}px`
+        hornet_info = div_hornet.getBoundingClientRect();
+        knight_in_hornet()
         if (hornet_left < (limite - 50) || hornet_left > (limite + 50)) setTimeout(()=>andar_hornet(limite, index + 1, params),50)
         else {
             div_hornet.innerHTML = img_hornet_idle_1
@@ -340,12 +354,18 @@
             else if (hornet_left < 40) {
                 hornet_left = 40
                 div_hornet.style.left = `${hornet_left}px`
+                hornet_info = div_hornet.getBoundingClientRect();
+                knight_in_hornet()
             }
             else if (hornet_left > 1080){
                 hornet_left = 1080
                 div_hornet.style.left = `${hornet_left}px`
+                hornet_info = div_hornet.getBoundingClientRect();
+                knight_in_hornet()
             }
             div_hornet.style.left = `${hornet_left}px`
+            hornet_info = div_hornet.getBoundingClientRect();
+            knight_in_hornet()
             setTimeout(()=>atacar_perto_1(perto_1 + 1, podeAtacar),40)
         } else {
             div_hornet.style.top = '480px'
@@ -370,6 +390,8 @@
             direcao_hornet = 1
             div_agulha.style.width= '150px'
             div_agulha.style.height = '50px'
+            needle_info = div_agulha.getBoundingClientRect();
+            needle_in_knight()
         }
         if (distancia_left > 0) {
             div_hornet.style.transform = (`scaleX(-1)`)
@@ -377,12 +399,15 @@
             div_agulha.style.transform = (`scaleX(-1)`)
             direcao_hornet = -1;
             div_harpao.style.left = `${hornet_left + 50}px`;  
+            needle_info = div_agulha.getBoundingClientRect();
+            needle_in_knight()
         }
         else{
             div_hornet.style.transform = (`scaleX(+1)`)
             div_harpao.style.transform = (`scaleX(+1)`)
             div_agulha.style.transform = (`scaleX(+1)`)
-            
+            needle_info = div_agulha.getBoundingClientRect();
+            needle_in_knight()
         }
         if (longo_1 == 1) {
             div_hornet.innerHTML = img_hornet_throw_1
@@ -423,6 +448,8 @@
             div_agulha.innerHTML = img_hornet_needle_1;
             posicao_agulha = posicao_agulha - 26 * direcao_hornet 
             div_agulha.style.left = `${posicao_agulha}px`
+            needle_info = div_agulha.getBoundingClientRect();
+            needle_in_knight()
             setTimeout(()=>agulha_longo_1(aux + 1), 25)
         }
     }
@@ -433,11 +460,17 @@
             div_agulha.innerHTML = img_hornet_needle_1;
             posicao_agulha = posicao_agulha + 26 * direcao_hornet 
             div_agulha.style.left = `${posicao_agulha}px`
+            needle_info = div_agulha.getBoundingClientRect();
+            needle_in_knight()
             setTimeout(()=>voltar_agulha_1(aux + 1), 25)
         } else {
             div_agulha.style.width = '0'
             div_agulha.style.height = '0'
             div_agulha.innerHTML = ''
+            div_agulha.style.left = '-100px'
+            div_agulha.style.height = '-100px'
+            needle_info = div_agulha.getBoundingClientRect();
+            needle_in_knight()
             // luta(podeAtacar - 1)
         }
     }
@@ -535,6 +568,8 @@
         
         div_knight.style.top = `${global_top}${unidade_medida}`;
         div_knight.style.left = `${global_left}${unidade_medida}`;
+        knight_info = div_knight.getBoundingClientRect()
+        knight_in_hornet()
     }
 
     function pararTotal() {
@@ -588,7 +623,7 @@
 
     function flipRight() {
         div_knight.style.transform = `scaleX(-1)`
-        soma_nail = 70
+        soma_nail = 170
     }
 
     // Inverter direção(2)
@@ -628,25 +663,26 @@
     // DASH CAVALEIRO -------------------------------------------------------------------------------------------------
 
     function start_dash() {
-        if (global_left > 40 && global_left < 1080) {
+        if (global_left > 40 && global_left < 1080 && cut_dash == 0) {
             let direcao_dash = -1;
             if (direcao == 2) direcao_dash = 1;
             global_left += 35 * direcao_dash
             div_knight.style.left = `${global_left}px`
+            knight_info = div_knight.getBoundingClientRect()
+        knight_in_hornet()
             }
         if (dash_cooldown == 1) setTimeout(()=> start_dash(),50)
         else is_dashing = 0;
     }
 
     function animacao_dash(parametro_dash) {
+        if (cut_dash == 1) return false
         if (parametro_dash == 1) {
             div_knight.innerHTML = `<img class="style_knight" src="../../assets/images/knight_sprite_sheet/knight_dash_1.png">`;
             setTimeout(()=> animacao_dash(2), 40)
-            console.log('oi')
         } else if (parametro_dash == 2) {
             div_knight.innerHTML = `<img class="style_knight" src="../../assets/images/knight_sprite_sheet/knight_dash_1.png">`;
             setTimeout(()=> animacao_dash(3), 40)
-            console.log('oi2')
         }  else if (parametro_dash == 3) {
             div_knight.innerHTML = `<img class="style_knight" src="../../assets/images/knight_sprite_sheet/knight_dash_1.png">`;
             setTimeout(()=> animacao_dash(4), 40)
@@ -685,6 +721,8 @@
             checar_pulo = 0 
         }
         div_knight.style.top = `${global_top}${unidade_medida}`;
+        knight_info = div_knight.getBoundingClientRect()
+        knight_in_hornet()
         setTimeout(() => gravidade() ,20);
     }
 
@@ -705,8 +743,8 @@
         if (lockout == 0 && lockout_nail == 0)div_knight.innerHTML = img_jump_1
         // checar_pulo = 0.5    
         if (lockout == 0) global_top-= 10;
-        if (global_top <= 290) setTimeout(() => checar_pulo = 1 ,50);
-        else if (checar_pulo < 1) setTimeout(() => pular() ,20);
+        if (global_top <= 290) setTimeout(() => checar_pulo = 1 ,100);
+        else if (checar_pulo < 1) setTimeout(() => pular() ,15);
     }
 
     // CHECAR SE ESTÁ PARADO -----------------------------------------------------------------------------------------------------------------------
@@ -754,7 +792,8 @@
 
     function swing_fnc() {
         direcao_swing = -1;
-        if (direcao == 2) direcao_swing = 1; 
+        if (direcao == 2) direcao_swing = 1;
+         
         div_swing.innerHTML = `<div id="swing">
             ${img_nail_1}
             </div>`
@@ -763,10 +802,12 @@
             swing.style.transform = `scaleX(-1)`
             div_swing.style.left = `${global_left + soma_nail}px`
             div_swing.style.top = `${global_top}px`
+            swing_info = div_swing.getBoundingClientRect();
             // posicao_div_swing = Number(global_left)
         } else {
             div_swing.style.left = `${global_left + soma_nail}px`
             div_swing.style.top = `${global_top}px`
+            swing_info = div_swing.getBoundingClientRect();
             // posicao_div_swing = Number(global_left)
         }
         nail_duration = 2
@@ -775,17 +816,20 @@
     }
 
     function follow_knight() {
-        setInterval(() => div_swing.style.top = `${global_top}px`,80);
-        setInterval(() => div_swing.style.left = `${global_left + soma_nail}px`,80);
+        div_swing.style.top = `${global_top}px`
+        div_swing.style.left = `${global_left + soma_nail}px`
         if (aux_nail_duration == 0) {
             aux_nail_duration++
         } else if (aux_nail_duration == 1) {
             aux_nail_duration++
         } else if (aux_nail_duration == 2) {
             div_swing.innerHTML = ``
+            div_swing.style.left = '-100px'
+            div_swing.style.top = '-100px'
             aux_nail_duration = 0;
             return false
         }
+        // nail_duration--
         setTimeout(() => follow_knight(),80);
     }
 
@@ -836,8 +880,8 @@
         } else {
             fireball.style.left = `${global_left}px`
             posicao_fireball = Number(global_left)
-
         }
+        fireball_info = fireball.getBoundingClientRect();
         move_fireball(direcao_fireball)
     }
 
@@ -850,6 +894,7 @@
             posicao_fireball = posicao_fireball - 50 * d
             // alert(posicao_fireball)
             fireball.style.left = `${posicao_fireball}px`
+            fireball_info = fireball.getBoundingClientRect();
             if (cont_fireball == 1) {
                 fireball.innerHTML = img_fireball_2
                 cont_fireball = 2
@@ -866,6 +911,9 @@
         } else {
             aux_mov_fireball = 0
             fireball.innerHTML = ``
+            fireball.style.left = '-100px'
+            fireball.style.top = '-100px'
+            fireball_info = fireball.getBoundingClientRect();
         }
     }
 
@@ -882,6 +930,78 @@
 
 
     // HITBOX ----------------------------------------------------------------------------------------------------------------------------------------
+
+    let teste = false
+
+    let bateu_esquerda = false;
+    let bateu_direita = false;
+    let bateu_cima = false;
+    let bateu_baixo = false;    
+
+    let buffer = 0;
+
+    // knight_in_hornet()
+    function knight_in_hornet() {
+        // console.log('hello')
+        bateu_esquerda = knight_info.right > hornet_info.left 
+        bateu_direita = knight_info.left < hornet_info.right 
+        bateu_cima = knight_info.bottom > hornet_info.top 
+        bateu_baixo = knight_info.top < hornet_info.bottom 
+
+        if (bateu_direita && bateu_cima && bateu_baixo && bateu_esquerda) {
+            if (buffer == 0) tomar_dano()
+        }
+        // else teste = false
+        // setTimeout(()=> knight_in_hornet(), 10)
+    }
+
+    function needle_in_knight() {
+        bateu_esquerda = knight_info.right > needle_info.left 
+        bateu_direita = knight_info.left < needle_info.right 
+        bateu_cima = knight_info.bottom > needle_info.top 
+        bateu_baixo = knight_info.top < needle_info.bottom 
+
+        if (bateu_direita && bateu_cima && bateu_baixo && bateu_esquerda) {
+            if (buffer == 0) tomar_dano()
+        }
+        // else teste = false
+    }
+
+    function nail_in_hornet() {
+
+    }
+
+    function tomar_dano() {
+        if (buffer == 0) {
+            buffer = 1;
+            setTimeout(()=> buffer = 0 ,1200)
+            hp--
+            div_hp.innerHTML = hp
+            if (hp > 0) animacao_tomar_dano(1)
+        } else {
+        }
+    }
+
+    function animacao_tomar_dano(parms) {
+            lockout = 1;
+            cut_dash = 1;
+            let direcao_knock = 1;
+            if (direcao == 2) direcao_knock = -1;
+            global_left += 20 * direcao_knock
+            div_knight.style.left = `${global_left}px`
+        if (parms == 1){
+            setTimeout(()=> animacao_tomar_dano(2),300)
+            div_knight.innerHTML = img_dmg_1;
+        } else if (parms == 2) {
+            div_knight.innerHTML = img_dmg_2;
+            setTimeout(()=> animacao_tomar_dano(3),300)
+        } else if (parms == 3) {
+            lockout = 0;
+            cut_dash = 0;
+        }
+        // else is_dashing = 0;
+    }
+
 
 
 </script>

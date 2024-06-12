@@ -71,11 +71,11 @@ body {
 #div_hornet {
     top: 480px;
     left: 900px;
-    width: 100px;
-    height: 130px;
+    width: 60px;
+    height: 120px;
     position: absolute;
     display: flex;
-    /* justify-content: center; */
+    justify-content: center;
     align-items: center;
 }
 
@@ -89,8 +89,8 @@ body {
 }
 
 #div_swing {
-    /* width: 85px; */
-    /* height: 130px;; */
+    width: 50px;
+    height: 50px;;
     position: absolute;
     /* display: flex;
     align-items: center;
