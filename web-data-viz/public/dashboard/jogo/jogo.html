@@ -21,13 +21,12 @@
 
     <div class="informacoes">
         Vida: <div id="div_hp">9</div>
-        Vida Chefe: <div id="div_hp_hornet">800</div>
+        <!-- Vida Chefe: <div id="div_hp_hornet">800</div> -->
+         <br>
         <div id="div_cooldown">Alma Sombria: pronta</div>
+        <br>
         Tempo: <span id="tempo"></span> <br>
-        Ativar Hornet <button id="ativar_chefe" style="display: none;" onclick="ativar_hornet()">Ativar</button> <br>
-        Ataque Longo 1 <button onclick="ataque_longo_1(1)">Ativar</button> <br>
-        Ataque Perto 1 <button onclick="ataque_perto_1(1)">Ativar</button> <br>
-        Andar Aleatório<button onclick="andar_random()">Ativar</button> <br>
+        <!-- Ativar Hornet <button id="ativar_chefe" style="display: none;" onclick="ativar_hornet()">Ativar</button> <br> -->
     </div>
     <div id="card" style="display: none;">
         <img class="dialogue" src="../../assets/images/top_dialogue_box-removebg-preview.png" alt="">
@@ -56,8 +55,10 @@
         comecar_contagem()
         comecou = 'sim'
         card.style.display = 'none'
-        ativar_chefe.style.display  = 'flex'
+        // ativar_chefe.style.display  = 'flex'
         // function futura para "acordar" hornet
+        ativar_hornet()
+
     }
 
     function bem_vindo() {
@@ -113,7 +114,7 @@
     let apertando_dash = 0;
 
     let hp = 9;
-    let hp_hornet = 800;
+    let hp_hornet = 600;
     let fim_boss = 0;
 
     let knight_info = div_knight.getBoundingClientRect();
@@ -198,6 +199,7 @@
     let distancia_left = 0;
     let direcao_hornet = 1;
     let posicao_agulha = 900;
+    let atacando = 0;
 
     let hornet_left = 900;
     let hornet_top = 480;
@@ -205,7 +207,7 @@
     div_hornet.innerHTML = img_hornet_idle_1; 
 
     function ativar_hornet() {
-        ativar_chefe.style.display = 'none';
+        // ativar_chefe.style.display = 'none';
         animacao_start_up(1);
     }
 
@@ -249,11 +251,12 @@
         }
     }
     function luta(n_ataques) {
+        atacando = 0
         if (fim_boss == 1) return false
         if (n_ataques == 0) {
             n_ataques = (Math.random() * 3 + 0.5).toFixed(0)
-            andar_random(n_ataques)
-        }  else setTimeout(()=>atacar(n_ataques),500)
+            setTimeout(()=>andar_random(n_ataques),1000)
+        }  else setTimeout(()=>atacar(n_ataques),1000)
     }
 
     function atacar(golpes) {
@@ -264,17 +267,11 @@
         distancia_left = global_left - hornet_left;        
         
             let decidir_ataque = (Math.random() * 2 + 0.5).toFixed(0)
-            // decidir_ataque = 1;
+            atacando = 1
             if (decidir_ataque == 1) {
                 ataque_perto_1(1, golpes)
-            } else {
-
-            }
-
-            // let decidir_ataque = (Math.random() * 2 + 0.5).toFixed(0)
-            // decidir_ataque = 1;
-
-            if (decidir_ataque == 2) {
+                
+            } else if (decidir_ataque == 2) {
                 ataque_longo_1(1, golpes)
             }
         
@@ -316,6 +313,7 @@
         else {
             div_hornet.innerHTML = img_hornet_idle_1
             setTimeout(()=> luta(params), 500)
+            atacando = 0
         }
     }
 
@@ -375,6 +373,7 @@
             div_hornet.style.top = '480px'
             div_hornet.innerHTML = img_hornet_idle_1
             setTimeout(()=>luta(podeAtacar - 1), 1000)
+            atacando = 0
         }
     }
 
@@ -424,7 +423,7 @@
             div_hornet.innerHTML = img_hornet_throw_4
             div_harpao.innerHTML = img_hornet_harpoon_1
             div_agulha.style.left = `${hornet_left}px`;
-            div_agulha.style.top = `${hornet_top + 50}px`;
+            div_agulha.style.top = `${hornet_top + 60}px`;
             setTimeout(()=> ataque_longo_1(5, podeAtacar) ,100)
         } else if (longo_1 == 5) {
             div_hornet.innerHTML = img_hornet_throw_5
@@ -522,18 +521,16 @@
         } else {
             div_hornet.innerHTML = img_hornet_idle_1
             // if (n_ataques > 0) setTimeout(()=> atacar(),400)
-           
-             
                 setTimeout(()=> luta(podeAtacar - 1),1000)
+                atacando = 0
                 console.log(podeAtacar, podeAtacar - 1)
-            
         }
     }
 
     // MOVER CAVALEIRO (SEM HITBOX) -----------------------------------------------------------------------------------------------
 
     function mover_knight(event) {
-        if (lockout >= 1 || comecou == 'não') return false
+        if (lockout >= 1 || comecou == 'não' || fim_boss == 1) return false
         console.log("PARÂMETRO DO EVENTO DISPARADO: ", event,"TEMPO ATUAL:", timer.toFixed(3));
         if (event.key == "w" && global_top == 510 && checar_pulo == 0) pular()
         else if (event.key == "a" && global_left > 40 && lockout == 0){
@@ -883,15 +880,22 @@
             ${img_fireball_1}
             </div>`
         fireball.style.top = `${global_top -10}px`
+        fireball_info = fireball.getBoundingClientRect();
+        fireball_in_hornet()
         if (direcao == 2) {
             fireball.style.transform = `scaleX(-1)`
             fireball.style.left = `${global_left}px`
+            fireball_info = fireball.getBoundingClientRect();
+            fireball_in_hornet()
             posicao_fireball = Number(global_left)
         } else {
             fireball.style.left = `${global_left}px`
+            fireball_info = fireball.getBoundingClientRect();
+            fireball_in_hornet()
             posicao_fireball = Number(global_left)
         }
         fireball_info = fireball.getBoundingClientRect();
+        fireball_in_hornet()
         move_fireball(direcao_fireball)
     }
 
@@ -905,6 +909,7 @@
             // alert(posicao_fireball)
             fireball.style.left = `${posicao_fireball}px`
             fireball_info = fireball.getBoundingClientRect();
+            fireball_in_hornet()
             if (cont_fireball == 1) {
                 fireball.innerHTML = img_fireball_2
                 cont_fireball = 2
@@ -924,12 +929,13 @@
             fireball.style.left = '-100px'
             fireball.style.top = '-100px'
             fireball_info = fireball.getBoundingClientRect();
+            fireball_in_hornet()
         }
     }
 
     function cooldown_fireball() {
         cooldown--
-        div_cooldown.innerHTML = `Alma Sombria: ${cooldown}`
+        div_cooldown.innerHTML = `Alma Sombria: <div>${cooldown}</div>`
         if(cooldown > 0) setTimeout(() => cooldown_fireball(),1000);
         else div_cooldown.innerHTML = `Alma Sombria: pronta`
 
@@ -978,24 +984,36 @@
         // else teste = false
     }
 
-    function nail_in_hornet(dano) {
+    function nail_in_hornet() {
         bateu_esquerda = swing_info.right > hornet_info.left 
         bateu_direita = swing_info.left < hornet_info.right 
         bateu_cima = swing_info.bottom > hornet_info.top 
         bateu_baixo = swing_info.top < hornet_info.bottom 
 
         if (bateu_direita && bateu_cima && bateu_baixo && bateu_esquerda) {
-            if (buffer2 == 0 && fim_boss == 0) causar_dano(dano)
+            if (buffer2 == 0 && fim_boss == 0) causar_dano(21)
+        }
+    }
+
+    function fireball_in_hornet() {
+        bateu_esquerda = fireball_info.right > hornet_info.left 
+        bateu_direita = fireball_info.left < hornet_info.right 
+        bateu_cima = fireball_info.bottom > hornet_info.top 
+        bateu_baixo = fireball_info.top < hornet_info.bottom 
+
+        if (bateu_direita && bateu_cima && bateu_baixo && bateu_esquerda) {
+            if (buffer2 == 0 && fim_boss == 0) causar_dano(60)
         }
     }
 
     function tomar_dano() {
         if (buffer == 0) {
             buffer = 1;
-            setTimeout(()=> buffer = 0 ,1200)
+            setTimeout(()=> buffer = 0 ,2000)
             hp--
             div_hp.innerHTML = hp
-            if (hp > 0) animacao_tomar_dano(1)
+            if (hp >= 1) animacao_tomar_dano(1)
+            else acabar(1)
         } 
     }
 
@@ -1007,11 +1025,11 @@
             global_left += 20 * direcao_knock
             div_knight.style.left = `${global_left}px`
         if (parms == 1){
-            setTimeout(()=> animacao_tomar_dano(2),300)
+            setTimeout(()=> animacao_tomar_dano(2),150)
             div_knight.innerHTML = img_dmg_1;
         } else if (parms == 2) {
             div_knight.innerHTML = img_dmg_2;
-            setTimeout(()=> animacao_tomar_dano(3),300)
+            setTimeout(()=> animacao_tomar_dano(3),150)
         } else if (parms == 3) {
             lockout = 0;
             cut_dash = 0;
@@ -1024,11 +1042,28 @@
         console.log(dano)
         hp_hornet = hp_hornet - dano;
         setTimeout(()=> buffer2 = 0 ,600)
-        div_hp_hornet.innerHTML = hp_hornet
-            empurrar_hornet(1)
+        // div_hp_hornet.innerHTML = hp_hornet
+        if (atacando == 0) empurrar_hornet(1)
+        feedback_hit(20)
         if (hp_hornet <= 0) {
-            setTimeout(()=> acabar(), 100)
+            setTimeout(()=> acabar(2), 100)
             hp_hornet = 0
+        }
+    }
+
+    let opacity = 100;
+    function feedback_hit(param) {
+        if (param >= 10) {
+            opacity = opacity - 5
+            div_hornet.style.opacity = `${opacity}%`
+            setTimeout(()=> feedback_hit(param - 1) ,10)
+        } else if (param >= 0) {
+            opacity = opacity + 5
+            div_hornet.style.opacity = `${opacity}%`
+            setTimeout(()=> feedback_hit(param - 1) ,10)
+        } else {
+            opacity = 100;
+            div_hornet.style.opacity = `${opacity}%`
         }
     }
 
@@ -1045,10 +1080,42 @@
         }, 100);
     } 
 
-    function acabar() {
+    function acabar(param) {
         fim_boss = 1
+        card.innerHTML = ''
+        if (param == 1) {
+            card.style.display = 'flex'
+            card.innerHTML = `
+                <img class="dialogue" src="../../assets/images/top_dialogue_box-removebg-preview.png" alt="">
+                <span>Você foi eliminado!</span>
+                <span>Você pode voltar ao site ou tentar novamente.</span>
+                <button onclick="Voltar(1)" class="botoes">Voltar</button>
+                <button onclick="Voltar(2)" class="botoes">Tentar Novamente</button>
+                <img class="dialogue" src="../../assets/images/bottom_dialogue_box-removebg-preview.png" alt="">
+            `
+        } else {
+            card.style.display = 'flex'
+            card.innerHTML = `
+                <img class="dialogue" src="../../assets/images/top_dialogue_box-removebg-preview.png" alt="">
+                <span>Você consegui vencer da Hornet!</span>
+                <span>Clique em 'Voltar' para registrar sua tentativa! Você ainda pode jogar novamente.</span>
+                <button onclick="Voltar(3)" class="botoes">Voltar</button>
+                <img class="dialogue" src="../../assets/images/bottom_dialogue_box-removebg-preview.png" alt="">
+            `
+        }
     }
 
+    function Voltar(param) {
+        if (param == 1) window.location = '../areas/kingdoms_edge.html'
+        if (param == 2) window.location.reload()
+        if (param == 3) {
+            
+            window.location = '../areas/kingdoms_edge.html'
+        }
+    }
+
+
+    // function
 
 
 </script>

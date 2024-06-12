@@ -18,10 +18,17 @@ body {
     height: 702px;
 }
 
+
 .informacoes {
     width: 20%;
     height: 702px;
-    background-color: blue;
+    background-color: black;
+    color: white;
+    display: flex;
+    flex-direction: column;
+    font-family: Trajan_Regular;
+    text-align: center;
+    font-size: 40px;
 }
 
 .style_knight {
@@ -52,8 +59,8 @@ body {
 #div_knight {
     top: 510px;
     left: 140px;
-    width: 85px;
-    height: 130px;
+    width: 50px;
+    height: 100px;
     position: absolute;
 }
 
@@ -64,6 +71,7 @@ body {
     justify-content: center;
     height: 5px;
     width: 40px;
+    /* top: 45px; */
 }
 
 #div_harpao {
@@ -122,6 +130,22 @@ body {
 
 #botao_comecar {
     display: none;
+    height: 50px;
+    width: 150px;
+    background-color: black;
+    color: white;
+    font-family: Trajan_Regular;
+    font-size: 20px;
+    border: 1px solid #a3aab0;
+    cursor: pointer;
+    /* display: flex; */
+    justify-content: center;
+    align-items: center;
+    cursor: url(../../assets/images/Hollow_Knight_Cursor/cursor03.cur), auto;
+}
+
+.botoes {
+    /* display: none; */
     height: 50px;
     width: 150px;
     background-color: black;

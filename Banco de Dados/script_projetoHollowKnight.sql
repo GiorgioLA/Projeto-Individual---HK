@@ -46,8 +46,21 @@ idSecao int primary key auto_increment,
 segundos decimal(5,2),
 dano_recebido decimal(1,0),
 fkUsuario int,
-foreign key (fkUsuario) references Usuario(idUsuario)
+foreign key (fkUsuario) references Usuario(idUsuario),
+dtPartida datetime
 );
+
+SELECT now();
+
+/*
+INSERT INTO jogo VALUES
+	(default, ${valor1}, ${valor2}, ${valor3}, now());
+*/
+
+INSERT INTO jogo VALUES
+	(default, 100.2, 8, 1, now());
+SELECT * FROM jogo;
+ALTER TABLE jogo ADD COLUMN dtPartida datetime;
     
 SHOW TABLES;
 
@@ -68,4 +81,15 @@ UPDATE inventario SET nivel = 1 WHERE fkUsuario = 2 AND fkHabilidade = 1;
 
 SELECT round(sum(nivel) * 6.666, 0) FROM inventario JOIN habilidade ON fkHabilidade = idHabilidade;
 CREATE VIEW inventarioUnico AS SELECT round(sum(nivel) * 6.666, 0) as porcentagem, fkUsuario FROM inventario JOIN habilidade ON fkHabilidade = idHabilidade GROUP BY fkUsuario;
+
 SELECT porcentagem FROM inventarioUnico WHERE fkUsuario = 1;
+
+SELECT segundos, dano_recebido, fkUsuario FROM jogo ORDER BY segundos DESC, dano_recebido;
+CREATE VIEW jogo_solo AS SELECT segundos, dano_recebido, fkUsuario FROM jogo ORDER BY segundos DESC, dano_recebido;
+SELECT segundos, dano_recebido FROM jogo_solo WHERE fkUsuario = 20;
+    
+SELECT fkHabilidade, nivel FROM inventario ORDER BY fkHabilidade, nivel DESC;
+SELECT count(nivel) as cnt FROM inventario WHERE nivel > 0 GROUP BY fkHabilidade;
+SELECT count(distinct usuario) as total FROM usuario JOIN inventario ON idUsuario = fkUsuario;
+SELECT * FROM usuario;
+
