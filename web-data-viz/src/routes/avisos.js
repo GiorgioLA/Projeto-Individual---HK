@@ -19,4 +19,12 @@ router.post("/obterDadosDash4", function (req, res) {
     avisoController.obterDadosDash4(req, res);
 });
 
+router.post("/obterDadosDash5", function (req, res) {
+    avisoController.obterDadosDash5(req, res);
+});
+
+router.post("/obterDadosDash6", function (req, res) {
+    avisoController.obterDadosDash6(req, res);
+});
+
 module.exports = router;

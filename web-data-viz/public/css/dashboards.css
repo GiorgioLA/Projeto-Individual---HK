@@ -703,7 +703,7 @@ area {
   display: none;
 }
 
-.estatisticas #div_simulacao {
+.estatisticas #div_jogo {
   display: none;
 }
 
@@ -741,7 +741,7 @@ area {
 }
 
 .estatisticas .grafico_2 {
-  height: 138px;
+  height: 200px;
   width: 100%;
 }
 
@@ -778,6 +778,19 @@ area {
 .estatisticas .grafico_3 {
   height: 600px;
   width: 1200px;
+}
+
+.estatisticas .grafico_5 {
+  height: auto;
+  width: 500px;
+}
+
+.estatisticas .jogoDoubles {
+  width: 600px;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
 }
 
 .text_box {

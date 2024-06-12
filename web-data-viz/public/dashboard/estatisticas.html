@@ -73,7 +73,24 @@
                         <canvas id="chart4"></canvas>
                     </div>
                 </div>
-                <div id="div_simulacao" class="content"></div>
+                <div id="div_jogo" class="content">
+                    <div class="jogoDoubles">
+                        <div>
+                            <div class="titulo2">Tabela de Liderança por Tempo</div>
+                            <div class="grafico_5">
+                                <canvas id="chart5"></canvas>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="jogoDoubles">
+                        <div>
+                            <div class="titulo2">Tabela de Liderança por Dano Recebido</div>
+                            <div class="grafico_5">
+                                <canvas id="chart6"></canvas>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
@@ -86,6 +103,8 @@ const chartMyData1 = document.getElementById('chart1')
 const chartMyData2 = document.getElementById('chart2') 
 const chartMyData3 = document.getElementById('chart3') 
 const chartMyData4 = document.getElementById('chart4') 
+const chartMyData5 = document.getElementById('chart5') 
+const chartMyData6 = document.getElementById('chart6') 
 let total = 0;
 
 // console.log('1', chartMyData1, '2', chartMyData2, '3', chartMyData3, '4', chartMyData4)
@@ -94,15 +113,15 @@ function swap_page(botao) {
     if (botao == 1) {
         div_minha.style.display = 'flex'
         div_inventario.style.display = 'none'
-        div_simulacao.style.display = 'none'
+        div_jogo.style.display = 'none'
     } else if (botao == 2) {
         div_minha.style.display = 'none'
         div_inventario.style.display = 'flex'
-        div_simulacao.style.display = 'none'
+        div_jogo.style.display = 'none'
     } else if (botao == 3) {
         div_minha.style.display = 'none'
         div_inventario.style.display = 'none'
-        div_simulacao.style.display = 'flex'
+        div_jogo.style.display = 'flex'
     }
 }
 
@@ -195,6 +214,39 @@ function obter_dados() {
                     }
         }).catch(function (erro) {
             console.log(erro);
+        })
+
+        fetch("/avisos/obterDadosDash5", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },body: JSON.stringify({
+            // idUsuarioServer: idUsuario
+          })
+        }).then(function (resposta) {
+            if (resposta.ok) {
+                resposta.json().then(json => {
+                    console.log('Entrei no resposta ok')
+                    console.log(json)
+                    plotar4(json)
+                    // chamar fnc aqui
+                })
+            }
+        })
+
+        fetch("/avisos/obterDadosDash6", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            }
+        }).then(function (resposta) {
+            if (resposta.ok) {
+                resposta.json().then(json => {
+                    console.log('Entrei no resposta ok')
+                    console.log(json)
+                    plotar5(json)
+                })
+            }
         })
 }
 
@@ -298,7 +350,7 @@ function plotar3(grafico, json) {
     if(grafico == 1) {
         console.log(json)
         let cntH1 = ((Number(json.cntH1) / total) * 100).toFixed(0);
-        console.log('JSON.CNTH1', json.cntH1, 'TOTAL', total)
+        // console.log('JSON.CNTH1', json.cntH1, 'TOTAL', total)
         let cntH2 = ((Number(json.cntH2) / total) * 100).toFixed(0);
         let cntH3 = ((Number(json.cntH3) / total) * 100).toFixed(0);
         let cntH4 = ((Number(json.cntH4) / total) * 100).toFixed(0);
@@ -331,11 +383,122 @@ function plotar3(grafico, json) {
                             max : 100, 
                             min: 0
                         }
+                    }, plugins : {
+                        legend : {
+                            display : false
+                        }, tooltips : {
+                            enabled: false
+                        }
                     }
+                    
                 }
         })
     }
     // Chart.defaults.global.defaultFontColor = "#fff";
+}
+
+function plotar4(json) {
+    console.log(json)
+        let nome1 = json.jogador1.usuario;
+        let nome2 = json.jogador2.usuario;
+        let nome3 = json.jogador3.usuario;
+        let nome4 = json.jogador4.usuario;
+        let nome5 = json.jogador5.usuario;
+
+        let tempo1 = Number(json.jogador1.tempo);
+        let tempo2 = Number(json.jogador2.tempo);
+        let tempo3 = Number(json.jogador3.tempo);
+        let tempo4 = Number(json.jogador4.tempo);
+        let tempo5 = Number(json.jogador5.tempo);
+
+        let dano1 = Number(json.jogador1.dano);
+        let dano2 = Number(json.jogador2.dano);
+        let dano3 = Number(json.jogador3.dano);
+        let dano4 = Number(json.jogador4.dano);
+        let dano5 = Number(json.jogador5.dano);
+
+
+        let labels = `${nome1},${nome2},${nome3},${nome4},${nome5}`
+        let data = `${tempo1},${tempo2},${tempo3},${tempo4},${tempo5}`
+        new Chart(chartMyData5,{
+            type: 'bar',
+            data : {
+                labels: [nome1, nome2, nome3, nome4, nome5],
+                datasets: [
+                    {
+                    label: 'Tempo',
+                    // minBarLength: 10,
+                    data: [tempo1, tempo2, tempo3, tempo4, tempo5],
+                    // borderWidth: 1,
+                    backgroundColor: [
+                        'white',
+                    //     'rgba(0, 0, 0, 0)',
+                    ],
+                    borderSkipped: false,
+                    }, {
+                    label: 'Dano Recebido',
+                    // minBarLength: 10,
+                    data: [dano1, dano2, dano3, dano4, dano5],
+                    // borderWidth: 1,
+                    backgroundColor: [
+                        '#1e2d45',
+                    //     'rgba(0, 0, 0, 0)',
+                    ],
+                }]
+            }
+        })
+}
+
+function plotar5(json) {
+    console.log(json)
+        let nome1 = json.jogador1.usuario;
+        let nome2 = json.jogador2.usuario;
+        let nome3 = json.jogador3.usuario;
+        let nome4 = json.jogador4.usuario;
+        let nome5 = json.jogador5.usuario;
+
+        let tempo1 = Number(json.jogador1.tempo);
+        let tempo2 = Number(json.jogador2.tempo);
+        let tempo3 = Number(json.jogador3.tempo);
+        let tempo4 = Number(json.jogador4.tempo);
+        let tempo5 = Number(json.jogador5.tempo);
+
+        let dano1 = Number(json.jogador1.dano);
+        let dano2 = Number(json.jogador2.dano);
+        let dano3 = Number(json.jogador3.dano);
+        let dano4 = Number(json.jogador4.dano);
+        let dano5 = Number(json.jogador5.dano);
+
+
+        let labels = `${nome1},${nome2},${nome3},${nome4},${nome5}`
+        let data = `${tempo1},${tempo2},${tempo3},${tempo4},${tempo5}`
+        new Chart(chartMyData6,{
+            type: 'bar',
+            data : {
+                labels: [nome1, nome2, nome3, nome4, nome5],
+                datasets: [
+                    {
+                    label: 'Tempo',
+                    // minBarLength: 10,
+                    data: [tempo1, tempo2, tempo3, tempo4, tempo5],
+                    // borderWidth: 1,
+                    backgroundColor: [
+                        'white',
+                    //     'rgba(0, 0, 0, 0)',
+                    ],
+                    borderSkipped: false,
+                    }, {
+                    label: 'Dano Recebido',
+                    // minBarLength: 10,
+                    data: [dano1, dano2, dano3, dano4, dano5],
+                    // borderWidth: 1,
+                    backgroundColor: [
+                        '#1e2d45',
+                    //     'rgba(0, 0, 0, 0)',
+                    ],
+                }]
+            }
+        })
 }
 
 function avisar() {

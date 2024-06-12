@@ -60,6 +60,7 @@ INSERT INTO jogo VALUES
 INSERT INTO jogo VALUES
 	(default, 100.2, 8, 1, now());
 SELECT * FROM jogo;
+DELETE FROM jogo WHERE idSecao > 4;
 ALTER TABLE jogo ADD COLUMN dtPartida datetime;
     
 SHOW TABLES;
@@ -93,3 +94,5 @@ SELECT count(nivel) as cnt FROM inventario WHERE nivel > 0 GROUP BY fkHabilidade
 SELECT count(distinct usuario) as total FROM usuario JOIN inventario ON idUsuario = fkUsuario;
 SELECT * FROM usuario;
 
+SELECT usuario, segundos, dano_recebido FROM jogo JOIN usuario ON idUsuario = fkUsuario ORDER BY segundos, dano_recebido LIMIT 5;
+SELECT usuario, segundos, dano_recebido FROM jogo JOIN usuario ON idUsuario = fkUsuario ORDER BY dano_recebido, segundos LIMIT 5;
