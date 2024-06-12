@@ -88,6 +88,17 @@ function alterarInventario(habilidade1,habilidade2, habilidade3, habilidade4, ha
     return database.executar(instrucaoSql);
 }
 
+function registrarVitoria(timer, dano, idUser) {
+    console.log("ACESSEI O USUARIO MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function cadastrar():", idUser, dano, timer);
+    
+    // Insira exatamente a query do banco aqui, lembrando da nomenclatura exata nos valores
+    //  e na ordem de inserção dos dados.
+    var instrucaoSql = `
+       INSERT INTO jogo VALUES (default, ${timer.toFixed(1)}, ${dano}, ${idUser}, now());
+    `;
+    console.log("Executando a instrução SQL: \n" + instrucaoSql);
+    return database.executar(instrucaoSql);
+}
 
 module.exports = {
     autenticar,
@@ -95,5 +106,6 @@ module.exports = {
     obterID,
     inventario,
     obterInventario,
-    alterarInventario
+    alterarInventario,
+    registrarVitoria
 };

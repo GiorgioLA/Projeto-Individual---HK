@@ -67,6 +67,7 @@
     }
 
     function comecar_contagem() {
+        if (parar_tempo == 1) return false
         timer+= 0.1
         let bingus = timer.toFixed(1)
         tempo.innerHTML = bingus;
@@ -116,6 +117,8 @@
     let hp = 9;
     let hp_hornet = 600;
     let fim_boss = 0;
+
+    let parar_tempo = 0
 
     let knight_info = div_knight.getBoundingClientRect();
     let hornet_info = div_hornet.getBoundingClientRect();
@@ -1082,6 +1085,7 @@
 
     function acabar(param) {
         fim_boss = 1
+        parar_tempo = 1
         card.innerHTML = ''
         if (param == 1) {
             card.style.display = 'flex'
@@ -1109,8 +1113,40 @@
         if (param == 1) window.location = '../areas/kingdoms_edge.html'
         if (param == 2) window.location.reload()
         if (param == 3) {
-            
-            window.location = '../areas/kingdoms_edge.html'
+
+        let dmg_taken = 9 - Number(hp);
+        
+
+        fetch("/usuarios/registrarVitoria", {
+            method: "POST",
+            headers: {
+        "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+        idUserServer: sessionStorage.ID_USUARIO,
+        timerServer: timer,
+        danoServer: dmg_taken
+      }),
+    })
+      .then(function (resposta) {
+        console.log("resposta: ", resposta);
+
+        if (resposta.ok) {
+
+          alert('Cadastrado com sucesso! Redirecionando...')
+
+          setTimeout(() => {
+                 window.location = '../areas/kingdoms_edge.html'
+            }, 1000);   
+
+        } else {
+          throw "Houve um erro ao tentar realizar o cadastro!";
+          return false
+        }
+      })
+      .catch(function (resposta) {
+        console.log(`#ERRO: ${resposta}`);
+      });
         }
     }
 

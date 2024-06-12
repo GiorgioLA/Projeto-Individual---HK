@@ -28,5 +28,8 @@ router.post("/alterarInventario", function (req, res) {
     usuarioController.alterarInventario(req, res);
 });
 
+router.post("/registrarVitoria", function (req, res) {
+    usuarioController.registrarVitoria(req, res);
+})
 
 module.exports = router;
