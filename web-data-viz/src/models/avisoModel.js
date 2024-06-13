@@ -17,14 +17,6 @@ function obterDadosDash2(idUsuario) {
     return database.executar(instrucaoSql);
 }
 
-function obterDadosDash3() {
-    var instrucaoSql = `
-        SELECT count(nivel) as cnt FROM inventario WHERE nivel > 0 GROUP BY fkHabilidade;
-    `;
-    console.log("Executando a instrução SQL: \n" + instrucaoSql);
-    return database.executar(instrucaoSql);
-}
-
 function obterDadosDash4() {
     var instrucaoSql = `
         SELECT count(distinct usuario) as total FROM usuario JOIN inventario ON idUsuario = fkUsuario;
@@ -51,11 +43,20 @@ function obterDadosDash6() {
     return database.executar(instrucaoSql);
 }
 
+function obterDadosDash7() {
+    console.log("ACESSEI O AVISO MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function obterDadosDash7(): ")
+    var instrucaoSql = `
+      SELECT (count(nivel / nivel)) as cnt FROM inventario GROUP BY fkHabilidade;
+    `;
+    console.log("Executando a instrução SQL: \n" + instrucaoSql);
+    return database.executar(instrucaoSql);
+}
+
 module.exports = {
     obterDadosDash,
     obterDadosDash2,
-    obterDadosDash3,
     obterDadosDash4,
     obterDadosDash5,
-    obterDadosDash6
+    obterDadosDash6,
+    obterDadosDash7
 }

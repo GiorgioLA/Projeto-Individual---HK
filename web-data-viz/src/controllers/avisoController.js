@@ -2,7 +2,7 @@ var avisoModel = require("../models/avisoModel");
 
 function obterDadosDash(req, res) {
     var idUsuario = req.body.idUsuarioServer;
-    console.log('oi! Estou no começo do controller')
+    // console.log('oi! Estou no começo do controller')
 
     avisoModel.obterDadosDash(idUsuario)
         .then(
@@ -35,7 +35,7 @@ function obterDadosDash(req, res) {
 
 function obterDadosDash2(req, res) {
     var idUsuario = req.body.idUsuarioServer;
-    console.log('oi! Estou no começo do controller2')
+    // console.log('oi! Estou no começo do controller2')
 
     avisoModel.obterDadosDash2(idUsuario)
         .then(
@@ -142,50 +142,9 @@ function obterDadosDash2(req, res) {
             );
 }
 
-function obterDadosDash3(req, res) {
-    // var idUsuario = req.body.idUsuarioServer;
-    console.log('oi! Estou no começo do controller')
-
-    avisoModel.obterDadosDash3()
-        .then(
-                function (resultadoBuscaDash3) {
-                    console.log(`\nResultados encontrados: ${resultadoBuscaDash3.length}`);
-                    console.log(`Resultados: ${JSON.stringify(resultadoBuscaDash3)}`); // transforma JSON em String
-
-                    if (resultadoBuscaDash3.length == 9) {
-                        console.log(resultadoBuscaDash3);
-
-                                    res.json({
-                                        cntH1 : resultadoBuscaDash3[0].cnt,
-                                        cntH2 : resultadoBuscaDash3[1].cnt,
-                                        cntH3 : resultadoBuscaDash3[2].cnt,
-                                        cntH4 : resultadoBuscaDash3[3].cnt,
-                                        cntH5 : resultadoBuscaDash3[4].cnt,
-                                        cntH6 : resultadoBuscaDash3[5].cnt,
-                                        cntH7 : resultadoBuscaDash3[6].cnt,
-                                        cntH8 : resultadoBuscaDash3[7].cnt,
-                                        cntH9 : resultadoBuscaDash3[8].cnt
-                                    });
-
-                            
-                    } else if (resultadoBuscaDash3.length == 0) {
-                        res.status(403).send("Nenhum dado encontrado");
-                    } else {
-                        res.status(403).send("Muitos dados encontrados");
-                    }
-                }
-            ).catch(
-                function (erro) {
-                    console.log(erro);
-                    console.log("\nHouve um erro ao realizar o login! Erro: ", erro.sqlMessage);
-                    res.status(500).json(erro.sqlMessage);
-                }
-            );
-}
-
 function obterDadosDash4(req, res) {
     // var idUsuario = req.body.idUsuarioServer;
-    console.log('oi! Estou no começo do controller')
+    // console.log('oi! Estou no começo do controller')
 
     avisoModel.obterDadosDash4()
         .then(
@@ -209,7 +168,7 @@ function obterDadosDash4(req, res) {
 }
 
 function obterDadosDash5(req, res) {
-    console.log('Cheguei no controller')
+    // console.log('Cheguei no controller')
     avisoModel.obterDadosDash5()
         .then(
                 function (resultadoBuscaDash5) {
@@ -269,7 +228,7 @@ function obterDadosDash6(req, res) {
                     console.log(resultadoBuscaDash6);
                     if (resultadoBuscaDash6.length < 5) {
                         for (i = resultadoBuscaDash6.length; i < 5; i++) {
-                            resultadoBuscaDash6[i] = {usuario : 'nulo', segundos : '0', dano_recebido : '0'}
+                            resultadoBuscaDash6[i] = {usuario : 'vazio', segundos : '0', dano_recebido : '0'}
                         }
                     }
                     res.json({
@@ -311,11 +270,45 @@ function obterDadosDash6(req, res) {
             );
 }
 
+function obterDadosDash7(req, res) {
+    avisoModel.obterDadosDash7()
+        .then(
+                function (resultadoBuscaDash7) {
+                    console.log(`\nResultados encontrados: ${resultadoBuscaDash7.length}`);
+                    console.log(`Resultados: ${JSON.stringify(resultadoBuscaDash7)}`); // transforma JSON em String
+                    console.log(resultadoBuscaDash7);
+                    if (resultadoBuscaDash7.length == 9) {
+                        res.json({
+                            habilidade1: resultadoBuscaDash7[0].cnt,
+                            habilidade2: resultadoBuscaDash7[1].cnt,
+                            habilidade3: resultadoBuscaDash7[2].cnt,
+                            habilidade4: resultadoBuscaDash7[3].cnt,
+                            habilidade5: resultadoBuscaDash7[4].cnt,
+                            habilidade6: resultadoBuscaDash7[5].cnt,
+                            habilidade7: resultadoBuscaDash7[6].cnt,
+                            habilidade8: resultadoBuscaDash7[7].cnt,
+                            habilidade9: resultadoBuscaDash7[8].cnt,
+                        });
+                    } else {
+                        console.log('número inesperado de saídas')
+                    }
+
+                            
+                }
+            ).catch(
+                function (erro) {
+                    console.log(erro);
+                    console.log("\nHouve um erro ao realizar o login! Erro: ", erro.sqlMessage);
+                    res.status(500).json(erro.sqlMessage);
+                }
+            );
+}
+
 module.exports = {
     obterDadosDash,
     obterDadosDash2,
-    obterDadosDash3,
     obterDadosDash4,
     obterDadosDash5,
-    obterDadosDash6
+    obterDadosDash6,
+    obterDadosDash7
 }

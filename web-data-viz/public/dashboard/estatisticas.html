@@ -178,24 +178,7 @@ function obter_dados() {
             console.log(erro);
         })
         // console.log('oi')
-        fetch("/avisos/obterDadosDash3", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json"
-            },body: JSON.stringify({
-            // idUsuarioServer: idUsuario
-          })
-        }).then(function (resposta) {
-            if (resposta.ok) {
-                resposta.json().then(json => {
-                    // console.log('alo');
-                    // console.log(json);
-                    setTimeout(()=>plotar3(1, json), 1000) 
-                    });
-                    }
-        }).catch(function (erro) {
-            console.log(erro);
-        })
+
 
         fetch("/avisos/obterDadosDash4", {
             method: "POST",
@@ -245,6 +228,23 @@ function obter_dados() {
                     console.log('Entrei no resposta ok')
                     console.log(json)
                     plotar5(json)
+                })
+            }
+        })
+
+        fetch("/avisos/obterDadosDash7", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            }
+        }).then(function (resposta) {
+            if (resposta.ok) {
+                resposta.json().then(json => {
+                    console.log('Entrei no resposta ok')
+                    console.log(json)
+                    setTimeout(() => {
+                        plotar3(1, json)
+                    }, 100);
                 })
             }
         })
@@ -349,16 +349,16 @@ function plotar2(grafico, json) {
 function plotar3(grafico, json) {
     if(grafico == 1) {
         console.log(json)
-        let cntH1 = ((Number(json.cntH1) / total) * 100).toFixed(0);
-        // console.log('JSON.CNTH1', json.cntH1, 'TOTAL', total)
-        let cntH2 = ((Number(json.cntH2) / total) * 100).toFixed(0);
-        let cntH3 = ((Number(json.cntH3) / total) * 100).toFixed(0);
-        let cntH4 = ((Number(json.cntH4) / total) * 100).toFixed(0);
-        let cntH5 = ((Number(json.cntH5) / total) * 100).toFixed(0);
-        let cntH6 = ((Number(json.cntH6) / total) * 100).toFixed(0);
-        let cntH7 = ((Number(json.cntH7) / total) * 100).toFixed(0);
-        let cntH8 = ((Number(json.cntH8) / total) * 100).toFixed(0);
-        let cntH9 = ((Number(json.cntH9) / total) * 100).toFixed(0);       
+        let cntH1 = ((Number(json.habilidade1) / total) * 100).toFixed(0);
+        console.log('JSON.CNTH1', json.cntH1, 'TOTAL', total)
+        let cntH2 = ((Number(json.habilidade2) / total) * 100).toFixed(0);
+        let cntH3 = ((Number(json.habilidade3) / total) * 100).toFixed(0);
+        let cntH4 = ((Number(json.habilidade4) / total) * 100).toFixed(0);
+        let cntH5 = ((Number(json.habilidade5) / total) * 100).toFixed(0);
+        let cntH6 = ((Number(json.habilidade6) / total) * 100).toFixed(0);
+        let cntH7 = ((Number(json.habilidade7) / total) * 100).toFixed(0);
+        let cntH8 = ((Number(json.habilidade8) / total) * 100).toFixed(0);
+        let cntH9 = ((Number(json.habilidade9) / total) * 100).toFixed(0);       
 
 
         new Chart(chartMyData4,{
