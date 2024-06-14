@@ -115,7 +115,7 @@
     let apertando_dash = 0;
 
     let hp = 9;
-    let hp_hornet = 600;
+    let hp_hornet = 900;
     let fim_boss = 0;
 
     let parar_tempo = 0
@@ -259,7 +259,7 @@
         if (n_ataques == 0) {
             n_ataques = (Math.random() * 3 + 0.5).toFixed(0)
             setTimeout(()=>andar_random(n_ataques),1000)
-        }  else setTimeout(()=>atacar(n_ataques),1000)
+        }  else setTimeout(()=>atacar(n_ataques),700)
     }
 
     function atacar(golpes) {

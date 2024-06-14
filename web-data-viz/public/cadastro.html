@@ -87,6 +87,9 @@
     ) {
       alert('Insira valores válidos')
       return false;
+    } else if (senhaVar != confirmacaoSenhaVar) {
+      alert('Senhas não correspondem')
+      return false
     }
 
     // Enviando o valor da nova input
