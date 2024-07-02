@@ -96,3 +96,16 @@ SELECT * FROM usuario;
 
 SELECT usuario, segundos, dano_recebido FROM jogo JOIN usuario ON idUsuario = fkUsuario ORDER BY segundos, dano_recebido LIMIT 5;
 SELECT usuario, segundos, dano_recebido FROM jogo JOIN usuario ON idUsuario = fkUsuario ORDER BY dano_recebido, segundos LIMIT 5;
+
+SELECT (count(nivel / nivel)) as cnt FROM inventario GROUP BY fkHabilidade;
+DESCRIBE inventario;
+INSERT INTO inventario VALUES
+	(1, 2, 1, 2),
+	(1, 2, 2, 2),
+	(1, 2, 3, 2),
+	(1, 2, 4, 1),
+	(1, 2, 5, 2),
+	(1, 2, 6, 1),
+	(1, 2, 7, 1),
+	(1, 2, 8, 1),
+	(1, 2, 9, 3);
